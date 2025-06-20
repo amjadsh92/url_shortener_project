@@ -59,7 +59,7 @@ const handleAPIs = () => {
     }
   });
 
-  app.post("/", async function (req, res) {
+  app.post("/api/short-url", async function (req, res) {
     let originalURL = req.body.originalURL;
     let shortURL = req.body.shortURL;
 
@@ -70,6 +70,10 @@ const handleAPIs = () => {
 
     try {
       new URL(originalURL);
+
+      if (!shortURL) {
+        shortURL = Math.floor(Math.random() * (1000000 - 1)) + 1;
+      }
 
       selectQuery = `SELECT original_url FROM mapping_long_short_url WHERE short_url=$1`;
       const result = await pool.query(selectQuery, [shortURL]);
@@ -87,7 +91,7 @@ const handleAPIs = () => {
       const extracted_original_url = result.rows[0].original_url;
 
       if (extracted_original_url !== originalURL) {
-        res.status(400).json({ error: "short url already exists" });
+        res.status(400).json({ error: "This short_url already exists" });
         return;
       }
 
@@ -97,7 +101,7 @@ const handleAPIs = () => {
     } catch (e) {
       res
         .status(400)
-        .json({ error: "Domain is invalid or an error has occured" });
+        .json({ error: "The domain is invalid or an error has occured" });
     }
   });
 };
