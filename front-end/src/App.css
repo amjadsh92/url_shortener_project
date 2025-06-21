@@ -34,3 +34,15 @@ html,body{
 .long-url{
   font-family:'Montserrat';
 }
+
+.p-autocomplete-input{
+  width:100% !important;
+}
+
+/* span .p-autocomplete{
+  width:50vw !important
+} */
+
+.p-autocomplete{
+  width:75vw;
+}

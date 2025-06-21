@@ -24,7 +24,7 @@ function App() {
               className="w-10 m-6"
     >
         <p className="long-url font-semibold mb-2">Paste your long link here</p>
-        <AutoComplete field="label" optionGroupLabel="label" optionGroupChildren="items" placeholder="Hint: type 'a'" />
+        <AutoComplete  field="label" optionGroupLabel="label" optionGroupChildren="items" placeholder="Hint: type 'a'" />
 
         </Card>
 
