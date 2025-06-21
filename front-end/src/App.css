@@ -1,0 +1,23 @@
+*{
+  padding:0px;
+  margin:0px;
+  box-sizing: border-box;
+}
+
+
+.bg-hero {
+  background-image: url('/ryan-kim-ADvoB9pDkow-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
+html,body{
+  height: 100vh;
+}
+
+#root{
+
+  height: 100vh;
+}
