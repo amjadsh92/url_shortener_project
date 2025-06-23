@@ -92,19 +92,20 @@ function App() {
         </form>
 
             <Dialog
-      header="Your Short URL"
+      
       visible={showDialog}
-      style={{ width: '30vw' }}
+      style={{ width: '60vw' }}
       onHide={() => setShowDialog(false)}
       closable
     >
-      <div className="flex flex-column gap-3">
+      <p className="mx-2 font-montserrat font-medium">Here is your short URL!</p>
+      <div className="flex gap-3">
         <InputText
           value={shortURL}
           readOnly
           className="w-full"
         />
-        <div className="flex justify-content-between">
+        <div>
           <Button
             label="Copy"
             icon="pi pi-copy"
@@ -112,12 +113,7 @@ function App() {
               navigator.clipboard.writeText(shortURL);
             }}
           />
-          <Button
-            label="Close"
-            icon="pi pi-times"
-            className="p-button-text"
-            onClick={() => setShowDialog(false)}
-          />
+          
         </div>
       </div>
       </Dialog>

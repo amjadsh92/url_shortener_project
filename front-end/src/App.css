@@ -53,3 +53,24 @@ html,body{
 .p-autocomplete{
   width:75vw;
 }
+
+
+.p-dialog .p-dialog-header {
+
+  padding:0px;
+
+}
+
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+  margin-right: 17px;
+  margin-top: 10px;
+
+}  
+
+.p-inputtext:enabled:focus {
+  outline: none;
+  outline-offset: unset;
+  box-shadow: unset;
+  border-color: unset;
+}
