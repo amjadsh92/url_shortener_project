@@ -68,9 +68,17 @@ html,body{
 
 }  
 
+.p-inputtext{
+  outline:none;
+}
+
 .p-inputtext:enabled:focus {
   outline: none;
   outline-offset: unset;
   box-shadow: unset;
-  border-color: unset;
+  border-color: rgb(209, 213, 219);
+}
+
+.p-inputtext:enabled:hover {
+  border-color: rgb(209, 213, 219);
 }

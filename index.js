@@ -84,7 +84,7 @@ const handleAPIs = () => {
 
         await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
 
-        res.json({ original_url: `${originalURL}`, short_url: shortURL });
+        res.json({ original_url: `${originalURL}`, short_url: process.env.BASE_URL + "/" + shortURL });
         return;
       }
 
