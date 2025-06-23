@@ -64,7 +64,7 @@ const handleAPIs = () => {
     let shortURL = req.body.shortURL;
 
     if (!originalURL) {
-      res.json({ error: "Invalid url" });
+      res.status(400).json({ error: "Invalid url" });
       return;
     }
 

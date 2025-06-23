@@ -10,18 +10,28 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
   
 }
 
 html,body{
-  height: 100vh;
+  min-height: 100vh;
+  height:auto;
   padding:0px;
   margin:0px;
+  background-color: black;
 }
 
 #root{
 
-  height: 100vh;
+  min-height: 100vh;
+  height:auto;
+  padding-bottom: 1px;
+}
+
+.title{
+  min-height: 100vh;
+  height:auto;
 }
 
 .title > h1{
@@ -31,7 +41,7 @@ html,body{
 
 
 
-.long-url{
+.url{
   font-family:'Montserrat';
 }
 
@@ -39,9 +49,6 @@ html,body{
   width:100% !important;
 }
 
-/* span .p-autocomplete{
-  width:50vw !important
-} */
 
 .p-autocomplete{
   width:75vw;
