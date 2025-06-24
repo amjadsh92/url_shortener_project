@@ -5,6 +5,7 @@ import "primeflex/primeflex.css";
 import "./App.css";
 import "./styles/spaces.css";
 import "./styles/fonts.css";
+import "./styles/colors.css";
 import "primeicons/primeicons.css";
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
@@ -12,7 +13,7 @@ import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-require("dotenv").config();
+
 
 function App() {
   let [originalURL, setOriginalURL] = useState("");
@@ -20,6 +21,11 @@ function App() {
   const [showDialog, setShowDialog] = useState(false);
   const [label, setLabel] = useState("Copy");
   const [icon, setIcon] = useState("pi pi-copy");
+  const [copied, setCopied] = useState(false);
+  const [badRequest, setBadRequest] = useState(true)
+  const [errorMessage, setErrorMessage] = useState("")
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
@@ -35,7 +41,7 @@ function App() {
     let url = { originalURL, shortURL };
 
     try {
-      const response = await fetch(process.env.BASE_URL + "/api/short-url", {
+        const response = await fetch(`${baseURL}/api/short-url`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,9 +55,13 @@ function App() {
         setShortURL(result.short_url);
         // url = {originalURL, shortURL};
         setShowDialog(true);
+        setErrorMessage("")
+        setBadRequest(false)
       }
       if (!response.ok) {
         const result = await response.json();
+        setErrorMessage("* " + result.error)
+        setBadRequest(true)
       }
     } catch (error) {
       console.log("an error has occured");
@@ -97,42 +107,55 @@ function App() {
               placeholder="my-short-url"
               onChange={handleShortURLChange}
             />
-
+            {  badRequest && (<p className="text-red-600 text-sm ml-1 mb-3">
+                {errorMessage}
+              </p>) }
             <Button
               className="mt-4"
               icon="pi pi-arrow-right"
               iconPos="right"
               label="Get your link for free"
             />
+
+            
           </form>
 
           <Dialog
+            header = "Here is your short URL!"
             visible={showDialog}
             style={{ width: "60vw" }}
             onHide={() => {
               setShowDialog(false);
               setLabel("Copy");
               setIcon("pi pi-copy");
+              setCopied(false); 
             }}
             closable
           >
-            <p className="mx-2 font-montserrat font-medium">
-              Here is your short URL!
-            </p>
-            <div className="flex gap-3">
+            {/* <p className="m-2 font-montserrat font-medium">
+              short URL:
+            </p> */}
+
+            <div className="flex gap-3 mt-5 mb-2">
               <InputText value={shortURL} readOnly className="w-full" />
-              <div>
-                <Button
-                  label={label}
-                  icon={icon}
-                  onClick={() => {
-                    navigator.clipboard.writeText(shortURL);
-                    setLabel("Copied");
-                    setIcon("pi pi-check");
-                  }}
-                />
-              </div>
+              <Button
+                className="min-w-max"
+                label={label}
+                icon={icon}
+                onClick={() => {
+                  navigator.clipboard.writeText(shortURL);
+                  setLabel("Copied");
+                  setIcon("pi pi-check");
+                  setCopied(true);
+                }}
+              />
             </div>
+
+            {copied && (
+              <small className="text-green-600 font-medium ml-1 mb-3">
+                Link copied to clipboard!
+              </small>
+            )}
           </Dialog>
         </Card>
       </div>

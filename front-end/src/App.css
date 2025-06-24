@@ -5,6 +5,10 @@
 }
 
 
+:root{
+  --green-600: #1da750;
+}
+
 .bg-hero {
   background-image: url('/ryan-kim-ADvoB9pDkow-unsplash.jpg');
   background-size: cover;
@@ -81,4 +85,11 @@ html,body{
 
 .p-inputtext:enabled:hover {
   border-color: rgb(209, 213, 219);
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-top: 15px;
+  margin-left: 30px;
 }
