@@ -24,6 +24,7 @@ function App() {
   const [copied, setCopied] = useState(false);
   const [badRequest, setBadRequest] = useState(true)
   const [errorMessage, setErrorMessage] = useState("")
+  const [borderRedZone, setBorderRedZone] = useState({})
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -57,11 +58,19 @@ function App() {
         setShowDialog(true);
         setErrorMessage("")
         setBadRequest(false)
+        setBorderRedZone({})
       }
       if (!response.ok) {
         const result = await response.json();
-        setErrorMessage("* " + result.error)
+        setErrorMessage(result.error)
         setBadRequest(true)
+        if (result.name === "long"){
+              setBorderRedZone({...borderRedZone, long:true})
+        }
+        else if (result.name === "short"){
+              setBorderRedZone({...borderRedZone, short:true})
+        }
+
       }
     } catch (error) {
       console.log("an error has occured");
@@ -89,6 +98,7 @@ function App() {
           <form onSubmit={handleSubmit}>
             <p className="url font-semibold mb-2">Paste your long link here</p>
             <AutoComplete
+              className={`${borderRedZone?.long ? "border-red" : "border-grey"}`}
               value={originalURL}
               field="label"
               optionGroupLabel="label"
@@ -101,13 +111,14 @@ function App() {
             <p className="url font-semibold mb-2">Create your own short url</p>
             <AutoComplete
               value={shortURL}
+              className={`${borderRedZone?.short ? "border-red" : "border-grey"}`}
               field="label"
               optionGroupLabel="label"
               optionGroupChildren="items"
               placeholder="my-short-url"
               onChange={handleShortURLChange}
             />
-            {  badRequest && (<p className="text-red-600 text-sm ml-1 mb-3">
+            {badRequest && (<p className="text-red-700 text-sm ml-1 mb-3">
                 {errorMessage}
               </p>) }
             <Button

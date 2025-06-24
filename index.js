@@ -64,7 +64,7 @@ const handleAPIs = () => {
     let shortURL = req.body.shortURL?.trim();
 
     if (!originalURL) {
-      res.status(400).json({ error: "No long url has been provided" });
+      res.status(400).json({ error: "No long_url has been provided" , name:"long" });
       return;
     }
 
@@ -94,8 +94,8 @@ const handleAPIs = () => {
       const extracted_original_url = result.rows[0].original_url;
 
       if (extracted_original_url !== originalURL) {
-        res.status(400).json({ error: "The short_url that you have provided corresponds to a different domain" });
-        return;
+        res.status(400).json({ error: "The short_url that you have provided corresponds to a different domain", name:"short" });
+        return; 
       }
 
       if (extracted_original_url && extracted_original_url === originalURL) {
@@ -104,7 +104,7 @@ const handleAPIs = () => {
     } catch (e) {
       res
         .status(400)
-        .json({ error: "The domain of the long_url you have provided is invalid or an error has occured" });
+        .json({ error: "The domain of the long_url you have provided is invalid or an error has occured", name:"long" });
     }
   });
 };

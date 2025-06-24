@@ -21,5 +21,17 @@
     margin-bottom: 200px;
 }
 
+.border-red{
+
+   border:1px solid #d9342b !important;
+   border-radius:6px;
+}
+
+.border-grey{
+
+    border:1px solid #d1d5db !important;
+    border-radius:6px;
+
+}
 
 
