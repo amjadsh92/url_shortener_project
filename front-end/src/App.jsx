@@ -109,7 +109,7 @@ function App() {
               required
             />
 
-            <p className="url font-semibold mb-2">Create your own short url</p>
+            <p className="url font-semibold mb-2">Create your own slug (optional)</p>
             <AutoComplete
               value={shortSlug}
               className={`${borderRedZone?.short ? "border-red" : "border-grey"}`}

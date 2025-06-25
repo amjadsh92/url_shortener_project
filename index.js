@@ -68,7 +68,7 @@ const handleAPIs = () => {
       return;
     }
 
-    const containsHTTPSRegex = /^https?$/i;
+    const containsHTTPSRegex = /^https?/i;
     const containsHTTPS = containsHTTPSRegex.test(originalURL);
     if(!containsHTTPS){
 
@@ -81,6 +81,13 @@ const handleAPIs = () => {
 
       if (!shortURL) {
         shortURL = Math.floor(Math.random() * (1000000 - 1)) + 1;
+      }
+
+      const slugRegex = /^[a-zA-Z0-9_-]+$/;
+
+      if (!slugRegex.test(shortURL)) {
+        res.status(400).json({ error: "Invalid slug format.", name:"short"});
+        return
       }
 
       selectQuery = `SELECT original_url FROM mapping_long_short_url WHERE short_url=$1`;
