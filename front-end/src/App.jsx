@@ -26,6 +26,7 @@ function App() {
   const [badRequest, setBadRequest] = useState(true)
   const [errorMessage, setErrorMessage] = useState("")
   const [borderRedZone, setBorderRedZone] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -39,7 +40,8 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
+    setLoading(true)
     let url = { originalURL, shortSlug };
 
     try {
@@ -52,6 +54,7 @@ function App() {
       });
 
       if (response.ok) {
+        setLoading(false)
         const result = await response.json();
         originalURL = result.original_url;
         setShortURL(result.short_url);
@@ -62,6 +65,7 @@ function App() {
         setBorderRedZone({})
       }
       if (!response.ok) {
+        setLoading(false)
         const result = await response.json();
         setErrorMessage(result.error)
         setBadRequest(true)
@@ -123,10 +127,10 @@ function App() {
                 {errorMessage}
               </p>) }
             <Button
-              className="mt-4"
-              icon="pi pi-arrow-right"
-              iconPos="right"
-              label="Get your link for free"
+              className="mt-4 min-w-183px"
+              icon={`${!loading ? "pi pi-arrow-right" : "pi pi-spin pi-spinner"}`}
+              iconPos={"right"}
+              label={"Get your link for free"}
             />
 
             
