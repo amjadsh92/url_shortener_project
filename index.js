@@ -61,11 +61,19 @@ const handleAPIs = () => {
 
   app.post("/api/short-url", async function (req, res) {
     let originalURL = req.body.originalURL?.trim();
-    let shortURL = req.body.shortURL?.trim();
+    let shortURL = req.body.shortSlug?.trim();
 
     if (!originalURL) {
       res.status(400).json({ error: "No long_url has been provided" , name:"long" });
       return;
+    }
+
+    const containsHTTPSRegex = /^https?$/i;
+    const containsHTTPS = containsHTTPSRegex.test(originalURL);
+    if(!containsHTTPS){
+
+       originalURL = "https://" + originalURL;
+
     }
 
     try {
@@ -94,17 +102,17 @@ const handleAPIs = () => {
       const extracted_original_url = result.rows[0].original_url;
 
       if (extracted_original_url !== originalURL) {
-        res.status(400).json({ error: "The short_url that you have provided corresponds to a different domain", name:"short" });
+        res.status(400).json({ error: "The short_url already exists", name:"short" });
         return; 
       }
 
-      if (extracted_original_url && extracted_original_url === originalURL) {
-        res.json({ original_url: `${originalURL}`, short_url: shortURL });
+      if (extracted_original_url === originalURL) {
+        res.json({ original_url: `${originalURL}`, short_url: process.env.BASE_URL + "/" +shortURL });
       }
     } catch (e) {
       res
         .status(400)
-        .json({ error: "The domain of the long_url you have provided is invalid or an error has occured", name:"long" });
+        .json({ error: "The long_url you have provided is invalid or an error has occured", name:"long" });
     }
   });
 };

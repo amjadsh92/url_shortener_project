@@ -18,6 +18,7 @@ import { InputText } from "primereact/inputtext";
 function App() {
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
+  let [shortSlug, setShortSlug] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [label, setLabel] = useState("Copy");
   const [icon, setIcon] = useState("pi pi-copy");
@@ -33,13 +34,13 @@ function App() {
   };
 
   const handleShortURLChange = (e) => {
-    setShortURL(e.value);
+    setShortSlug(e.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let url = { originalURL, shortURL };
+    let url = { originalURL, shortSlug };
 
     try {
         const response = await fetch(`${baseURL}/api/short-url`, {
@@ -110,7 +111,7 @@ function App() {
 
             <p className="url font-semibold mb-2">Create your own short url</p>
             <AutoComplete
-              value={shortURL}
+              value={shortSlug}
               className={`${borderRedZone?.short ? "border-red" : "border-grey"}`}
               field="label"
               optionGroupLabel="label"
