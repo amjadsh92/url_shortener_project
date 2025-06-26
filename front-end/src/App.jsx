@@ -31,10 +31,12 @@ function App() {
 
   const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
+    setBorderRedZone({})
   };
 
   const handleShortURLChange = (e) => {
     setShortSlug(e.value);
+    setBorderRedZone({})
   };
 
   const handleSubmit = async (e) => {
@@ -74,7 +76,7 @@ function App() {
         }
       }
     } catch (error) {
-      console.log("an error has occured");
+      setErrorMessage("The server is occured or an error has occured. Please Try again");
     }
   };
 
