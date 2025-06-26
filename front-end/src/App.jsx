@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 
-
 function App() {
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
@@ -23,10 +22,10 @@ function App() {
   const [label, setLabel] = useState("Copy");
   const [icon, setIcon] = useState("pi pi-copy");
   const [copied, setCopied] = useState(false);
-  const [badRequest, setBadRequest] = useState(true)
-  const [errorMessage, setErrorMessage] = useState("")
-  const [borderRedZone, setBorderRedZone] = useState({})
-  const [loading, setLoading] = useState(false)
+  const [badRequest, setBadRequest] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [borderRedZone, setBorderRedZone] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -40,12 +39,12 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    setLoading(true)
+
+    setLoading(true);
     let url = { originalURL, shortSlug };
 
     try {
-        const response = await fetch(`${baseURL}/api/short-url`, {
+      const response = await fetch(`${baseURL}/api/short-url`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,28 +53,25 @@ function App() {
       });
 
       if (response.ok) {
-        setLoading(false)
+        setLoading(false);
         const result = await response.json();
         originalURL = result.original_url;
         setShortURL(result.short_url);
-        // url = {originalURL, shortURL};
         setShowDialog(true);
-        setErrorMessage("")
-        setBadRequest(false)
-        setBorderRedZone({})
+        setErrorMessage("");
+        setBadRequest(false);
+        setBorderRedZone({});
       }
       if (!response.ok) {
-        setLoading(false)
+        setLoading(false);
         const result = await response.json();
-        setErrorMessage(result.error)
-        setBadRequest(true)
-        if (result.name === "long"){
-              setBorderRedZone({...borderRedZone, long:true})
+        setErrorMessage(result.error);
+        setBadRequest(true);
+        if (result.name === "long") {
+          setBorderRedZone({ ...borderRedZone, long: true });
+        } else if (result.name === "short") {
+          setBorderRedZone({ ...borderRedZone, short: true });
         }
-        else if (result.name === "short"){
-              setBorderRedZone({...borderRedZone, short:true})
-        }
-
       }
     } catch (error) {
       console.log("an error has occured");
@@ -85,10 +81,10 @@ function App() {
   return (
     <div className="bg-hero w-full h-full p-1px">
       <div className="title">
-        <h1 className="text-center text-white mt-100px text-5xl">
+        <h1 className="first-title text-center text-white mt-50px text-5xl">
           URL Shortener App
         </h1>
-        <h1 className="text-center text-white mt-5 ">
+        <h1 className="second-title text-center text-white mt-5 ">
           Build stronger digital connections
         </h1>
         <p className="text-center text-white text-xl font-normal font-helvetica mx-auto w-8 mt-5">
@@ -98,7 +94,7 @@ function App() {
 
         <Card
           title="Shorten a long link"
-          className="w-10 mb-100px mt-6 mx-auto"
+          className="mt-6 mx-auto"
         >
           <form onSubmit={handleSubmit}>
             <p className="url font-semibold mb-2">Paste your long link here</p>
@@ -113,7 +109,9 @@ function App() {
               required
             />
 
-            <p className="url font-semibold mb-2">Create your own slug (optional)</p>
+            <p className="url font-semibold mb-2">
+              Create your own slug (optional)
+            </p>
             <AutoComplete
               value={shortSlug}
               className={`${borderRedZone?.short ? "border-red" : "border-grey"}`}
@@ -123,28 +121,26 @@ function App() {
               placeholder="my-short-url"
               onChange={handleShortURLChange}
             />
-            {badRequest && (<p className="text-red-700 text-sm ml-1 mb-3">
-                {errorMessage}
-              </p>) }
+            {badRequest && (
+              <p className="text-red-700 text-sm ml-1 mb-3">{errorMessage}</p>
+            )}
             <Button
               className="mt-4 min-w-183px"
               icon={`${!loading ? "pi pi-arrow-right" : "pi pi-spin pi-spinner"}`}
               iconPos={"right"}
               label={"Get your link for free"}
             />
-
-            
           </form>
 
           <Dialog
-            header = "Here is your short URL!"
+            header="Here is your short URL!"
             visible={showDialog}
             style={{ width: "60vw" }}
             onHide={() => {
               setShowDialog(false);
               setLabel("Copy");
               setIcon("pi pi-copy");
-              setCopied(false); 
+              setCopied(false);
             }}
             closable
           >
@@ -152,7 +148,7 @@ function App() {
               short URL:
             </p> */}
 
-            <div className="flex gap-3 mt-5 mb-2">
+            <div className="dialog-input flex gap-3 mt-5 mb-2">
               <InputText value={shortURL} readOnly className="w-full" />
               <Button
                 className="min-w-max"

@@ -9,8 +9,17 @@
     margin-top:100px;
 }
 
+.mt-50px{
+
+    margin-top:50px;
+}
+
 .w-100px{
     width:100px;
+}
+
+.mb-50px{
+    margin-bottom:50px;
 }
 
 .mb-100px{
@@ -36,6 +45,14 @@
 
 .min-w-183px{
     min-width: 183px;
+}
+
+.w-620px{
+    width:620px;
+}
+
+.w-820px{
+    width:820px;
 }
 
 

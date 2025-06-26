@@ -14,6 +14,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  min-height: 99.9vh;
 
   
 }
@@ -33,10 +34,10 @@ html,body{
   padding-bottom: 1px;
 }
 
-.title{
+/* .title{
   min-height: 100vh;
   height:auto;
-}
+} */
 
 .title > h1{
   font-family: Helvetica, Arial,sans-serif;
@@ -53,10 +54,12 @@ html,body{
   width:100% !important;
 }
 
-
-.p-autocomplete{
+.p-autocomplete {
+  width: 100%;
+}  
+/* .p-autocomplete{
   width:75vw;
-}
+} */
 
 
 .p-dialog .p-dialog-header {
@@ -93,3 +96,218 @@ html,body{
   margin-top: 15px;
   margin-left: 30px;
 }
+
+
+
+.p-card{
+
+  width: 60% !important;
+
+}
+
+.p-dialog{
+  width:50vw !important;
+}
+
+
+@media (max-width: 1300px) {
+
+  
+  .p-card{
+    
+    width: 66.6667% !important;
+  }
+  
+  
+
+}
+
+
+
+/* @media (max-width: 1100px) {
+
+  
+  .p-card{
+    
+    width: 700px !important;
+  }
+  
+  
+
+}
+
+
+
+@media (max-width: 1000px) {
+
+  
+  .p-card{
+    
+    width: 650px !important;
+  }
+  
+  
+
+}
+
+
+@media (max-width: 900px) {
+
+  
+  .p-card{
+    
+    width: 600px !important;
+  }
+  
+  
+
+} */
+
+
+@media (max-width: 900px) {
+
+  
+  
+  
+  .p-dialog{
+    width:60vw !important;
+  }
+
+}
+
+
+@media (max-width: 850px) {
+
+  .p-dialog{
+    width:60vw !important;
+  }
+
+  .first-title{
+
+    font-size:2.25rem !important;
+  } 
+  .second-title{
+
+    font-size:1.75rem !important;
+  }  
+
+  .title > p{
+    font-size:1.2rem !important;
+  }
+  
+
+  .p-card .p-card-title {
+    font-size: 1.2rem;
+    
+  }
+
+  form > p{
+    font-size:0.9rem;
+  }
+
+  .p-inputtext {
+    font-size:0.9rem;
+
+  }
+
+  .p-button{
+    font-size:0.9rem;
+  }
+
+  .pi {
+    font-size: 0.9rem;
+}
+
+.p-card{
+    
+  width: 83.3333% !important;
+}
+}
+
+
+
+@media (max-width: 650px) {
+
+  .p-dialog{
+    width:80vw !important;
+  }
+
+  .first-title{
+
+    font-size:2rem !important;
+  } 
+  .second-title{
+
+    font-size:1.5rem !important;
+  }  
+
+  .title > p{
+    font-size:1.1rem !important;
+  }
+
+  .p-card{
+    
+    width: 83.3333% !important;
+  }
+
+} 
+
+
+@media (max-width: 500px) {
+
+  .dialog-input{
+    flex-direction: column !important;
+  }
+   
+  .p-dialog .p-dialog-header .p-dialog-title {
+    
+    font-size: 1rem !important;
+
+  }
+
+  .p-icon {
+    width: 0.9rem !important ;
+    height: 0.9rem !important;
+  }
+
+  .first-title{
+
+    font-size:1.75rem !important;
+  } 
+  .second-title{
+
+    font-size:1.25rem !important;
+  }  
+
+  .title > p{
+    font-size:1rem !important;
+  }
+
+  .p-card{
+    
+    width: 83.3333% !important;
+  }
+
+  .second-title{
+    width:70%;
+    margin:auto
+  }
+
+} 
+
+
+  
+  /* .p-card{
+    
+    width: 83.3333% !important;
+  }
+   */
+  
+
+
+
+
+
+
+
+
