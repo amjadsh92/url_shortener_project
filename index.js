@@ -40,7 +40,7 @@ const handleAPIs = () => {
     const shorturl = req.params.shorturl;
 
     if (!shorturl) {
-      res.json({ error: "error" });
+      res.status(400).json({ error: "No short url was provided" });
       return;
     }
 
@@ -55,7 +55,7 @@ const handleAPIs = () => {
       const originalURL = result.rows[0].original_url;
       res.redirect(`${originalURL}`);
     } else {
-      res.json({ error: "No short URL found for the given input" });
+      res.status(400).json({ error: "No short URL found for the given input" });
     }
   });
 
@@ -64,16 +64,26 @@ const handleAPIs = () => {
     let shortURL = req.body.shortSlug?.trim();
 
     if (!originalURL) {
-      res.status(400).json({ error: "No long_url has been provided" , name:"long" });
+      res
+        .status(400)
+        .json({ error: "No long_url has been provided", name: "long" });
       return;
+    }
+
+    const originalUrlLength = originalURL.length;
+    if (originalUrlLength > 2048){
+
+      res
+        .status(400)
+        .json({ error: "You exceeded the maximum length of a url", name: "long" });
+      return;
+
     }
 
     const containsHTTPSRegex = /^https?/i;
     const containsHTTPS = containsHTTPSRegex.test(originalURL);
-    if(!containsHTTPS){
-
-       originalURL = "https://" + originalURL;
-
+    if (!containsHTTPS) {
+      originalURL = "https://" + originalURL;
     }
 
     try {
@@ -82,12 +92,20 @@ const handleAPIs = () => {
       if (!shortURL) {
         shortURL = Math.floor(Math.random() * (1000000 - 1)) + 1;
       }
+      const shortUrlLength = shortURL.length;
+
+      if (shortUrlLength > 100){
+        res
+        .status(400)
+        .json({ error: "The maximum number of characters in the slug should be 100", name: "short" });
+      return;
+      }
 
       const slugRegex = /^[a-zA-Z0-9_-]+$/;
 
       if (!slugRegex.test(shortURL)) {
-        res.status(400).json({ error: "Invalid slug format.", name:"short"});
-        return
+        res.status(400).json({ error: "Invalid slug format.", name: "short" });
+        return;
       }
 
       selectQuery = `SELECT original_url FROM mapping_long_short_url WHERE short_url=$1`;
@@ -109,17 +127,26 @@ const handleAPIs = () => {
       const extracted_original_url = result.rows[0].original_url;
 
       if (extracted_original_url !== originalURL) {
-        res.status(400).json({ error: "The short_url already exists", name:"short" });
-        return; 
+        res
+          .status(400)
+          .json({ error: "The short_url already exists", name: "short" });
+        return;
       }
 
       if (extracted_original_url === originalURL) {
-        res.json({ original_url: `${originalURL}`, short_url: process.env.BASE_URL + "/" +shortURL });
+        res.json({
+          original_url: `${originalURL}`,
+          short_url: process.env.BASE_URL + "/" + shortURL,
+        });
       }
     } catch (e) {
       res
         .status(400)
-        .json({ error: "The long_url you have provided is invalid or an error has occured", name:"long" });
+        .json({
+          error:
+            "The long_url you have provided is invalid",
+          name: "long",
+        });
     }
   });
 };
