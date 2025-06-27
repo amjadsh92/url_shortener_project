@@ -64,7 +64,7 @@ function App() {
         setBadRequest(false);
         setBorderRedZone({});
       }
-      if (!response.ok) {
+      else {
         setLoading(false);
         const result = await response.json();
         setErrorMessage(result.error);
@@ -76,8 +76,10 @@ function App() {
         }
       }
     } catch (error) {
-      setErrorMessage("The server is occured or an error has occured. Please Try again");
+      setErrorMessage("The server is down. Please Try again later.");
+      setLoading(false)
     }
+  
   };
 
   return (
