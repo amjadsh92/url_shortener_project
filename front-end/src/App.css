@@ -1,6 +1,5 @@
 *{
-  /* padding:0px;
-  margin:0px; */
+  
   box-sizing: border-box;
 }
 
@@ -34,17 +33,11 @@ html,body{
   padding-bottom: 1px;
 }
 
-/* .title{
-  min-height: 100vh;
-  height:auto;
-} */
 
 .title > h1{
   font-family: Helvetica, Arial,sans-serif;
   
 }
-
-
 
 .url{
   font-family:'Montserrat';
@@ -57,10 +50,6 @@ html,body{
 .p-autocomplete {
   width: 100%;
 }  
-/* .p-autocomplete{
-  width:75vw;
-} */
-
 
 .p-dialog .p-dialog-header {
 
@@ -98,7 +87,6 @@ html,body{
 }
 
 
-
 .p-card{
 
   width: 60% !important;
@@ -121,47 +109,6 @@ html,body{
   
 
 }
-
-
-
-/* @media (max-width: 1100px) {
-
-  
-  .p-card{
-    
-    width: 700px !important;
-  }
-  
-  
-
-}
-
-
-
-@media (max-width: 1000px) {
-
-  
-  .p-card{
-    
-    width: 650px !important;
-  }
-  
-  
-
-}
-
-
-@media (max-width: 900px) {
-
-  
-  .p-card{
-    
-    width: 600px !important;
-  }
-  
-  
-
-} */
 
 
 @media (max-width: 900px) {
@@ -296,12 +243,6 @@ html,body{
 } 
 
 
-  
-  /* .p-card{
-    
-    width: 83.3333% !important;
-  }
-   */
   
 
 

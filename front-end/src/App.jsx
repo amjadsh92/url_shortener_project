@@ -10,7 +10,7 @@ import "primeicons/primeicons.css";
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 
@@ -31,12 +31,12 @@ function App() {
 
   const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
-    setBorderRedZone({})
+    setBorderRedZone({});
   };
 
   const handleShortURLChange = (e) => {
     setShortSlug(e.value);
-    setBorderRedZone({})
+    setBorderRedZone({});
   };
 
   const handleSubmit = async (e) => {
@@ -63,8 +63,7 @@ function App() {
         setErrorMessage("");
         setBadRequest(false);
         setBorderRedZone({});
-      }
-      else {
+      } else {
         setLoading(false);
         const result = await response.json();
         setErrorMessage(result.error);
@@ -77,9 +76,8 @@ function App() {
       }
     } catch (error) {
       setErrorMessage("The server is down. Please Try again later.");
-      setLoading(false)
+      setLoading(false);
     }
-  
   };
 
   return (
@@ -96,10 +94,7 @@ function App() {
           right information.
         </p>
 
-        <Card
-          title="Shorten a long link"
-          className="mt-6 mx-auto"
-        >
+        <Card title="Shorten a long link" className="mt-6 mx-auto">
           <form onSubmit={handleSubmit}>
             <p className="url font-semibold mb-2">Paste your long link here</p>
             <AutoComplete
@@ -148,9 +143,7 @@ function App() {
             }}
             closable
           >
-            {/* <p className="m-2 font-montserrat font-medium">
-              short URL:
-            </p> */}
+           
 
             <div className="dialog-input flex gap-3 mt-5 mb-2">
               <InputText value={shortURL} readOnly className="w-full" />
