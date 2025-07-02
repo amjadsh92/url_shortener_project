@@ -82,6 +82,13 @@ function App() {
 
   return (
     <div className="bg-hero w-full h-full p-1px">
+      <div className="navbar">
+        <div className="navlinks">
+         <span>Log In</span>
+         <span>|</span>
+         <span>Sign Up</span>
+         </div> 
+      </div>
       <div className="title">
         <h1 className="first-title text-center text-white mt-50px text-5xl">
           URL Shortener App
