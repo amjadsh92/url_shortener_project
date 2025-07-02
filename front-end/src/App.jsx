@@ -93,8 +93,9 @@ function App() {
           Use our URL shortener to engage your audience and connect them to the
           right information.
         </p>
-
-        <Card title="Shorten a long link" className="mt-6 mx-auto">
+       </div> 
+        <div class="form p-1px">
+        <Card title="Shorten a long link" className="mt-6 mb-6 mx-auto">
           <form onSubmit={handleSubmit}>
             <p className="url font-semibold mb-2">Paste your long link here</p>
             <AutoComplete
@@ -143,8 +144,6 @@ function App() {
             }}
             closable
           >
-           
-
             <div className="dialog-input flex gap-3 mt-5 mb-2">
               <InputText value={shortURL} readOnly className="w-full" />
               <Button
@@ -167,8 +166,9 @@ function App() {
             )}
           </Dialog>
         </Card>
+        </div>
       </div>
-    </div>
+    
   );
 }
 

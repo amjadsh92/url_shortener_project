@@ -8,7 +8,7 @@
   --green-600: #1da750;
 }
 
-.bg-hero {
+/* .bg-hero {
   background-image: url('/ryan-kim-ADvoB9pDkow-unsplash.jpg');
   background-size: cover;
   background-position: center;
@@ -16,7 +16,18 @@
   min-height: 99.9vh;
 
   
+} */
+
+
+.bg-hero {
+  /* background: linear-gradient(to bottom right, #0f172a, #334155); */
+  background-image: url('5559852.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 99.9vh;
 }
+
+
 
 html,body{
   min-height: 100vh;
@@ -35,8 +46,33 @@ html,body{
 
 
 .title > h1{
-  font-family: Helvetica, Arial,sans-serif;
+  font-family: "Montserrat",sans-serif;
+
   
+  
+}
+
+.title > p{
+
+  font-family: "Raleway",sans-serif;
+}
+
+.title{
+
+  /* background-color: rgba(30, 41, 59, 0.85); */
+ 
+  /* background: linear-gradient(to bottom right, #062af0, #df1010);
+  background-size: cover; */
+  padding: 2rem;
+  /* border-radius: 12px; */
+  /* color:black; */
+}
+
+.form{
+  /* background-image: url('jr-korpa-SFT9G3pAxLY-unsplash.jpg'); */
+  /* background: linear-gradient(to bottom left, #062af0, #df1010);
+  background-size: cover;
+  background-position: center; */
 }
 
 .url{
