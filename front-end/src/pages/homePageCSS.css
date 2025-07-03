@@ -1,0 +1,276 @@
+.navbar{
+  
+    width: 150px;
+    height:50px;
+    background-color:#28518c75;
+    margin-right:0px;
+    margin-left:auto;
+    align-content: center;
+  }
+  
+  /* .navbar {
+    position: fixed;
+    right: 0px;
+    width: 150px;
+    height: 50px;
+    background-color: #28518c75;
+    align-content: center;
+  } */
+  
+  
+  .navlinks{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+    
+  
+  }
+  
+  .navlinks > span {
+  
+    font-family: "Montserrat",sans-serif;
+    color:white;
+  }
+  
+  .title > h1{
+    font-family: "Montserrat",sans-serif;
+  
+    
+    
+  }
+  
+  .title > p{
+  
+    font-family: "Raleway",sans-serif;
+  }
+  
+  .title{
+  
+    /* background-color: rgba(30, 41, 59, 0.85); */
+   
+    /* background: linear-gradient(to bottom right, #062af0, #df1010);
+    background-size: cover; */
+    padding: 2rem;
+    /* border-radius: 12px; */
+    /* color:black; */
+  }
+  
+  .form{
+    /* background-image: url('jr-korpa-SFT9G3pAxLY-unsplash.jpg'); */
+    /* background: linear-gradient(to bottom left, #062af0, #df1010);
+    background-size: cover;
+    background-position: center; */
+  }
+  
+  .url{
+    font-family:'Montserrat';
+  }
+  
+  .p-autocomplete-input{
+    width:100% !important;
+  }
+  
+  .p-autocomplete {
+    width: 100%;
+  }  
+  
+  .p-dialog .p-dialog-header {
+  
+    padding:0px;
+  
+  }
+  
+  
+  .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+    margin-right: 17px;
+    margin-top: 10px;
+  
+  }  
+  
+  .p-inputtext{
+    outline:none;
+  }
+  
+  .p-inputtext:enabled:focus {
+    outline: none;
+    outline-offset: unset;
+    box-shadow: unset;
+    border-color: rgb(209, 213, 219);
+  }
+  
+  .p-inputtext:enabled:hover {
+    border-color: rgb(209, 213, 219);
+  }
+  
+  .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-top: 15px;
+    margin-left: 30px;
+  }
+  
+  
+  .p-card{
+  
+    width: 60% !important;
+  
+  }
+  
+  .p-dialog{
+    width:50vw !important;
+  }
+  
+  .first-title{
+  
+    font-size:2.5rem !important;
+  } 
+  
+  @media (max-width: 1300px) {
+  
+    
+    .p-card{
+      
+      width: 66.6667% !important;
+    }
+    
+   
+  
+  }
+  
+  
+  @media (max-width: 900px) {
+  
+    
+    
+    
+    .p-dialog{
+      width:60vw !important;
+    }
+  
+  }
+  
+  
+  @media (max-width: 850px) {
+  
+    .p-dialog{
+      width:60vw !important;
+    }
+  
+    .first-title{
+  
+      font-size:2.25rem !important;
+    } 
+    .second-title{
+  
+      font-size:1.75rem !important;
+    }  
+  
+    .title > p{
+      font-size:1.2rem !important;
+    }
+    
+  
+    .p-card .p-card-title {
+      font-size: 1.2rem;
+      
+    }
+  
+    form > p{
+      font-size:0.9rem;
+    }
+  
+    .p-inputtext {
+      font-size:0.9rem;
+  
+    }
+  
+    .p-button{
+      font-size:0.9rem;
+    }
+  
+    .pi {
+      font-size: 0.9rem;
+  }
+  
+  .p-card{
+      
+    width: 83.3333% !important;
+  }
+  }
+  
+  
+  
+  @media (max-width: 650px) {
+  
+    .p-dialog{
+      width:80vw !important;
+    }
+  
+    .first-title{
+  
+      font-size:2rem !important;
+    } 
+    .second-title{
+  
+      font-size:1.5rem !important;
+    }  
+  
+    .title > p{
+      font-size:1.1rem !important;
+    }
+  
+    .p-card{
+      
+      width: 83.3333% !important;
+    }
+  
+  } 
+  
+  
+  @media (max-width: 500px) {
+  
+    .dialog-input{
+      flex-direction: column !important;
+    }
+     
+    .p-dialog .p-dialog-header .p-dialog-title {
+      
+      font-size: 1rem !important;
+  
+    }
+  
+    .p-icon {
+      width: 0.9rem !important ;
+      height: 0.9rem !important;
+    }
+  
+    .first-title{
+  
+      font-size:1.75rem !important;
+    } 
+    .second-title{
+  
+      font-size:1.25rem !important;
+    }  
+  
+    .title > p{
+      font-size:1rem !important;
+    }
+  
+    .p-card{
+      
+      width: 83.3333% !important;
+    }
+  
+    .second-title{
+      width:70%;
+      margin:auto
+    }
+  
+  } 
+  
+  
+    
+  
+  

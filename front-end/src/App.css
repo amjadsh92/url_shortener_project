@@ -55,17 +55,17 @@ html,body{
   align-content: center;
 } */
 
-.navbar {
+/* .navbar {
   position: fixed;
   right: 0px;
   width: 150px;
   height: 50px;
   background-color: #28518c75;
   align-content: center;
-}
+} */
 
 
-.navlinks{
+/* .navlinks{
   display:flex;
   justify-content: center;
   align-items: center;
@@ -90,7 +90,7 @@ html,body{
 .title > p{
 
   font-family: "Raleway",sans-serif;
-}
+} */
 
 .title{
 
@@ -110,7 +110,7 @@ html,body{
   background-position: center; */
 }
 
-.url{
+/* .url{
   font-family:'Montserrat';
 }
 
@@ -311,7 +311,7 @@ html,body{
     margin:auto
   }
 
-} 
+}  */
 
 
   
