@@ -2,7 +2,7 @@
 import {
     useNavigate
   } from 'react-router-dom';
-import "./homePageCSS.css"  
+import "./homePage.scss"  
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primeflex/primeflex.css";
 import "../App.css";
@@ -109,7 +109,7 @@ function HomePage(){
           right information.
         </p>
        </div> 
-        <div class="form p-1px">
+        <div className="form-home p-1px">
         <Card title="Shorten a long link" className="mt-6 mb-6 mx-auto">
           <form onSubmit={handleSubmit}>
             <p className="url font-semibold mb-2">Paste your long link here</p>
