@@ -37,10 +37,28 @@ function HomePage(){
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
+  const navigate = useNavigate()
+
+  const toSignupPage = () => {
+
+        
+    navigate("/signup")
+}
+
+const toLoginPage = () => {
+
+        
+    navigate("/login")
+}
+
+
+
   const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
     setBorderRedZone({});
   };
+
+
 
   const handleShortURLChange = (e) => {
     setShortSlug(e.value);
@@ -92,9 +110,9 @@ function HomePage(){
     <div className="bg-hero w-full h-full p-1px">
       <div className="navbar">
         <div className="navlinks">
-         <span>Log In</span>
-         <span>|</span>
-         <span>Sign Up</span>
+         <span onClick={toLoginPage} className="cursor-pointer">Log In</span>
+         <span >|</span>
+         <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span>
          </div> 
       </div>
       <div className="title">

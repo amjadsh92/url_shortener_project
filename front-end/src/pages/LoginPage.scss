@@ -12,11 +12,21 @@
   
   }
 
-  .p-autocomplete-input{
+.p-password{
+    display: block;
+}
+
+
+.p-password-input{
+        
+    width:100% !important;
+ }
+
+.p-autocomplete-input{
     width:100% !important;
   }
   
-  .p-autocomplete {
+.p-autocomplete {
     width: 100%;
     margin-bottom: 0.5rem;
 

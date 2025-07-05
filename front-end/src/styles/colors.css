@@ -25,3 +25,7 @@
 .text-primary {
   color: var(--dark-purple) !important;
 }
+
+.back-home-color{
+  color:rgb(20, 20, 100)
+}

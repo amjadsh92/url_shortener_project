@@ -19,9 +19,24 @@ import { Button } from "primereact/button";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-
+import { Password } from 'primereact/password';
 
 function LoginPage(){
+
+    const navigate = useNavigate()
+
+
+    const toSignupPage = () => {
+
+        
+        navigate("/signup")
+    }
+
+    const toHomePage = () => {
+
+        
+        navigate("/")
+    }
 
     return(
 
@@ -42,13 +57,10 @@ function LoginPage(){
             />
 
           <p className="url font-semibold mb-2">Password</p>
-            <AutoComplete
-              
-              field="label"
-              optionGroupLabel="label"
-              optionGroupChildren="items"
-              placeholder= "Enter your Password"
-              required
+          <Password
+            id="password"
+            feedback={false}
+            placeholder="Enter your password"
             />
 
             <Button
@@ -58,12 +70,12 @@ function LoginPage(){
               label={"Log in"}
             />
         
-            <div className="create-account flex gap-2 justify-content-center mt-2">
+            <div className="create-account flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Don't have an account?</p> 
-              <p className="text-primary font-semibold">Create account</p>
+              <p className="block cursor-pointer text-primary font-semibold no-underline align-content-center" onClick={toSignupPage}>Create account</p>
             </div>
 
-            <p className="mt-4 text-center font-semibold">
+            <p className="cursor-pointer back-home-color mt-4 text-center font-semibold no-underline" onClick={toHomePage} >
                 Back to Home
             </p>
           
