@@ -1,10 +1,9 @@
 require("dotenv").config();
-const { isUrl } = require("check-valid-url");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const dns = require("node:dns");
 const URL = require("url").URL;
+const bcrypt = require("bcrypt")
 app.use(express.json());
 const port = process.env.PORT || 3000;
 app.use(cors());
@@ -13,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
+const crypto = require("crypto");
 
 const { Pool } = require("pg");
 
@@ -71,13 +71,12 @@ const handleAPIs = () => {
     }
 
     const originalUrlLength = originalURL.length;
-    if (originalUrlLength > 2048){
-
-      res
-        .status(400)
-        .json({ error: "You exceeded the maximum length of a url", name: "long" });
+    if (originalUrlLength > 2048) {
+      res.status(400).json({
+        error: "You exceeded the maximum length of a url",
+        name: "long",
+      });
       return;
-
     }
 
     const containsHTTPSRegex = /^https?/i;
@@ -94,11 +93,12 @@ const handleAPIs = () => {
       }
       const shortUrlLength = shortURL.length;
 
-      if (shortUrlLength > 100){
-        res
-        .status(400)
-        .json({ error: "The maximum number of characters in the slug should be 100", name: "short" });
-      return;
+      if (shortUrlLength > 100) {
+        res.status(400).json({
+          error: "The maximum number of characters in the slug should be 100",
+          name: "short",
+        });
+        return;
       }
 
       const slugRegex = /^[a-zA-Z0-9_-]+$/;
@@ -140,15 +140,50 @@ const handleAPIs = () => {
         });
       }
     } catch (e) {
-      res
-        .status(400)
-        .json({
-          error:
-            "The long_url you have provided is invalid",
-          name: "long",
-        });
+      res.status(400).json({
+        error: "The long_url you have provided is invalid",
+        name: "long",
+      });
     }
   });
+
+  app.post("/api/register", async function (req, res) {
+
+      let username = req.body.username?.trim()
+      let password = req.body.password
+
+      if (!username){
+        res.status(400).json({error:"The username can't be empty!"})
+        return
+      }
+      if (!password){
+        res.status(400).json({error:"The password can't be empty!"})
+        return
+      }
+    
+      try {
+        // 1. Hash password
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+    
+        // 2. Insert into PostgreSQL
+        const result = await pool.query(
+          'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
+          [username, hashedPassword]
+        );
+    
+        res.json({message:`You have successfully registerd with username ${username}`})
+      } catch (err) {
+        res.status(400).json({error:"Registration failed! Try again."})
+      }
+    
+
+
+
+  })
+
+
+
 };
 
 const listenToServer = () => {
