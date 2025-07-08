@@ -19,10 +19,16 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 
+
+
 function SignupPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [dialog, setDialog] = useState({
+    visible: false,
+    message: "",
+  });
 
   const toLoginPage = () => {
     navigate("/login");
@@ -41,7 +47,7 @@ function SignupPage() {
 
 
   const handlePassword = (e) => {
-    setPassword(e.value);
+    setPassword(e.target.value);
     
   };
 
@@ -61,19 +67,47 @@ function SignupPage() {
           },
           body: JSON.stringify(credentials),
         });
+        console.log(response)
+        if (response.ok){
+           
+            const result = await response.json();
+         
+            setDialog({
+                visible: true,
+                message: `${result.message}! <br/><br/>
+                You can log in <span className="cursor-pointer text-primary font-semibold">here</span>`
+              });
+
+        }
+
+        else if (!response.ok){
+
+            const result = await response.json();
+
+            setDialog({
+                visible: true,
+                message: `${result.error}! <br/><br/>`
+              });
+
+        }
   
     }   catch(error){
-             console.log("error")
+             
+        setDialog({
+            visible: true,
+            message: "The server is down.Try again later" 
+            
+          });
    }
   }
   return (
     <div className="bg-hero w-full h-full p-1px">
-      <div className="form-signup p-1px" onSubmit={handleSubmit}>
+      <div className="form-signup p-1px">
         <Card title="Create your account" className="mt-6 mb-6 mx-auto">
           <p className="sub-title text-center text-gray">
             Welcome to our URL shotener app
           </p>
-          <form className="mt-4">
+          <form className="mt-4" onSubmit={handleSubmit}>
             <p className="url font-semibold mb-2">Username</p>
             <AutoComplete
               value={username}
@@ -88,11 +122,11 @@ function SignupPage() {
             <p className="url font-semibold mb-2">Password</p>
             <Password
               id="password"
-              
               toggleMask
               feedback={false}
               placeholder="Enter your password"
               onChange={handlePassword}
+              required
             />
 
             <Button
@@ -100,6 +134,7 @@ function SignupPage() {
               //   icon={`${!loading ? "pi pi-arrow-right" : "pi pi-spin pi-spinner"}`}
               //   iconPos={"right"}
               label={"Sign up"}
+              type= "submit"
             />
 
             <div className="login flex gap-3 justify-content-center mt-2">
@@ -118,6 +153,28 @@ function SignupPage() {
             >
               Back to Home
             </p>
+
+            <Dialog
+        header="Your registration"
+        visible={dialog.visible}
+        style={{ width: "350px", wordBreak: "break-word" }}
+        breakpoints={{ "400px": "300px", "338px": "250px" }}
+        onHide={() => setDialog({ ...dialog, visible: false })}
+        footer={
+          <div>
+            <Button
+              label="OK"
+              icon="pi pi-check"
+              onClick={() => setDialog({ ...dialog, visible: false })}
+              autoFocus
+            />
+          </div>
+        }
+      >
+        <div dangerouslySetInnerHTML={{ __html: dialog.message }} />
+        </Dialog>
+
+
           </form>
         </Card>
       </div>
