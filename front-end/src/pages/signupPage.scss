@@ -1,3 +1,10 @@
+
+.dialog-signup.p-dialog{
+    width:30vw !important;
+  }  
+
+
+
 .form-signup{
     .p-card .p-card-title {
         padding: 1.25rem;
@@ -11,6 +18,8 @@
         width: 45% !important;
       
       }
+
+    
 
      .p-card-content{
 
@@ -37,7 +46,11 @@
       
     .p-button{
         border-radius:20px;
-    }  
+    }
+    
+    .dialog-signup .p-dialog{
+        width:30vw !important;
+      }  
     
 
 }    

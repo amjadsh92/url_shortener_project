@@ -162,27 +162,21 @@ const handleAPIs = () => {
       }
     
       try {
-        // 1. Hash password
+        
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
     
-        // 2. Insert into PostgreSQL
         const result = await pool.query(
           'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
           [username, hashedPassword]
         );
     
-        res.json({message:`You have successfully registerd with username ${username}`})
+        res.json({message:"You are now registered!"})
       } catch (err) {
         res.status(400).json({error:"Registration failed! Try again."})
       }
     
-
-
-
-  })
-
-
+})
 
 };
 

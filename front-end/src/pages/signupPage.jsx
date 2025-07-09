@@ -1,8 +1,6 @@
 /* eslint-disable */
 import { useNavigate } from "react-router-dom";
-
 import "./signupPage.scss";
-
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primeflex/primeflex.css";
 import "../App.css";
@@ -21,6 +19,35 @@ import { Password } from "primereact/password";
 
 
 
+
+function DialogContent({ message, goodResponse, username, toLoginPage }) {
+    if (!goodResponse) return (
+
+        <div className="mt-4 ml-6px">{message}</div>
+
+
+    );
+  
+    return (
+      <>
+        <div className="mt-4 ml-6px">{message}</div>
+        <p className="ml-6px">
+          Your username is <b>{username}</b>
+        </p>
+        <span className="ml-6px">You can log in </span>
+        <span
+          className="cursor-pointer text-primary font-semibold"
+          onClick={toLoginPage}
+        >
+          here
+        </span>
+      </>
+    );
+  }
+
+
+
+
 function SignupPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("")
@@ -29,6 +56,7 @@ function SignupPage() {
     visible: false,
     message: "",
   });
+  const [goodResponse, setGoodResponse] = useState(false)
 
   const toLoginPage = () => {
     navigate("/login");
@@ -67,32 +95,34 @@ function SignupPage() {
           },
           body: JSON.stringify(credentials),
         });
-        console.log(response)
+    
         if (response.ok){
-           
+            setGoodResponse(true)
             const result = await response.json();
          
             setDialog({
                 visible: true,
-                message: `${result.message}! <br/><br/>
-                You can log in <span className="cursor-pointer text-primary font-semibold">here</span>`
+                // message: `<p class="mt-4 ml-6px">${result.message} <p>
+                // <p class="ml-6px">Your username is <b>${username}</b></p>
+                // <span class="ml-6px">You can log in </span><span class="cursor-pointer text-primary font-semibold" onclick={toLoginPage}>here</span>`
+                message:result.message
               });
 
         }
 
         else if (!response.ok){
-
+            setGoodResponse(false)
             const result = await response.json();
 
             setDialog({
                 visible: true,
-                message: `${result.error}! <br/><br/>`
+                message: result.error
               });
 
         }
   
     }   catch(error){
-             
+        setGoodResponse(false)     
         setDialog({
             visible: true,
             message: "The server is down.Try again later" 
@@ -153,11 +183,12 @@ function SignupPage() {
             >
               Back to Home
             </p>
-
+            <div className="form-signup">
             <Dialog
         header="Your registration"
         visible={dialog.visible}
-        style={{ width: "350px", wordBreak: "break-word" }}
+        className="dialog-signup"
+        style={{ width: "150px", wordBreak: "break-word" }}
         breakpoints={{ "400px": "300px", "338px": "250px" }}
         onHide={() => setDialog({ ...dialog, visible: false })}
         footer={
@@ -171,9 +202,10 @@ function SignupPage() {
           </div>
         }
       >
-        <div dangerouslySetInnerHTML={{ __html: dialog.message }} />
+        {/* <div dangerouslySetInnerHTML={{ __html: dialog.message }} /> */}
+        <DialogContent message={dialog.message}  goodResponse = {goodResponse} username={username} toLoginPage={toLoginPage} />
         </Dialog>
-
+        </div>
 
           </form>
         </Card>
