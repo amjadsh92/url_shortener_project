@@ -17,46 +17,35 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 
-
-
-
 function DialogContent({ message, goodResponse, username, toLoginPage }) {
-    if (!goodResponse) return (
+  if (!goodResponse) return <div className="mt-4 ml-6px">{message}</div>;
 
-        <div className="mt-4 ml-6px">{message}</div>
-
-
-    );
-  
-    return (
-      <>
-        <div className="mt-4 ml-6px">{message}</div>
-        <p className="ml-6px">
-          Your username is <b>{username}</b>
-        </p>
-        <span className="ml-6px">You can log in </span>
-        <span
-          className="cursor-pointer text-primary font-semibold"
-          onClick={toLoginPage}
-        >
-          here
-        </span>
-      </>
-    );
-  }
-
-
-
+  return (
+    <>
+      <div className="mt-4 ml-6px">{message}</div>
+      <p className="ml-6px">
+        Your username is <b>{username}</b>
+      </p>
+      <span className="ml-6px">You can log in </span>
+      <span
+        className="cursor-pointer text-primary font-semibold"
+        onClick={toLoginPage}
+      >
+        here
+      </span>
+    </>
+  );
+}
 
 function SignupPage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [dialog, setDialog] = useState({
     visible: false,
     message: "",
   });
-  const [goodResponse, setGoodResponse] = useState(false)
+  const [goodResponse, setGoodResponse] = useState(false);
 
   const toLoginPage = () => {
     navigate("/login");
@@ -66,70 +55,53 @@ function SignupPage() {
     navigate("/");
   };
 
-
   const handleUsername = (e) => {
     setUsername(e.value);
-    
   };
-
-
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    
   };
 
-
-
-  const handleSubmit =  async (e) => {
-    
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const baseURL = import.meta.env.VITE_BASE_URL;
-    let credentials = {username, password}
+    let credentials = { username, password };
 
     try {
-        const response = await fetch(`${baseURL}/api/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        });
-    
-        if (response.ok){
-            setGoodResponse(true)
-            const result = await response.json();
-         
-            setDialog({
-                visible: true,
-                // message: `<p class="mt-4 ml-6px">${result.message} <p>
-                // <p class="ml-6px">Your username is <b>${username}</b></p>
-                // <span class="ml-6px">You can log in </span><span class="cursor-pointer text-primary font-semibold" onclick={toLoginPage}>here</span>`
-                message:result.message
-              });
+      const response = await fetch(`${baseURL}/api/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
 
-        }
+      if (response.ok) {
+        setGoodResponse(true);
+        const result = await response.json();
 
-        else if (!response.ok){
-            setGoodResponse(false)
-            const result = await response.json();
-
-            setDialog({
-                visible: true,
-                message: result.error
-              });
-
-        }
-  
-    }   catch(error){
-        setGoodResponse(false)     
         setDialog({
-            visible: true,
-            message: "The server is down.Try again later" 
-            
-          });
-   }
-  }
+          visible: true,
+          message: result.message,
+        });
+      } else if (!response.ok) {
+        setGoodResponse(false);
+        const result = await response.json();
+
+        setDialog({
+          visible: true,
+          message: result.error,
+        });
+      }
+    } catch (error) {
+      setGoodResponse(false);
+      setDialog({
+        visible: true,
+        message: "The server is down.Try again later",
+      });
+    }
+  };
   return (
     <div className="bg-hero w-full h-full p-1px">
       <div className="form-signup p-1px">
@@ -164,7 +136,7 @@ function SignupPage() {
               //   icon={`${!loading ? "pi pi-arrow-right" : "pi pi-spin pi-spinner"}`}
               //   iconPos={"right"}
               label={"Sign up"}
-              type= "submit"
+              type="submit"
             />
 
             <div className="login flex gap-3 justify-content-center mt-2">
@@ -184,29 +156,33 @@ function SignupPage() {
               Back to Home
             </p>
             <div className="form-signup">
-            <Dialog
-        header="Your registration"
-        visible={dialog.visible}
-        className="dialog-signup"
-        style={{ width: "150px", wordBreak: "break-word" }}
-        breakpoints={{ "400px": "300px", "338px": "250px" }}
-        onHide={() => setDialog({ ...dialog, visible: false })}
-        footer={
-          <div>
-            <Button
-              label="OK"
-              icon="pi pi-check"
-              onClick={() => setDialog({ ...dialog, visible: false })}
-              autoFocus
-            />
-          </div>
-        }
-      >
-        {/* <div dangerouslySetInnerHTML={{ __html: dialog.message }} /> */}
-        <DialogContent message={dialog.message}  goodResponse = {goodResponse} username={username} toLoginPage={toLoginPage} />
-        </Dialog>
-        </div>
-
+              <Dialog
+                header="Your registration"
+                visible={dialog.visible}
+                className="dialog-signup"
+                style={{ width: "150px", wordBreak: "break-word" }}
+                breakpoints={{ "400px": "300px", "338px": "250px" }}
+                onHide={() => setDialog({ ...dialog, visible: false })}
+                footer={
+                  <div>
+                    <Button
+                      label="OK"
+                      icon="pi pi-check"
+                      onClick={() => setDialog({ ...dialog, visible: false })}
+                      autoFocus
+                    />
+                  </div>
+                }
+              >
+                {/* <div dangerouslySetInnerHTML={{ __html: dialog.message }} /> */}
+                <DialogContent
+                  message={dialog.message}
+                  goodResponse={goodResponse}
+                  username={username}
+                  toLoginPage={toLoginPage}
+                />
+              </Dialog>
+            </div>
           </form>
         </Card>
       </div>

@@ -72,7 +72,7 @@ function LoginPage(){
         
             <div className="create-account flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Don't have an account?</p> 
-              <p className="block cursor-pointer text-primary font-semibold no-underline align-content-center" onClick={toSignupPage}>Create account</p>
+              <p className="cursor-pointer text-primary font-semibold no-underline align-content-center" onClick={toSignupPage}>Create account</p>
             </div>
 
             <p className="cursor-pointer back-home-color mt-4 text-center font-semibold no-underline" onClick={toHomePage} >

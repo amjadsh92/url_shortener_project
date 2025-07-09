@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
+const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
+
+
 const crypto = require("crypto");
 
 const { Pool } = require("pg");
@@ -24,6 +28,19 @@ const pool = new Pool({
   database: "long_short_url",
 });
 
+app.use(
+  session({
+    secret: "some secret",
+    resave: false,
+    saveUninitialized: false,
+    store: new pgSession({
+      pool: pool,
+      tableName: 'session',
+    }),
+    cookie: { maxAge: 1000 * 60 * 1 },
+  })
+);
+
 const connectToDatabase = async () => {
   await pool.connect();
   console.log("Connected to Postgres database");
@@ -33,7 +50,13 @@ const connectToDatabase = async () => {
 
 const handleAPIs = () => {
   app.get("/api/hello", function (req, res) {
-    res.json({ greeting: "hello API" });
+    console.log(req.headers.cookie)
+    console.log(req.session)
+    console.log(req.cookies)
+  req.session.visited = (req.session.visited || 0) + 1;
+  console.log(req.session)
+  res.send(`You have visited this endpoint ${req.session.visited} times`);
+    // res.json({ greeting: "hello API" });
   });
 
   app.get("/:shorturl", async function (req, res) {
