@@ -13,10 +13,11 @@ app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const pgSession = require("connect-pg-simple")(session);
 
 
-const crypto = require("crypto");
 
 const { Pool } = require("pg");
 
@@ -41,6 +42,44 @@ app.use(
   })
 );
 
+
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+      if (result.rows.length === 0) return done(null, false);
+      const user = result.rows[0];
+      const hashedPassword = result.rows[0].password
+      const isValid = validPassword(password,hashedPassword);
+      if (isValid) return done(null, user);
+      return done(null, false);
+    } catch (err) {
+      return done(err);
+    }
+  })
+);
+
+
+
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    if (result.rows.length === 0) return done(null, false);
+    return done(null, result.rows[0]);
+  } catch (err) {
+    return done(err);
+  }
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 const connectToDatabase = async () => {
   await pool.connect();
   console.log("Connected to Postgres database");
@@ -50,12 +89,12 @@ const connectToDatabase = async () => {
 
 const handleAPIs = () => {
   app.get("/api/hello", function (req, res) {
-    console.log(req.headers.cookie)
-    console.log(req.session)
-    console.log(req.cookies)
+    
+    // console.log(req.headers.cookie)
+    // console.log(req.session)
+    // console.log(req.cookies)
   req.session.visited = (req.session.visited || 0) + 1;
-  console.log(req.session)
-  res.send(`You have visited this endpoint ${req.session.visited} times`);
+  res.json({visits: `You have visited this endpoint ${req.session.visited} times`, user:req.user});
     // res.json({ greeting: "hello API" });
   });
 
@@ -170,6 +209,20 @@ const handleAPIs = () => {
     }
   });
 
+
+  // 
+  
+  app.post("/api/login", 
+    passport.authenticate("local"), (req, res) => {
+      console.log(req.session);
+      if (req.isAuthenticated()) {
+        res.json({message:"You are authenticated", success:true});
+      } else {
+        res.json({message:"You are not authenticated", success:false});
+      }
+    });
+  ;
+
   app.post("/api/register", async function (req, res) {
 
       let username = req.body.username?.trim()
@@ -208,5 +261,17 @@ const listenToServer = () => {
     console.log(`Listening on port ${port}`);
   });
 };
+
+
+const validPassword = async (enteredPassword, storedHash) => {
+
+  const isValid = await bcrypt.compare(enteredPassword, storedHash);
+
+  if (isValid) {
+    return true
+  } else {
+    return false
+  }
+}
 
 connectToDatabase();
