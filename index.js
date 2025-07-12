@@ -214,14 +214,12 @@ const handleAPIs = () => {
   
   app.post("/api/login", 
     passport.authenticate("local"), (req, res) => {
-      console.log(req.session);
+     
       if (req.isAuthenticated()) {
-        res.json({message:"You are authenticated", success:true});
-      } else {
-        res.json({message:"You are not authenticated", success:false});
-      }
+        res.json({message:`You are authenticated, your username is ${req.user.username}`, success:true});
+      } 
     });
-  ;
+  
 
   app.post("/api/register", async function (req, res) {
 

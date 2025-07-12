@@ -24,14 +24,17 @@ import { Password } from 'primereact/password';
 function LoginPage(){
 
   function DialogContent({ message, goodResponse}) {
-    if (!goodResponse) 
+
+    
   
     return (
       <>
         <div className="mt-4 ml-6px">{message}</div>
       </>
     );
+
   }
+  
 
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
@@ -71,8 +74,20 @@ function LoginPage(){
           setDialog({
             visible: true,
             message: result.message,
+          });}
+         else if (response.status === 401){
+             
+          setGoodResponse(false);
+          // const result = await response.json();
+  
+          setDialog({
+            visible: true,
+            message: "Unvalid credentials!",
           });
-        } else if (!response.ok) {
+
+         }
+
+        else if (!response.ok) {
           setGoodResponse(false);
           const result = await response.json();
   
@@ -113,7 +128,7 @@ function LoginPage(){
 
           <p className="url font-semibold mb-2">Username</p>
             <AutoComplete
-              
+              value={username}       
               field="label"
               optionGroupLabel="label"
               optionGroupChildren="items"
