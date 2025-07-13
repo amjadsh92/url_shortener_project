@@ -70,11 +70,12 @@ function LoginPage(){
         if (response.ok) {
           setGoodResponse(true);
           const result = await response.json();
-  
-          setDialog({
-            visible: true,
-            message: result.message,
-          });}
+          navigate("/")
+          // setDialog({
+          //   visible: true,
+          //   message: result.message,
+          // });
+          }
          else if (response.status === 401){
              
           setGoodResponse(false);
