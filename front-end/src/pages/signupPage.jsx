@@ -12,30 +12,12 @@ import "primeicons/primeicons.css";
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 
-function DialogContent({ message, goodResponse, username, toLoginPage }) {
-  if (!goodResponse) return <div className="mt-4 ml-6px">{message}</div>;
 
-  return (
-    <>
-      <div className="mt-4 ml-6px">{message}</div>
-      <p className="ml-6px">
-        Your username is <b>{username}</b>
-      </p>
-      <span className="ml-6px">You can log in </span>
-      <span
-        className="cursor-pointer text-primary font-semibold"
-        onClick={toLoginPage}
-      >
-        here
-      </span>
-    </>
-  );
-}
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -46,6 +28,29 @@ function SignupPage() {
     message: "",
   });
   const [goodResponse, setGoodResponse] = useState(false);
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
+
+  useEffect(() => {
+        const fetchAuthentication = async () => {
+          try {
+            const res = await fetch(`${baseURL}/api/authentication`, {
+              credentials: 'include',
+            } );
+            const result = await res.json();
+            if(result.isAuthenticated){
+              navigate("/")
+            }
+            
+            }
+           catch (err) {
+            console.log("failed to know authentication state")
+          }
+        };
+        fetchAuthentication()
+        }, []);
+    
+  
 
   const toLoginPage = () => {
     navigate("/login");
@@ -187,6 +192,29 @@ function SignupPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+
+
+
+function DialogContent({ message, goodResponse, username, toLoginPage }) {
+  if (!goodResponse) return <div className="mt-4 ml-6px">{message}</div>;
+
+  return (
+    <>
+      <div className="mt-4 ml-6px">{message}</div>
+      <p className="ml-6px">
+        Your username is <b>{username}</b>
+      </p>
+      <span className="ml-6px">You can log in </span>
+      <span
+        className="cursor-pointer text-primary font-semibold"
+        onClick={toLoginPage}
+      >
+        here
+      </span>
+    </>
   );
 }
 
