@@ -22,7 +22,7 @@ import { InputText } from "primereact/inputtext";
 
 
 
-function HomePage({isAuthenticated, setAuthentication}){
+function HomePage({isAuthenticated, setAuthentication, username, usernameToLogin, setAlertMessage}){
 
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
@@ -51,6 +51,7 @@ function HomePage({isAuthenticated, setAuthentication}){
         } );
         const result = await res.json();
         setAuthentication(result.isAuthenticated) 
+        usernameToLogin(result.username)
         console.log(result)
         }
        catch (err) {
@@ -72,7 +73,7 @@ function HomePage({isAuthenticated, setAuthentication}){
 
 const toLoginPage = () => {
 
-        
+      
     navigate("/login")
 }
 
@@ -103,6 +104,7 @@ const toLoginPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(url),
+        credentials:'include'
       });
 
       if (response.ok) {
@@ -114,7 +116,14 @@ const toLoginPage = () => {
         setErrorMessage("");
         setBadRequest(false);
         setBorderRedZone({});
-      } else {
+      }
+        else if(response.status === 401){
+          setAlertMessage(true)
+           toLoginPage()
+        
+
+        }
+      else {
         setLoading(false);
         const result = await response.json();
         setErrorMessage(result.error);
@@ -137,7 +146,7 @@ const toLoginPage = () => {
         <div className="navlinks">
          { !isAuthenticated ? (<><span onClick={toLoginPage} className="cursor-pointer">Log In</span>
            <span >|</span>
-           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></>): <span>User</span>}
+           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></>): <span>Welcome, {username} </span>}
          </div>
       </div>
       <div className="title">

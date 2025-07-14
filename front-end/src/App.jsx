@@ -16,6 +16,8 @@ import SignupPage from './pages/signupPage';
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [username, setUsername] = useState("")
+  const [alertMessage, setAlertMessage]  = useState(false)
 
   return (
     <Router>
@@ -24,11 +26,11 @@ function App() {
           <Route
             path="/"
             element={
-              <HomePage  isAuthenticated={isAuthenticated} setAuthentication ={setIsAuthenticated}/>
+              <HomePage  isAuthenticated={isAuthenticated} setAuthentication ={setIsAuthenticated} username={username} usernameToLogin ={setUsername}  setAlertMessage={setAlertMessage}/>
             }
           />
 
-        <Route path="/login" element={<LoginPage isAuthenticated={isAuthenticated} setAuthentication={setIsAuthenticated} />} />
+        <Route path="/login" element={<LoginPage setAuthentication={setIsAuthenticated} usernameToLogin={setUsername} alertMessage={alertMessage} setAlertMessage={setAlertMessage} />} />
         <Route path="/signup" element={<SignupPage isAuthenticated={isAuthenticated} />} />
          
         </Routes>

@@ -98,7 +98,7 @@ const handleAPIs = () => {
     console.log(req?.session)
     req.session.visited = (req.session.visited || 0) + 1;
     if(req?.session?.passport?.user){
-     return  res.json({isAuthenticated:true})
+     return  res.json({isAuthenticated:true, username:req.user.username})
     }
     else{
       return  res.json({isAuthenticated:false, username: false})
@@ -148,6 +148,13 @@ const handleAPIs = () => {
       res
         .status(400)
         .json({ error: "No long_url has been provided", name: "long" });
+      return;
+    }
+
+    if (shortURL && !(req?.session?.passport?.user)) {
+      res
+        .status(401)
+        .json({ error: "You need to be logged in", name: "short" });
       return;
     }
 

@@ -21,7 +21,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from 'primereact/password';
 
-function LoginPage({isAuthenticated, setAuthentication}){
+function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMessage }){
 
   function DialogContent({ message}) {
 
@@ -72,6 +72,7 @@ function LoginPage({isAuthenticated, setAuthentication}){
           setGoodResponse(true);
           const result = await response.json();
           setAuthentication(true)
+          usernameToLogin(username)
           navigate("/")
           // setDialog({
           //   visible: true,
@@ -111,13 +112,13 @@ function LoginPage({isAuthenticated, setAuthentication}){
 
     const toSignupPage = () => {
 
-        
+        setAlertMessage(false)
         navigate("/signup")
     }
 
     const toHomePage = () => {
 
-        
+        setAlertMessage(false)
         navigate("/")
     }
 
@@ -128,7 +129,7 @@ function LoginPage({isAuthenticated, setAuthentication}){
         <div className="form-login p-1px">
        <Card title="Welcome to our URL Shortener APP" className="mt-6 mb-6 mx-auto">
           <form onSubmit={handleSubmit}>
-
+          {alertMessage ? (<p className="text-red-700 text-center mt-2 mb-6">You need to be Logged in to create your own short url</p>) : ""}
           <p className="url font-semibold mb-2">Username</p>
             <AutoComplete
               value={username}       
