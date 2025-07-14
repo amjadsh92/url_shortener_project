@@ -16,25 +16,12 @@ import "primeicons/primeicons.css";
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from 'primereact/password';
 
 function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMessage }){
-
-  function DialogContent({ message}) {
-
-    
-  
-    return (
-      <>
-        <div className="mt-4 ml-6px">{message}</div>
-      </>
-    );
-
-  }
-  
 
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
@@ -44,6 +31,31 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
       message: "",
     });
     const [goodResponse, setGoodResponse] = useState(false);
+    const baseURL = import.meta.env.VITE_BASE_URL;
+
+
+    useEffect(() => {
+      const fetchAuthentication = async () => {
+        try {
+          const res = await fetch(`${baseURL}/api/authentication`, {
+            credentials: 'include',
+          } );
+          const result = await res.json();
+          if(result.isAuthenticated){
+            navigate("/")
+          }
+          else{
+            setAlertMessage(false)
+          }
+          }
+         catch (err) {
+          setAuthentication(false)
+        }
+      };
+      fetchAuthentication()
+      }, []);
+  
+
 
     const handleUsername = (e) => {
       setUsername(e.value);
@@ -122,6 +134,8 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
         navigate("/")
     }
 
+
+
     return(
 
         <div className="bg-hero w-full h-full p-1px">
@@ -129,7 +143,7 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
         <div className="form-login p-1px">
        <Card title="Welcome to our URL Shortener APP" className="mt-6 mb-6 mx-auto">
           <form onSubmit={handleSubmit}>
-          {alertMessage ? (<p className="text-red-700 text-center mt-2 mb-6">You need to be Logged in to create your own short url</p>) : ""}
+          {alertMessage ? (<p className="text-red-700 text-center mt-2 mb-6">You need to be logged in to create your custom short url</p>) : ""}
           <p className="url font-semibold mb-2">Username</p>
             <AutoComplete
               value={username}       
@@ -210,6 +224,22 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
 
 
 }
+
+
+
+
+function DialogContent({ message}) {
+
+
+
+  return (
+    <>
+      <div className="mt-4 ml-6px">{message}</div>
+    </>
+  );
+
+}
+
 
 
 
