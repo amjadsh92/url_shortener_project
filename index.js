@@ -6,7 +6,11 @@ const URL = require("url").URL;
 const bcrypt = require("bcrypt")
 app.use(express.json());
 const port = process.env.PORT || 3000;
-app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 app.use("/public", express.static(`${process.cwd()}/public`));
 app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
@@ -88,6 +92,21 @@ const connectToDatabase = async () => {
 };
 
 const handleAPIs = () => {
+
+  app.get("/api/authentication", function (req, res) {
+
+    console.log(req?.session)
+    req.session.visited = (req.session.visited || 0) + 1;
+    if(req?.session?.passport?.user){
+     return  res.json({isAuthenticated:true})
+    }
+    else{
+      return  res.json({isAuthenticated:false, username: false})
+    }
+
+
+  })
+
   app.get("/api/hello", function (req, res) {
     
     // console.log(req.headers.cookie)

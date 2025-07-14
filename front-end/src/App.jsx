@@ -6,7 +6,7 @@ import {
   useNavigate
 } from 'react-router-dom';
 
-
+import { useState } from "react";
 
 import HomePage from './pages/homePage';
 import LoginPage from './pages/LoginPage';
@@ -15,6 +15,8 @@ import SignupPage from './pages/signupPage';
 
 function App() {
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
   return (
     <Router>
       
@@ -22,12 +24,12 @@ function App() {
           <Route
             path="/"
             element={
-              <HomePage  />
+              <HomePage  isAuthenticated={isAuthenticated} setAuthentication ={setIsAuthenticated}/>
             }
           />
 
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage isAuthenticated={isAuthenticated} setAuthentication={setIsAuthenticated} />} />
+        <Route path="/signup" element={<SignupPage isAuthenticated={isAuthenticated} />} />
          
         </Routes>
       

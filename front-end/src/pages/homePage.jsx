@@ -14,7 +14,7 @@ import "primeicons/primeicons.css";
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 
@@ -22,7 +22,7 @@ import { InputText } from "primereact/inputtext";
 
 
 
-function HomePage(){
+function HomePage({isAuthenticated, setAuthentication}){
 
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
@@ -38,7 +38,31 @@ function HomePage(){
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
+  
+
   const navigate = useNavigate()
+
+
+  useEffect(() => {
+    const fetchAuthentication = async () => {
+      try {
+        const res = await fetch(`${baseURL}/api/authentication`, {
+          credentials: 'include',
+        } );
+        const result = await res.json();
+        setAuthentication(result.isAuthenticated) 
+        console.log(result)
+        }
+       catch (err) {
+        setAuthentication(false)
+      }
+    };
+    fetchAuthentication()
+    }, []);
+
+    
+  
+
 
   const toSignupPage = () => {
 
@@ -111,10 +135,10 @@ const toLoginPage = () => {
     <div className="bg-hero w-full h-full p-1px">
       <div className="navbar">
         <div className="navlinks">
-         <span onClick={toLoginPage} className="cursor-pointer">Log In</span>
-         <span >|</span>
-         <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span>
-         </div> 
+         { !isAuthenticated ? (<><span onClick={toLoginPage} className="cursor-pointer">Log In</span>
+           <span >|</span>
+           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></>): <span>User</span>}
+         </div>
       </div>
       <div className="title">
         <h1 className="first-title text-center text-white mt-50px">

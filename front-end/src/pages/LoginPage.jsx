@@ -21,9 +21,9 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from 'primereact/password';
 
-function LoginPage(){
+function LoginPage({isAuthenticated, setAuthentication}){
 
-  function DialogContent({ message, goodResponse}) {
+  function DialogContent({ message}) {
 
     
   
@@ -65,11 +65,13 @@ function LoginPage(){
             "Content-Type": "application/json",
           },
           body: JSON.stringify(credentials),
+          credentials: 'include'
         });
   
         if (response.ok) {
           setGoodResponse(true);
           const result = await response.json();
+          setAuthentication(true)
           navigate("/")
           // setDialog({
           //   visible: true,
