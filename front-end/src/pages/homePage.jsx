@@ -146,7 +146,7 @@ const toLoginPage = () => {
         <div className="navlinks">
          { !isAuthenticated ? (<><span onClick={toLoginPage} className="cursor-pointer">Log In</span>
            <span >|</span>
-           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></>): <span>Welcome, {username} </span>}
+           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></>): (<><span>Welcome, {username} </span> <i className="pi pi-sort-down-fill" style={{ color: 'white' }}></i></>)}
          </div>
       </div>
       <div className="title">
