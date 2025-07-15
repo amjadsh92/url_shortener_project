@@ -149,7 +149,7 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
         <div className="form-login p-1px">
        <Card title="Welcome to our URL Shortener APP" className="mt-6 mb-6 mx-auto">
           <form onSubmit={handleSubmit}>
-          {alertMessage ? (<p className="text-red-700 text-center mt-2 mb-6">You need to be logged in to create your custom short url</p>) : ""}
+          {alertMessage ? (<p className="text-red-700 text-center mt-2 mb-6">You need to be logged in to create your custom short URL</p>) : ""}
           <p className="url font-semibold mb-2">Username</p>
             <AutoComplete
               value={username}       

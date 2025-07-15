@@ -54,7 +54,7 @@ passport.use(
       if (result.rows.length === 0) return done(null, false);
       const user = result.rows[0];
       const hashedPassword = result.rows[0].password
-      const isValid = validPassword(password,hashedPassword);
+      const isValid = await validPassword(password,hashedPassword);
       if (isValid) return done(null, user);
       return done(null, false);
     } catch (err) {
@@ -291,11 +291,7 @@ const validPassword = async (enteredPassword, storedHash) => {
 
   const isValid = await bcrypt.compare(enteredPassword, storedHash);
 
-  if (isValid) {
-    return true
-  } else {
-    return false
-  }
+  return isValid
 }
 
 connectToDatabase();
