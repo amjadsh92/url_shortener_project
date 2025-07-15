@@ -32,10 +32,16 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
     });
     const [goodResponse, setGoodResponse] = useState(false);
     const baseURL = import.meta.env.VITE_BASE_URL;
-
+    
 
     useEffect(() => {
+
+      const navigationEntries = performance.getEntriesByType("navigation");
+      const navigationType = navigationEntries[0]?.type;
+        
       const fetchAuthentication = async () => {
+        
+        
         try {
           const res = await fetch(`${baseURL}/api/authentication`, {
             credentials: 'include',
@@ -44,7 +50,7 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
           if(result.isAuthenticated){
             navigate("/")
           }
-          else{
+          else if(navigationType === "navigation"){
             setAlertMessage(false)
           }
           }
