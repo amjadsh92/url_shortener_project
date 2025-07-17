@@ -1,5 +1,25 @@
+// #8d99ae
+
+.menu {
+  padding-right: 20px !important;
+  height: 50px;
+  padding-left: 15px;
+  width: 200px;
+  background-color: rgba(40, 81, 140, 0.458823529);
+  // margin-right: 20px;
+  border-top: 1px solid #423e3e;
+  
+  // border-radius: 5px;
+  // border-top-left-radius: 0px;
+  // border-top-right-radius: 0px;
+
+}
 
 
+
+.menu:hover {
+  background-color: rgba(40, 81, 140, 0.6882352);
+}
 
 .navbar{
   
@@ -22,7 +42,13 @@
   
   }
   
-  .navlinks > div > span {
+  .navlinks > div > div > span {
+  
+    font-family: "Montserrat",sans-serif;
+    color:white;
+  }
+
+  .navlinks > .login > span {
   
     font-family: "Montserrat",sans-serif;
     color:white;
@@ -51,7 +77,7 @@
   // }
 
 
-  .navlinks > .username {
+  .navlinks > div > .username {
     display: flex;
     justify-content: end;
     align-items: center;
@@ -60,11 +86,11 @@
     padding-right: 20px !important; 
     height: 50px;
     padding-left: 15px;
-    
+    cursor: pointer;
   
   }
 
-  .navlinks > .username:hover {
+  .navlinks > div >.username:hover {
     
     background-color: rgba(40, 81, 140, 0.3882352);
 

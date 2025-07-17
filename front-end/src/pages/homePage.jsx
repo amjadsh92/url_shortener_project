@@ -18,6 +18,7 @@ import { useState, useEffect, useRef } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 // import { Menu } from 'primereact/menu';
+// import { Menubar } from 'primereact/menubar';
 
 
 
@@ -36,6 +37,7 @@ function HomePage({isAuthenticated, setAuthentication, username, usernameToLogin
   const [errorMessage, setErrorMessage] = useState("");
   const [borderRedZone, setBorderRedZone] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(false)
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -65,13 +67,18 @@ function HomePage({isAuthenticated, setAuthentication, username, usernameToLogin
     
     
 
-    const menuItems = [
-      {
-        label: "Logout",
-        icon: "pi pi-sign-out"
+    // const items = [
+    //   {
+    //     label: `Welcome, ${username}`,
+      
+    //     items: [
+    //       {
+    //           label: 'Log out',
+    //           icon: 'pi pi-sign-out'
+    //       }
         
-      },
-    ];
+    //   ]}
+    // ];
 
 
     
@@ -87,9 +94,18 @@ const toLoginPage = () => {
     navigate("/login")
 }
 
+const hideMenu = () => {
+     setShowMenu(false)
+}
 
+const displayMenu = () => {
 
-  const handleOriginalURLChange = (e) => {
+    setShowMenu(true)
+}
+
+ 
+
+const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
     setBorderRedZone({});
   };
@@ -156,11 +172,13 @@ const toLoginPage = () => {
         <div className="navlinks">
          { !isAuthenticated ? (<div className="login"><span onClick={toLoginPage} className="cursor-pointer">Log In</span>
            <span >|</span>
-           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></div>): (<div className="username"><span>Welcome, {username} </span> <i className="pi pi-sort-down-fill" style={{ color: 'white' }} ></i></div>)}
+           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></div>): (<div className="flex flex-column"><div className="username" onClick={displayMenu}> 
+            <span>Welcome, {username} </span> <i className="pi pi-sort-down-fill" style={{ color: 'white' }} ></i>
+           </div> { showMenu && (<div className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full"><i className="pi pi-sign-out" style={{ color: 'white' }} ></i> <span>Log out</span></div>)}</div>)}
          </div>
       </div>
       
-     
+     <div className="home" onClick={hideMenu}>
       <div className="title">
         <h1 className="first-title text-center text-white mt-50px">
           URL Shortener App
@@ -246,6 +264,7 @@ const toLoginPage = () => {
           </Dialog>
         </Card>
         </div>
+       </div> 
       </div>
     
   );
