@@ -1,3 +1,6 @@
+
+
+
 .navbar{
   
     // width: 150px;
@@ -13,17 +16,63 @@
     display:flex;
     justify-content: end;
     align-items: center;
-    gap:5px;
-    margin-right:20px;
+    gap:8px;
+    // margin-right:20px;
     
   
   }
   
-  .navlinks > span {
+  .navlinks > div > span {
   
     font-family: "Montserrat",sans-serif;
     color:white;
   }
+
+.navlinks > .login{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 5px;
+  /* padding: 10px; */
+  // padding-right: 10px; 
+  height: 50px;
+  margin-right:20px;
+}
+  
+
+
+  // .navlinks > div {
+  //   display:flex;
+  //   justify-content: end;
+  //   align-items: center;
+  //   gap:5px;
+  //   padding:10px
+
+  // }
+
+
+  .navlinks > .username {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 8px;
+    /* padding: 10px; */
+    padding-right: 20px !important; 
+    height: 50px;
+    padding-left: 15px;
+    
+  
+  }
+
+  .navlinks > .username:hover {
+    
+    background-color: rgba(40, 81, 140, 0.3882352);
+
+  }
+
+
+  
+
   
   .title > h1{
     font-family: "Montserrat",sans-serif;

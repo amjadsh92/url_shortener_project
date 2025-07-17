@@ -14,9 +14,10 @@ import "primeicons/primeicons.css";
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
+// import { Menu } from 'primereact/menu';
 
 
 
@@ -62,9 +63,18 @@ function HomePage({isAuthenticated, setAuthentication, username, usernameToLogin
     }, []);
 
     
-  
+    
+
+    const menuItems = [
+      {
+        label: "Logout",
+        icon: "pi pi-sign-out"
+        
+      },
+    ];
 
 
+    
   const toSignupPage = () => {
 
         
@@ -144,11 +154,13 @@ const toLoginPage = () => {
     <div className="bg-hero w-full h-full p-1px">
       <div className="navbar">
         <div className="navlinks">
-         { !isAuthenticated ? (<><span onClick={toLoginPage} className="cursor-pointer">Log In</span>
+         { !isAuthenticated ? (<div className="login"><span onClick={toLoginPage} className="cursor-pointer">Log In</span>
            <span >|</span>
-           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></>): (<><span>Welcome, {username} </span> <i className="pi pi-sort-down-fill" style={{ color: 'white' }}></i></>)}
+           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></div>): (<div className="username"><span>Welcome, {username} </span> <i className="pi pi-sort-down-fill" style={{ color: 'white' }} ></i></div>)}
          </div>
       </div>
+      
+     
       <div className="title">
         <h1 className="first-title text-center text-white mt-50px">
           URL Shortener App
