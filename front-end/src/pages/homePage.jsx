@@ -98,9 +98,9 @@ const hideMenu = () => {
      setShowMenu(false)
 }
 
-const displayMenu = () => {
+const toggleMenu = () => {
 
-    setShowMenu(true)
+    setShowMenu((prev) => !prev)
 }
 
  
@@ -168,12 +168,12 @@ const handleOriginalURLChange = (e) => {
 
   return (
     <div className="bg-hero w-full h-full p-1px">
-      <div className="navbar">
+      <div className="navbar" onClick={hideMenu}>
         <div className="navlinks">
          { !isAuthenticated ? (<div className="login"><span onClick={toLoginPage} className="cursor-pointer">Log In</span>
            <span >|</span>
-           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></div>): (<div className="flex flex-column"><div className="username" onClick={displayMenu}> 
-            <span>Welcome, {username} </span> <i className="pi pi-sort-down-fill" style={{ color: 'white' }} ></i>
+           <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></div>): (<div className="flex flex-column"><div className="username" onClick={toggleMenu}> 
+            <span>Welcome, {username} </span> { showMenu ? (<i className="pi pi-sort-up-fill" style={{ color: 'white' }} ></i>) :(<i className="pi pi-sort-down-fill" style={{ color: 'white' }} ></i>) }
            </div> { showMenu && (<div className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full"><i className="pi pi-sign-out" style={{ color: 'white' }} ></i> <span>Log out</span></div>)}</div>)}
          </div>
       </div>
