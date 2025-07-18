@@ -21,7 +21,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from 'primereact/password';
 
-function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMessage }){
+function LoginPage({usernameToLogin, alertMessage, setAlertMessage }){
 
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
@@ -55,7 +55,7 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
           }
           }
          catch (err) {
-          setAuthentication(false)
+          console.log("error")
         }
       };
       fetchAuthentication()
@@ -89,7 +89,7 @@ function LoginPage({setAuthentication, usernameToLogin, alertMessage, setAlertMe
         if (response.ok) {
           setGoodResponse(true);
           const result = await response.json();
-          setAuthentication(true)
+          // setAuthentication(true)
           usernameToLogin(username)
           navigate("/")
           // setDialog({

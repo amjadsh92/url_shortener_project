@@ -42,7 +42,7 @@ app.use(
       pool: pool,
       tableName: 'session',
     }),
-    cookie: { maxAge: 1000 * 60 * 1 },
+    cookie: { maxAge: 1000 * 60 * 3 },
   })
 );
 

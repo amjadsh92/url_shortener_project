@@ -24,7 +24,7 @@ import { InputText } from "primereact/inputtext";
 
 
 
-function HomePage({isAuthenticated, setAuthentication, username, usernameToLogin, setAlertMessage}){
+function HomePage({username, usernameToLogin, setAlertMessage}){
 
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
@@ -38,7 +38,7 @@ function HomePage({isAuthenticated, setAuthentication, username, usernameToLogin
   const [borderRedZone, setBorderRedZone] = useState({});
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false)
-
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   
@@ -53,16 +53,16 @@ function HomePage({isAuthenticated, setAuthentication, username, usernameToLogin
           credentials: 'include',
         } );
         const result = await res.json();
-        setAuthentication(result.isAuthenticated) 
+        setIsAuthenticated(result.isAuthenticated) 
         usernameToLogin(result.username)
         console.log(result)
         }
        catch (err) {
-        setAuthentication(false)
+        setIsAuthenticated(false)
       }
     };
     fetchAuthentication()
-    }, []);
+    }, [isAuthenticated]);
 
     
     
@@ -124,6 +124,40 @@ const handleOriginalURLChange = (e) => {
     setBorderRedZone({});
   };
 
+  const handleLogout = async () => {
+
+
+    try {
+      const response = await fetch(`${baseURL}/api/logout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials:'include'
+      });
+
+      if (response.ok) {
+        
+        const result = await response.json();
+        setIsAuthenticated(false)
+        navigate("/")
+      }
+        
+      else  {
+        
+        const result = await response.json();
+        console.log(result.error)
+      }
+
+     } catch (error) {
+      console.log("The server is down. Please Try again later.");
+    
+    }
+
+      
+       
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -181,7 +215,7 @@ const handleOriginalURLChange = (e) => {
            <span >|</span>
            <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></div>): (<div className="flex flex-column"><div className="username" onClick={toggleMenu} ref={usernameRef}> 
             <span>Welcome, {username} </span> { showMenu ? (<i className="pi pi-sort-up-fill" style={{ color: 'white' }} ></i>) :(<i className="pi pi-sort-down-fill" style={{ color: 'white' }} ></i>) }
-           </div> { showMenu && (<div className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full" ref={logoutRef}><i className="pi pi-sign-out" style={{ color: 'white' }} ></i> <span>Log out</span></div>)}</div>)}
+           </div> { showMenu && (<div className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full" ref={logoutRef} onClick={handleLogout}><i className="pi pi-sign-out" style={{ color: 'white' }} ></i> <span>Log out</span></div>)}</div>)}
          </div>
       </div>
       
