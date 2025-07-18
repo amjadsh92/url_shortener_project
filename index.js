@@ -246,6 +246,22 @@ const handleAPIs = () => {
       } 
     });
   
+    app.post("/api/logout", (req, res, next) => {
+      req.logout(function (err) {
+        if (err) return next(err);
+  
+        req.session.destroy((err) => {
+          if (err) {
+            return res.status(500).json({ error: "Failed to destroy session" });
+          }
+  
+          res.clearCookie("connect.sid"); 
+          return res.json({ message: "You are now logged out", success: true });
+        });
+      });
+    });
+
+
 
   app.post("/api/register", async function (req, res) {
 

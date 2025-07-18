@@ -95,10 +95,12 @@ const toLoginPage = () => {
 }
 
 const usernameRef = useRef(null)
+const logoutRef = useRef(null)
 
 const hideMenu = () => {
-    if(usernameRef.current &&
-      !usernameRef.current.contains(event.target)){
+    if((usernameRef.current &&
+      !usernameRef.current.contains(event.target)) || (logoutRef.current &&
+      !logoutRef.current.contains(event.target)) ){
      setShowMenu(false)
       }
 }
@@ -179,7 +181,7 @@ const handleOriginalURLChange = (e) => {
            <span >|</span>
            <span onClick={toSignupPage} className="cursor-pointer">Sign Up</span></div>): (<div className="flex flex-column"><div className="username" onClick={toggleMenu} ref={usernameRef}> 
             <span>Welcome, {username} </span> { showMenu ? (<i className="pi pi-sort-up-fill" style={{ color: 'white' }} ></i>) :(<i className="pi pi-sort-down-fill" style={{ color: 'white' }} ></i>) }
-           </div> { showMenu && (<div className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full"><i className="pi pi-sign-out" style={{ color: 'white' }} ></i> <span>Log out</span></div>)}</div>)}
+           </div> { showMenu && (<div className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full" ref={logoutRef}><i className="pi pi-sign-out" style={{ color: 'white' }} ></i> <span>Log out</span></div>)}</div>)}
          </div>
       </div>
       
