@@ -31,7 +31,7 @@ function App() {
           <Route
             path="/"
             element={
-              <HomePage setAlertMessage={setAlertMessage} setLoading={setLoading}/>
+              <HomePage setAlertMessage={setAlertMessage} setLoading={setLoading} loading={loading}/>
             }
           />
 

@@ -3,6 +3,9 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
+// const preloader = document.getElementById('preloader')
+// if (preloader) preloader.remove()
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />

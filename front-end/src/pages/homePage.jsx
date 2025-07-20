@@ -16,7 +16,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
 
-function HomePage({ setAlertMessage, setLoading }) {
+function HomePage({ setAlertMessage, setLoading, loading }) {
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
   let [shortSlug, setShortSlug] = useState("");
@@ -38,14 +38,23 @@ function HomePage({ setAlertMessage, setLoading }) {
   useEffect(() => {
     const fetchAuthentication = async () => {
       try {
+        // setLoading(true)
         const res = await fetch(`${baseURL}/api/authentication`, {
           credentials: "include",
         });
         const result = await res.json();
+        if(result){
         setIsAuthenticated(result.isAuthenticated);
         setUsername(result.username);
+      
+        }
       } catch (err) {
         setIsAuthenticated(false);
+      }finally{
+       
+          const preloader = document.getElementById('preloader');
+          if (preloader) preloader.remove();
+       
       }
     };
     fetchAuthentication();
@@ -159,6 +168,10 @@ function HomePage({ setAlertMessage, setLoading }) {
       setShorturlLoading(false);
     }
   };
+
+  // if(loading) {
+  //   return null; 
+  // }
 
   return (
     <div className="bg-hero w-full h-full p-1px">
