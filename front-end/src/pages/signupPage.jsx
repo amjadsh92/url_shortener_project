@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { useNavigate } from "react-router-dom";
 import "./signupPage.scss";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primeflex/primeflex.css";
@@ -14,12 +13,12 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { useState, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
+import { useNavigate } from "react-router-dom";
 
 
 
-function SignupPage() {
+function SignupPage({setLoading }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +52,13 @@ function SignupPage() {
   
 
   const toLoginPage = () => {
-    navigate("/login");
+
+    setLoading(true);
+    setTimeout(() => {
+      navigate("/login");
+      setLoading(false);
+    }, 1000); 
+    
   };
 
   const toHomePage = () => {
@@ -138,8 +143,6 @@ function SignupPage() {
 
             <Button
               className="mt-4 w-full"
-              //   icon={`${!loading ? "pi pi-arrow-right" : "pi pi-spin pi-spinner"}`}
-              //   iconPos={"right"}
               label={"Sign up"}
               type="submit"
             />
@@ -179,7 +182,7 @@ function SignupPage() {
                   </div>
                 }
               >
-                {/* <div dangerouslySetInnerHTML={{ __html: dialog.message }} /> */}
+                
                 <DialogContent
                   message={dialog.message}
                   goodResponse={goodResponse}

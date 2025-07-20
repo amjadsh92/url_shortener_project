@@ -8,7 +8,7 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: "http://localhost:5173",
   credentials: true
 }));
 app.use("/public", express.static(`${process.cwd()}/public`));
@@ -42,7 +42,7 @@ app.use(
       pool: pool,
       tableName: 'session',
     }),
-    cookie: { maxAge: 1000 * 60 * 3 },
+    cookie: { maxAge: 1000 * 60 * 30 },
   })
 );
 

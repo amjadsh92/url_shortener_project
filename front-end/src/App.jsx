@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { useState } from "react";
-
+import { ProgressSpinner } from "primereact/progressspinner";
 import HomePage from './pages/homePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/signupPage';
@@ -15,23 +15,28 @@ import SignupPage from './pages/signupPage';
 
 function App() {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [username, setUsername] = useState("")
   const [alertMessage, setAlertMessage]  = useState(false)
-
+  const [loading, setLoading] = useState(false);
   return (
     <Router>
+
+      {loading && (
+          <div className="overlay">
+          <ProgressSpinner style={{ width: '100px', height: '100px' }} />
+          </div>
+        
+      )}
       
         <Routes>
           <Route
             path="/"
             element={
-              <HomePage  isAuthenticated={isAuthenticated} setAuthentication ={setIsAuthenticated} username={username} usernameToLogin ={setUsername}  setAlertMessage={setAlertMessage}/>
+              <HomePage setAlertMessage={setAlertMessage} setLoading={setLoading}/>
             }
           />
 
-        <Route path="/login" element={<LoginPage setAuthentication={setIsAuthenticated} usernameToLogin={setUsername} alertMessage={alertMessage} setAlertMessage={setAlertMessage} />} />
-        <Route path="/signup" element={<SignupPage isAuthenticated={isAuthenticated} />} />
+        <Route path="/login" element={  <LoginPage alertMessage={alertMessage} setAlertMessage={setAlertMessage} setLoading={setLoading} />} />
+        <Route path="/signup" element={ <SignupPage setLoading={setLoading} />} />
          
         </Routes>
       
