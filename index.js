@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const { body, validationResult } = require('express-validator');
 const cors = require("cors");
 const app = express();
 const URL = require("url").URL;
@@ -236,7 +237,7 @@ const handleAPIs = () => {
   });
 
 
-  // 
+ 
   
   app.post("/api/login", 
     passport.authenticate("local"), (req, res) => {
@@ -263,19 +264,39 @@ const handleAPIs = () => {
 
 
 
-  app.post("/api/register", async function (req, res) {
+  app.post("/api/register", [
+    body('username')
+      .isLength({ min: 4, max: 20 })
+      .withMessage('Username must be 4-20 characters long')
+      .isAlphanumeric()
+      .withMessage('Username must contain only letters and numbers'),
+    body('password')
+      .isStrongPassword({
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage('Password must be strong (1 upper, 1 lower, 1 number, 1 symbol) and minimum length of 8 charachters'),
+  ], async function (req, res) {
+       
 
-      let username = req.body.username?.trim()
-      let password = req.body.password
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      // let username = req.body.username?.trim()
+      // let password = req.body.password
 
-      if (!username){
-        res.status(400).json({error:"The username can't be empty!"})
-        return
-      }
-      if (!password){
-        res.status(400).json({error:"The password can't be empty!"})
-        return
-      }
+      // if (!username){
+      //   res.status(400).json({error:"The username can't be empty!"})
+      //   return
+      // }
+      // if (!password){
+      //   res.status(400).json({error:"The password can't be empty!"})
+      //   return
+      // }
     
       try {
         
