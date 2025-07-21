@@ -120,6 +120,7 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
   };
 
   const handleLogout = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${baseURL}/api/logout`, {
         method: "POST",
@@ -131,12 +132,12 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
 
       if (response.ok) {
         const result = await response.json();
-        setIsAuthenticated(false);
-        setLoading(true);
+       
+        
         setTimeout(() => {
-          navigate("/");
-          setLoading(false);
+          setIsAuthenticated(false);
         }, 2000);
+        
       } else {
         const result = await response.json();
         console.log(result.error);
@@ -199,7 +200,7 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
     <div className="bg-hero w-full h-full p-1px">
       <div className="navbar" onClick={hideMenu}>
         <div className="navlinks">
-          {!isAuthenticated? (
+          {!isAuthenticated ? (
             <div className="login">
               <span onClick={toLoginPage} className="cursor-pointer">
                 Log In
@@ -228,7 +229,6 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
               {showMenu && (
                 <div
                   className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full"
-                  ref={logoutRef}
                   onClick={handleLogout}
                 >
                   <i className="pi pi-sign-out" style={{ color: "white" }}></i>{" "}
