@@ -120,7 +120,7 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
     setAlertMessage(false);
     setLoading(true);
     setTimeout(() => {
-      navigate("/");
+      navigate("/signup");
       setLoading(false);
     }, 1000);
   };
