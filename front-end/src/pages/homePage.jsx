@@ -46,10 +46,13 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
         if(result){
         setIsAuthenticated(result.isAuthenticated);
         setUsername(result.username);
+        
       
         }
       } catch (err) {
         setIsAuthenticated(false);
+      }finally{
+        setLoading(false)
       }
     };
     fetchAuthentication();
@@ -74,7 +77,11 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
   
 
   const toSignupPage = () => {
-    navigate("/signup");
+    setLoading(true);
+    setTimeout(() => {
+      navigate("/signup");
+      setLoading(false);
+    }, 1000);
   };
 
   const toLoginPage = () => {
@@ -82,7 +89,7 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
     setTimeout(() => {
       navigate("/login");
       setLoading(false);
-    }, 2000);
+    }, 1000);
     
   };
 
@@ -125,7 +132,11 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
       if (response.ok) {
         const result = await response.json();
         setIsAuthenticated(false);
-        navigate("/");
+        setLoading(true);
+        setTimeout(() => {
+          navigate("/");
+          setLoading(false);
+        }, 2000);
       } else {
         const result = await response.json();
         console.log(result.error);
@@ -188,7 +199,7 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
     <div className="bg-hero w-full h-full p-1px">
       <div className="navbar" onClick={hideMenu}>
         <div className="navlinks">
-          {!isAuthenticated ? (
+          {!isAuthenticated? (
             <div className="login">
               <span onClick={toLoginPage} className="cursor-pointer">
                 Log In

@@ -47,18 +47,25 @@ function SignupPage({setLoading }) {
           }
         };
         fetchAuthentication()
+
+        const img = new Image();
+        img.src = '5559852.jpg'; 
+
+        img.onload = () => {
+          const preloader = document.getElementById('preloader');
+          if (preloader) {
+            preloader.style.transition = 'opacity 0.5s';
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.remove(), 500);
+          }
+        };
+
         }, []);
     
   
 
   const toLoginPage = () => {
-
-    setLoading(true);
-    setTimeout(() => {
-      navigate("/login");
-      setLoading(false);
-    }, 1000); 
-    
+    navigate("/login");
   };
 
   const toHomePage = () => {

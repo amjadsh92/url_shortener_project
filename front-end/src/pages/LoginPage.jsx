@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
 import { Password } from "primereact/password";
 
-function LoginPage({ alertMessage, setAlertMessage }) {
+function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [dialog, setDialog] = useState({
@@ -47,6 +47,19 @@ function LoginPage({ alertMessage, setAlertMessage }) {
       }
     };
     fetchAuthentication();
+
+    const img = new Image();
+    img.src = '5559852.jpg'; 
+
+    img.onload = () => {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.style.transition = 'opacity 0.5s';
+        preloader.style.opacity = '0';
+        setTimeout(() => preloader.remove(), 500);
+      }
+    };
+
   }, []);
 
   const handleUsername = (e) => {
@@ -74,7 +87,11 @@ function LoginPage({ alertMessage, setAlertMessage }) {
 
       if (response.ok) {
         setGoodResponse(true);
-        navigate("/");
+        setLoading(true);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+        // navigate("/")
       } else if (response.status === 401) {
         setGoodResponse(false);
         setDialog({
@@ -101,12 +118,20 @@ function LoginPage({ alertMessage, setAlertMessage }) {
 
   const toSignupPage = () => {
     setAlertMessage(false);
-    navigate("/signup");
+    setLoading(true);
+    setTimeout(() => {
+      navigate("/");
+      setLoading(false);
+    }, 1000);
   };
 
   const toHomePage = () => {
     setAlertMessage(false);
-    navigate("/");
+    setLoading(true);
+    setTimeout(() => {
+      navigate("/");
+      setLoading(false);
+    }, 1000);
   };
 
   return (
