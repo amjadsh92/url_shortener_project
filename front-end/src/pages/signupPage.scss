@@ -1,56 +1,43 @@
+.dialog-signup.p-dialog {
+  width: 30vw !important;
+}
 
-.dialog-signup.p-dialog{
-    width:30vw !important;
-  }  
+.form-signup {
+  .p-card .p-card-title {
+    padding: 1.25rem;
+    padding-bottom: 0rem;
+    text-align: center;
+  }
 
+  .p-card {
+    width: 45% !important;
+  }
 
+  .p-card-content {
+    padding-top: 0rem;
+  }
 
-.form-signup{
-    .p-card .p-card-title {
-        padding: 1.25rem;
-        padding-bottom: 0rem;
-        text-align: center;
-    
-    }
+  .p-password-input {
+    width: 100% !important;
+  }
 
-    .p-card{
-  
-        width: 45% !important;
-      
-      }
+  .p-password {
+    display: block;
+  }
+  .p-autocomplete-input {
+    width: 100% !important;
+  }
 
-    
+  .p-autocomplete {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
 
-     .p-card-content{
+  .p-button {
+    border-radius: 20px;
+  }
 
-        padding-top:0rem;
-     }
-
-     .p-password-input{
-        
-        width:100% !important;
-     }
-    
-    .p-password{
-        display: block;
-    }
-      .p-autocomplete-input{
-        width:100% !important;
-      }
-      
-      .p-autocomplete {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    
-      }
-      
-    .p-button{
-        border-radius:20px;
-    }
-    
-    .dialog-signup .p-dialog{
-        width:30vw !important;
-      }  
-    
-
-}    
+  .dialog-signup .p-dialog {
+    width: 30vw !important;
+  }
+}

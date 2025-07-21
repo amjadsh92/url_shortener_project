@@ -16,9 +16,7 @@ import { Dialog } from "primereact/dialog";
 import { Password } from "primereact/password";
 import { useNavigate } from "react-router-dom";
 
-
-
-function SignupPage({setLoading }) {
+function SignupPage({ setLoading }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,41 +29,41 @@ function SignupPage({setLoading }) {
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-        const fetchAuthentication = async () => {
-          try {
-            const res = await fetch(`${baseURL}/api/authentication`, {
-              credentials: 'include',
-            } );
-            const result = await res.json();
-            if(result.isAuthenticated){
-              navigate("/")
-            }
-            
-            }
-           catch (err) {
-            console.log("failed to know authentication state")
-          }
-        };
-        fetchAuthentication()
+    const fetchAuthentication = async () => {
+      try {
+        const res = await fetch(`${baseURL}/api/authentication`, {
+          credentials: "include",
+        });
+        const result = await res.json();
+        if (result.isAuthenticated) {
+          navigate("/");
+        }
+      } catch (err) {
+        console.log("failed to know authentication state");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAuthentication();
 
-        const img = new Image();
-        img.src = '5559852.jpg'; 
+    const img = new Image();
+    img.src = "5559852.jpg";
 
-        img.onload = () => {
-          const preloader = document.getElementById('preloader');
-          if (preloader) {
-            preloader.style.transition = 'opacity 0.5s';
-            preloader.style.opacity = '0';
-            setTimeout(() => preloader.remove(), 500);
-          }
-        };
-
-        }, []);
-    
-  
+    img.onload = () => {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.style.transition = "opacity 0.5s";
+        preloader.style.opacity = "0";
+        setTimeout(() => preloader.remove(), 500);
+      }
+    };
+  }, []);
 
   const toLoginPage = () => {
-    navigate("/login");
+    setLoading(true);
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
   };
 
   const toHomePage = () => {
@@ -148,11 +146,7 @@ function SignupPage({setLoading }) {
               required
             />
 
-            <Button
-              className="mt-4 w-full"
-              label={"Sign up"}
-              type="submit"
-            />
+            <Button className="mt-4 w-full" label={"Sign up"} type="submit" />
 
             <div className="login flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Already have an account?</p>
@@ -189,7 +183,6 @@ function SignupPage({setLoading }) {
                   </div>
                 }
               >
-                
                 <DialogContent
                   message={dialog.message}
                   goodResponse={goodResponse}
@@ -204,9 +197,6 @@ function SignupPage({setLoading }) {
     </div>
   );
 }
-
-
-
 
 function DialogContent({ message, goodResponse, username, toLoginPage }) {
   if (!goodResponse) return <div className="mt-4 ml-6px">{message}</div>;

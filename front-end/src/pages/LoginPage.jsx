@@ -44,6 +44,8 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
         }
       } catch (err) {
         console.log("error");
+      }finally{
+        setLoading(false)
       }
     };
     fetchAuthentication();
@@ -91,7 +93,7 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
         setTimeout(() => {
           navigate("/");
         }, 1000);
-        // navigate("/")
+        
       } else if (response.status === 401) {
         setGoodResponse(false);
         setDialog({
@@ -121,7 +123,6 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
     setLoading(true);
     setTimeout(() => {
       navigate("/signup");
-      setLoading(false);
     }, 1000);
   };
 

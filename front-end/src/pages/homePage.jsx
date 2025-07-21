@@ -16,7 +16,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
 
-function HomePage({ setAlertMessage, setLoading, loading }) {
+function HomePage({ setAlertMessage, setLoading }) {
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
   let [shortSlug, setShortSlug] = useState("");
@@ -34,72 +34,62 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
+  const usernameRef = useRef(null);
+  // const logoutRef = useRef(null);
 
   useEffect(() => {
     const fetchAuthentication = async () => {
       try {
-        // setLoading(true)
         const res = await fetch(`${baseURL}/api/authentication`, {
           credentials: "include",
         });
         const result = await res.json();
-        if(result){
-        setIsAuthenticated(result.isAuthenticated);
-        setUsername(result.username);
-        
-      
+        if (result) {
+          setIsAuthenticated(result.isAuthenticated);
+          setUsername(result.username);
         }
       } catch (err) {
         setIsAuthenticated(false);
-      }finally{
-        setLoading(false)
+      } finally {
+        
+        setLoading(false);
       }
     };
     fetchAuthentication();
 
     const img = new Image();
-    img.src = '5559852.jpg'; 
+    img.src = "5559852.jpg";
 
     img.onload = () => {
-      const preloader = document.getElementById('preloader');
+      const preloader = document.getElementById("preloader");
       if (preloader) {
-        preloader.style.transition = 'opacity 0.5s';
-        preloader.style.opacity = '0';
+        preloader.style.transition = "opacity 0.5s";
+        preloader.style.opacity = "0";
         setTimeout(() => preloader.remove(), 500);
       }
     };
-
-
-
-
   }, [isAuthenticated]);
-
-  
 
   const toSignupPage = () => {
     setLoading(true);
     setTimeout(() => {
       navigate("/signup");
-      setLoading(false);
-    }, 1000);
+      }, 1000);
   };
 
   const toLoginPage = () => {
     setLoading(true);
     setTimeout(() => {
       navigate("/login");
-      setLoading(false);
     }, 1000);
-    
   };
 
-  const usernameRef = useRef(null);
-  const logoutRef = useRef(null);
-
+ 
   const hideMenu = () => {
     if (
-      (usernameRef.current && !usernameRef.current.contains(event.target)) ||
-      (logoutRef.current && !logoutRef.current.contains(event.target))
+      (usernameRef.current && !usernameRef.current.contains(event.target)) 
+      // ||
+      // (logoutRef.current && !logoutRef.current.contains(event.target))
     ) {
       setShowMenu(false);
     }
@@ -131,13 +121,11 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
       });
 
       if (response.ok) {
-        const result = await response.json();
-       
-        
+        await response.json();
+
         setTimeout(() => {
           setIsAuthenticated(false);
         }, 2000);
-        
       } else {
         const result = await response.json();
         console.log(result.error);
@@ -192,10 +180,6 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
     }
   };
 
-  // if(loading) {
-  //   return null; 
-  // }
-
   return (
     <div className="bg-hero w-full h-full p-1px">
       <div className="navbar" onClick={hideMenu}>
@@ -203,11 +187,11 @@ function HomePage({ setAlertMessage, setLoading, loading }) {
           {!isAuthenticated ? (
             <div className="login">
               <span onClick={toLoginPage} className="cursor-pointer">
-                Log In
+                Login
               </span>
               <span>|</span>
               <span onClick={toSignupPage} className="cursor-pointer">
-                Sign Up
+                Signup
               </span>
             </div>
           ) : (
