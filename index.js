@@ -297,8 +297,20 @@ const handleAPIs = () => {
       //   res.status(400).json({error:"The password can't be empty!"})
       //   return
       // }
+
+        const username = req.body.username;
+        const password = req.body.password;
+        const selectQuery = `SELECT username FROM users WHERE username=$1`;
+        const selectResult = await pool.query(selectQuery, [username]);
+        const usernameExists = selectResult.rows.length;
+
+        if(usernameExists){
+           res.status(400).json({error:"The username is already taken"})
+           return
+        }
     
       try {
+        
         
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
