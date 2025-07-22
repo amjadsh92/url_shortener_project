@@ -64,7 +64,7 @@ function SignupPage({ setLoading }) {
 
 
   const toLoginPage = () => {
-    setBorderRedZone({});
+    
     setLoading(true);
     setTimeout(() => {
       navigate("/login");
@@ -72,16 +72,18 @@ function SignupPage({ setLoading }) {
   };
 
   const toHomePage = () => {
-    setBorderRedZone({});
+    
     navigate("/");
   };
 
   const handleUsername = (e) => {
+    setErrorMessage("")
     setBorderRedZone({});
     setUsername(e.value);
   };
 
   const handlePassword = (e) => {
+    setErrorMessage("")
     setBorderRedZone({});
     setPassword(e.target.value);
   };
@@ -124,6 +126,7 @@ function SignupPage({ setLoading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("")
     setBorderRedZone({});
     const baseURL = import.meta.env.VITE_BASE_URL;
     let credentials = { username, password };
@@ -208,11 +211,11 @@ function SignupPage({ setLoading }) {
               required
             />
 
-           {!goodResponse && (
-                <p className="text-red-700 text-sm ml-1 mb-3">{errorMessage}</p>
-              )}
+           {
+                <p className="text-red-700 text-sm ml-1 mt-4">{errorMessage}</p>
+              }
 
-            <Button className="mt-4 w-full" label={"Sign up"} type="submit" />
+            <Button className="mt-3 w-full" label={"Sign up"} type="submit" />
 
             <div className="login flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Already have an account?</p>
