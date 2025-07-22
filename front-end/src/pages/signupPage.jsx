@@ -8,6 +8,7 @@ import "../styles/fonts.css";
 import "../styles/colors.css";
 import "primeicons/primeicons.css";
 import "primeicons/primeicons.css";
+import * as yup from 'yup';
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
@@ -59,6 +60,7 @@ function SignupPage({ setLoading }) {
     };
   }, []);
 
+
   const toLoginPage = () => {
     setLoading(true);
     setTimeout(() => {
@@ -78,10 +80,56 @@ function SignupPage({ setLoading }) {
     setPassword(e.target.value);
   };
 
+  const schema = yup.object().shape({
+    username: yup
+      .string()
+      .min(4, "Username must be at least 4 characters long")
+      .max(20, "Username must be at most 20 characters long")
+      .matches(/^[a-zA-Z0-9]+$/, "Username must be alphanumeric")
+      .required("Username is required"),
+      
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long")
+      .matches(/[A-Z]/, "At least one uppercase letter required")
+      .matches(/[a-z]/, "At least one lowercase letter required")
+      .matches(/[0-9]/, "At least one number required")
+      .matches(/[@$!%*?&]/, "At least one special character required"),
+  });
+
+  const validCredentialFormat = async (data) => {
+    let path;
+    let message;
+
+    try {
+      await schema.validate(data, { abortEarly: false });
+      console.log('valid!');
+      return "valid"
+    } catch (err) {
+      if (err.inner) {
+        
+        path = err.inner[0].path
+        message = err.inner[0].message
+        return {path, message}
+      }
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const baseURL = import.meta.env.VITE_BASE_URL;
     let credentials = { username, password };
+    let credentialsFormat = await validCredentialFormat(credentials) 
+    if(credentialsFormat !== "valid"){
+      
+      setDialog({
+        visible: true,
+        message: credentialsFormat.message
+      });
+      
+      return
+    }
 
     try {
       const response = await fetch(`${baseURL}/api/register`, {
