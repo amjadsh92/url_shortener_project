@@ -27,6 +27,7 @@ function SignupPage({ setLoading }) {
   });
   const [goodResponse, setGoodResponse] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [borderRedZone, setBorderRedZone] = useState({});
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -63,6 +64,7 @@ function SignupPage({ setLoading }) {
 
 
   const toLoginPage = () => {
+    setBorderRedZone({});
     setLoading(true);
     setTimeout(() => {
       navigate("/login");
@@ -70,14 +72,17 @@ function SignupPage({ setLoading }) {
   };
 
   const toHomePage = () => {
+    setBorderRedZone({});
     navigate("/");
   };
 
   const handleUsername = (e) => {
+    setBorderRedZone({});
     setUsername(e.value);
   };
 
   const handlePassword = (e) => {
+    setBorderRedZone({});
     setPassword(e.target.value);
   };
 
@@ -105,7 +110,7 @@ function SignupPage({ setLoading }) {
 
     try {
       await schema.validate(data, { abortEarly: false });
-      console.log('valid!');
+    
       return "valid"
     } catch (err) {
       if (err.inner) {
@@ -119,12 +124,20 @@ function SignupPage({ setLoading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setBorderRedZone({});
     const baseURL = import.meta.env.VITE_BASE_URL;
     let credentials = { username, password };
     let credentialsFormat = await validCredentialFormat(credentials) 
+    
     if(credentialsFormat !== "valid"){
       setGoodResponse(false)
       setErrorMessage(credentialsFormat.message)
+      
+      if (credentialsFormat.path === "username") {
+        setBorderRedZone({ ...borderRedZone, usernameField: true });
+      } else if (credentialsFormat.path === "password") {
+        setBorderRedZone({ ...borderRedZone, passwordField: true });
+      }
       
       return
     }
@@ -170,9 +183,11 @@ function SignupPage({ setLoading }) {
           <p className="sub-title text-center text-gray">
             Welcome to our URL shotener app
           </p>
+          
           <form className="mt-4" onSubmit={handleSubmit}>
             <p className="url font-semibold mb-2">Username</p>
             <AutoComplete
+              className={`${borderRedZone?.usernameField ? "border-red borderRedZone" : ""}`}
               value={username}
               field="label"
               optionGroupLabel="label"
@@ -187,6 +202,7 @@ function SignupPage({ setLoading }) {
               id="password"
               toggleMask
               feedback={false}
+              className={`${borderRedZone?.passwordField ? "border-red borderRedZone" : ""}`}
               placeholder="Enter your password"
               onChange={handlePassword}
               required
@@ -242,6 +258,7 @@ function SignupPage({ setLoading }) {
               </Dialog>
             </div>
           </form>
+          
         </Card>
       </div>
     </div>
