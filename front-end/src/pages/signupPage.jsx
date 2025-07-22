@@ -26,6 +26,7 @@ function SignupPage({ setLoading }) {
     message: "",
   });
   const [goodResponse, setGoodResponse] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -122,11 +123,8 @@ function SignupPage({ setLoading }) {
     let credentials = { username, password };
     let credentialsFormat = await validCredentialFormat(credentials) 
     if(credentialsFormat !== "valid"){
-      
-      setDialog({
-        visible: true,
-        message: credentialsFormat.message
-      });
+      setGoodResponse(false)
+      setErrorMessage(credentialsFormat.message)
       
       return
     }
@@ -193,6 +191,10 @@ function SignupPage({ setLoading }) {
               onChange={handlePassword}
               required
             />
+
+           {!goodResponse && (
+                <p className="text-red-700 text-sm ml-1 mb-3">{errorMessage}</p>
+              )}
 
             <Button className="mt-4 w-full" label={"Sign up"} type="submit" />
 
