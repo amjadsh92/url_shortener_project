@@ -284,6 +284,7 @@ function SignupPage({ setLoading }) {
                   goodResponse={goodResponse}
                   username={username}
                   toLoginPage={toLoginPage}
+                  closeDialog={() => setDialog({ ...dialog, visible: false })}
                 />
               </Dialog>
             </div>
@@ -295,8 +296,13 @@ function SignupPage({ setLoading }) {
   );
 }
 
-function DialogContent({ message, goodResponse, username, toLoginPage }) {
+function DialogContent({ message, goodResponse, username, toLoginPage, closeDialog }) {
   if (!goodResponse) return <div className="mt-4 ml-6px">{message}</div>;
+
+  const handleClick = () => {
+    closeDialog();        
+    toLoginPage();        
+  };
 
   return (
     <>
@@ -307,7 +313,7 @@ function DialogContent({ message, goodResponse, username, toLoginPage }) {
       <span className="ml-6px">You can log in </span>
       <span
         className="cursor-pointer text-primary font-semibold"
-        onClick={toLoginPage}
+        onClick={handleClick}
       >
         here
       </span>
