@@ -305,17 +305,17 @@ const handleAPIs = () => {
         const usernameExists = selectResult.rows.length;
 
         if(usernameExists){
-           res.status(400).json({error:"The username is already taken"})
+           res.status(400).json({error:"The username is already taken", path:"username"})
            return
         }
     
       try {
         
-        
+                  
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
     
-        const result = await pool.query(
+        await pool.query(
           'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
           [username, hashedPassword]
         );

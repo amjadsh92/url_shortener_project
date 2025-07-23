@@ -26,10 +26,8 @@ function SignupPage({ setLoading }) {
     visible: false,
     message: "",
   });
-  const [goodResponse, setGoodResponse] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [borderRedZone, setBorderRedZone] = useState({});
-
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
@@ -145,7 +143,7 @@ function SignupPage({ setLoading }) {
     let credentialsFormat = await validCredentialFormat(credentials) 
     
     if(credentialsFormat !== "valid"){
-      setGoodResponse(false)
+      
       setErrorMessage(credentialsFormat.message)
       
       if (credentialsFormat.path === "username") {
@@ -169,7 +167,7 @@ function SignupPage({ setLoading }) {
       });
 
       if (response.ok) {
-        setGoodResponse(true);
+        
         const result = await response.json();
 
         setDialog({
@@ -177,16 +175,15 @@ function SignupPage({ setLoading }) {
           message: result.message,
         });
       } else if (!response.ok) {
-        setGoodResponse(false);
         const result = await response.json();
 
-        setDialog({
-          visible: true,
-          message: result.error,
-        });
+        setErrorMessage(result.error)
+        if (result.path === "username"){
+        setBorderRedZone({...borderRedZone, usernameField:true})
+        }
+        
       }
     } catch (error) {
-      setGoodResponse(false);
       setDialog({
         visible: true,
         message: "The server is down.Try again later",
@@ -238,9 +235,9 @@ function SignupPage({ setLoading }) {
               required
             />
 
-           {
-                <p className="text-red-700 text-sm ml-1 mt-4">{errorMessage}</p>
-              }
+           
+            <p className="text-red-700 text-sm ml-1 mt-4">{errorMessage}</p>
+              
 
             <Button className="mt-3 w-full" label={"Sign up"} type="submit" />
 
@@ -281,7 +278,6 @@ function SignupPage({ setLoading }) {
               >
                 <DialogContent
                   message={dialog.message}
-                  goodResponse={goodResponse}
                   username={username}
                   toLoginPage={toLoginPage}
                   closeDialog={() => setDialog({ ...dialog, visible: false })}
@@ -296,8 +292,8 @@ function SignupPage({ setLoading }) {
   );
 }
 
-function DialogContent({ message, goodResponse, username, toLoginPage, closeDialog }) {
-  if (!goodResponse) return <div className="mt-4 ml-6px">{message}</div>;
+function DialogContent({ message, username, toLoginPage, closeDialog }) {
+  // if (!goodResponse) return <div className="mt-4"><span className="mt-4 ml-6px">{message}</span> <i className="pi pi-times-circle" style={{ color: "red" }}></i></div>;
 
   const handleClick = () => {
     closeDialog();        
