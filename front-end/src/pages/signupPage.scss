@@ -19,6 +19,7 @@
 
   .p-password-input {
     width: 100% !important;
+    // margin-bottom: 0.5rem;
   }
 
   .p-password {
@@ -30,13 +31,14 @@
 
   .p-autocomplete {
     width: 100%;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
   }
 
   .borderRedZone{
 
     .p-inputtext {
       outline: none;
+    
     }
   
     .p-inputtext:enabled:focus {

@@ -21,6 +21,7 @@ function SignupPage({ setLoading }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [dialog, setDialog] = useState({
     visible: false,
     message: "",
@@ -88,6 +89,12 @@ function SignupPage({ setLoading }) {
     setPassword(e.target.value);
   };
 
+  const handleConfirmPassword = (e) => {
+    setErrorMessage("");
+    setBorderRedZone({});
+    setConfirmPassword(e.target.value);
+  };
+
   const schema = yup.object().shape({
     username: yup
       .string()
@@ -104,6 +111,11 @@ function SignupPage({ setLoading }) {
       .matches(/[a-z]/, "At least one lowercase letter required")
       .matches(/[0-9]/, "At least one number required")
       .matches(/[@$!%*?&]/, "At least one special character required"),
+
+    confirmPassword: yup
+      .string()
+      .required("Confirm your password")
+      .oneOf([yup.ref("password"), null], "Passwords must match"),  
   });
 
   const validCredentialFormat = async (data) => {
@@ -129,7 +141,7 @@ function SignupPage({ setLoading }) {
     setErrorMessage("")
     setBorderRedZone({});
     const baseURL = import.meta.env.VITE_BASE_URL;
-    let credentials = { username, password };
+    let credentials = { username, password, confirmPassword };
     let credentialsFormat = await validCredentialFormat(credentials) 
     
     if(credentialsFormat !== "valid"){
@@ -140,6 +152,8 @@ function SignupPage({ setLoading }) {
         setBorderRedZone({ ...borderRedZone, usernameField: true });
       } else if (credentialsFormat.path === "password") {
         setBorderRedZone({ ...borderRedZone, passwordField: true });
+      } else if (credentialsFormat.path === "confirmPassword") {
+        setBorderRedZone({ ...borderRedZone, confirmPasswordField: true });
       }
       
       return
@@ -180,14 +194,15 @@ function SignupPage({ setLoading }) {
     }
   };
   return (
-    <div className="bg-hero w-full h-full p-1px">
-      <div className="form-signup p-1px">
+    <div className="bg-hero align-content-center w-full h-full p-1px">
+      <div className="form-signup  p-1px">
         <Card title="Create your account" className="mt-6 mb-6 mx-auto">
           <p className="sub-title text-center text-gray">
             Welcome to our URL shotener app
           </p>
           
           <form className="mt-4" onSubmit={handleSubmit}>
+            <div className="mb-4">
             <p className="url font-semibold mb-2">Username</p>
             <AutoComplete
               className={`${borderRedZone?.usernameField ? "border-red borderRedZone" : ""}`}
@@ -199,7 +214,8 @@ function SignupPage({ setLoading }) {
               onChange={handleUsername}
               required
             />
-
+            </div>
+            <div className="mb-4">
             <p className="url font-semibold mb-2">Password</p>
             <Password
               id="password"
@@ -208,6 +224,17 @@ function SignupPage({ setLoading }) {
               className={`${borderRedZone?.passwordField ? "border-red borderRedZone" : ""}`}
               placeholder="Enter your password"
               onChange={handlePassword}
+              required
+            />
+            </div>
+            <p className="url font-semibold mb-2">Confirm Password</p>
+            <Password
+              toggleMask
+              feedback={false}
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={handleConfirmPassword}
+              className={`${borderRedZone?.confirmPasswordField ? "border-red borderRedZone" : ""}`}
               required
             />
 
