@@ -23,7 +23,7 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
     visible: false,
     message: "",
   });
-  const [goodResponse, setGoodResponse] = useState(false);
+  
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -88,20 +88,20 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
       });
 
       if (response.ok) {
-        setGoodResponse(true);
+        
         setLoading(true);
         setTimeout(() => {
           navigate("/");
         }, 1000);
         
       } else if (response.status === 401) {
-        setGoodResponse(false);
+        
         setDialog({
           visible: true,
           message: "Unvalid credentials!",
         });
       } else if (!response.ok) {
-        setGoodResponse(false);
+        
         const result = await response.json();
 
         setDialog({
@@ -110,7 +110,7 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
         });
       }
     } catch (error) {
-      setGoodResponse(false);
+      
       setDialog({
         visible: true,
         message: "The server is down.Try again later",
@@ -128,15 +128,11 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
 
   const toHomePage = () => {
     setAlertMessage(false);
-    setLoading(true);
-    setTimeout(() => {
-      navigate("/");
-      setLoading(false);
-    }, 1000);
+    navigate("/")
   };
 
   return (
-    <div className="bg-hero w-full h-full p-1px">
+    <div className="bg-hero w-full h-full p-1px align-content-center">
       <div className="form-login p-1px">
         <Card
           title="Welcome to our URL Shortener APP"
@@ -209,7 +205,7 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
               >
                 <DialogContent
                   message={dialog.message}
-                  goodResponse={goodResponse}
+                  
                 />
               </Dialog>
             </div>

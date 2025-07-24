@@ -35,7 +35,7 @@ function HomePage({ setAlertMessage, setLoading }) {
 
   const navigate = useNavigate();
   const usernameRef = useRef(null);
-  // const logoutRef = useRef(null);
+  
 
   useEffect(() => {
     const fetchAuthentication = async () => {
@@ -88,8 +88,7 @@ function HomePage({ setAlertMessage, setLoading }) {
   const hideMenu = () => {
     if (
       (usernameRef.current && !usernameRef.current.contains(event.target)) 
-      // ||
-      // (logoutRef.current && !logoutRef.current.contains(event.target))
+      
     ) {
       setShowMenu(false);
     }
@@ -244,7 +243,7 @@ function HomePage({ setAlertMessage, setLoading }) {
                 Paste your long link here
               </p>
               <AutoComplete
-                className={`${borderRedZone?.long ? "border-red" : "border-grey"}`}
+                className={`${borderRedZone?.long ? "border-red borderRedZone" : "border-grey"}`}
                 value={originalURL}
                 field="label"
                 optionGroupLabel="label"
@@ -259,7 +258,7 @@ function HomePage({ setAlertMessage, setLoading }) {
               </p>
               <AutoComplete
                 value={shortSlug}
-                className={`${borderRedZone?.short ? "border-red" : "border-grey"}`}
+                className={`${borderRedZone?.short ? "border-red borderRedZone" : "border-grey"}`}
                 field="label"
                 optionGroupLabel="label"
                 optionGroupChildren="items"
@@ -276,10 +275,11 @@ function HomePage({ setAlertMessage, setLoading }) {
                 label={"Get your link for free"}
               />
             </form>
-
+           
             <Dialog
               header="Here is your short URL!"
               visible={showDialog}
+              className="shorturl"
               style={{ width: "60vw" }}
               onHide={() => {
                 setShowDialog(false);

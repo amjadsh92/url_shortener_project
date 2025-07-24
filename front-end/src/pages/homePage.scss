@@ -1,347 +1,262 @@
-// #8d99ae
-
 .menu {
   padding-right: 20px !important;
   height: 50px;
   padding-left: 15px;
   width: 200px;
   background-color: rgba(40, 81, 140, 0.458823529);
-  // margin-right: 20px;
   border-top: 1px solid #423e3e;
-  
-  // border-radius: 5px;
-  // border-top-left-radius: 0px;
-  // border-top-right-radius: 0px;
-
 }
-
-
 
 .menu:hover {
   background-color: rgba(40, 81, 140, 0.6882352);
 }
 
-.navbar{
-  
-    // width: 150px;
-    height:50px;
-    background-color:#28518c75;
-    margin-right:0px;
-    margin-left:auto;
-    align-content: center;
-  }
-  
-  
-.navlinks{
-    display:flex;
-    justify-content: end;
-    align-items: center;
-    gap:8px;
-    // margin-right:20px;
-    
-  
-  }
-  
-  .navlinks > div > div > span {
-  
-    font-family: "Montserrat",sans-serif;
-    color:white;
-  }
+.navbar {
+  height: 50px;
+  background-color: #28518c75;
+  margin-right: 0px;
+  margin-left: auto;
+  align-content: center;
+}
 
-  .navlinks > .login > span {
-  
-    font-family: "Montserrat",sans-serif;
-    color:white;
-  }
+.navlinks {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
+}
 
-.navlinks > .login{
+.navlinks > div > div > span {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+}
+
+.navlinks > .login > span {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+}
+
+.navlinks > .login {
   display: flex;
   justify-content: end;
   align-items: center;
   gap: 5px;
-  /* padding: 10px; */
-  // padding-right: 10px; 
   height: 50px;
-  margin-right:20px;
+  margin-right: 20px;
 }
-  
 
+.navlinks > div > .username {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
+  padding-right: 20px !important;
+  height: 50px;
+  padding-left: 15px;
+  cursor: pointer;
+}
 
-  // .navlinks > div {
-  //   display:flex;
-  //   justify-content: end;
-  //   align-items: center;
-  //   gap:5px;
-  //   padding:10px
+.navlinks > div > .username:hover {
+  background-color: rgba(40, 81, 140, 0.3882352);
+}
 
-  // }
+.title > h1 {
+  font-family: "Montserrat", sans-serif;
+}
 
+.title > p {
+  font-family: "Raleway", sans-serif;
+}
 
-  .navlinks > div > .username {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    gap: 8px;
-    /* padding: 10px; */
-    padding-right: 20px !important; 
-    height: 50px;
-    padding-left: 15px;
-    cursor: pointer;
-  
-  }
+.title {
+  padding: 2rem;
+}
 
-  .navlinks > div >.username:hover {
-    
-    background-color: rgba(40, 81, 140, 0.3882352);
+.p-dialog .p-dialog-header {
+  padding: 0px;
+}
 
-  }
+.p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+  margin-right: 17px;
+  margin-top: 10px;
+}
 
+.p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-top: 15px;
+  margin-left: 30px;
+}
 
-  
+.p-dialog {
+  width: 50vw !important;
+}
 
-  
-  .title > h1{
-    font-family: "Montserrat",sans-serif;
-  
-    
-    
-  }
-  
-  .title > p{
-  
-    font-family: "Raleway",sans-serif;
-  }
-  
-  .title{
-    padding: 2rem;
-  }
+.first-title {
+  font-size: 2.5rem !important;
+}
 
-
-  .p-dialog .p-dialog-header {
-  
-    padding:0px;
-  
-  }
-  
-  
-  .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
-    margin-right: 17px;
-    margin-top: 10px;
-  
-  }
-  
-  .p-dialog .p-dialog-header .p-dialog-title {
-    font-weight: 700;
-    font-size: 1.25rem;
-    margin-top: 15px;
-    margin-left: 30px;
-  }
-
-
-  .p-dialog{
-    width:50vw !important;
-  }
-
-  .first-title{
-    font-size:2.5rem !important;
-  } 
-  
-  
-  
 .form-home {
+  .url {
+    font-family: "Montserrat";
+  }
 
-  .url{
-    font-family:'Montserrat';
+  .p-autocomplete-input {
+    width: 100% !important;
   }
-  
-  .p-autocomplete-input{
-    width:100% !important;
-  }
-  
+
   .p-autocomplete {
     width: 100%;
-  }  
-  
- 
-  
-  .p-inputtext{
-    outline:none;
   }
-  
+
+ .borderRedZone{ 
+
+  .p-inputtext {
+    outline: none;
+  }
+
   .p-inputtext:enabled:focus {
     outline: none;
     outline-offset: unset;
     box-shadow: unset;
     border-color: rgb(209, 213, 219);
   }
-  
+
   .p-inputtext:enabled:hover {
     border-color: rgb(209, 213, 219);
   }
-  
-  
-  
-  .p-card{
-  
+}
+
+  .p-card {
     width: 60% !important;
-  
   }
-  
-  }
-  @media (max-width: 1300px) {
-  
-    
-   
-    
-    .p-card{
-      
-      width: 66.6667% !important;
-    }
-    
-    
+}
 
 
-  
-  
+.shorturl{ 
+
+  .p-inputtext {
+    outline: none;
   }
-  
-  
-  @media (max-width: 900px) {
-  
-    
-  
-    
-    
-    .p-dialog{
-      width:60vw !important;
-    }
-  
+
+  .p-inputtext:enabled:focus {
+    outline: none;
+    outline-offset: unset;
+    box-shadow: unset;
+    border-color: rgb(209, 213, 219);
   }
-  
-  
-  @media (max-width: 850px) {
-  
-    .p-dialog{
-      width:60vw !important;
-    }
-  
-    .first-title{
-  
-      font-size:2.25rem !important;
-    } 
-    .second-title{
-  
-      font-size:1.75rem !important;
-    }  
-  
-    .title > p{
-      font-size:1.2rem !important;
-    }
-    
-  
-    .form-home .p-card .p-card-title {
-      font-size: 1.2rem;
-      
-    }
-  
-    form > p{
-      font-size:0.9rem;
-    }
-  
-    .form-home .p-inputtext {
-      font-size:0.9rem;
-  
-    }
-  
-    .form-home .p-button{
-      font-size:0.9rem;
-    }
-  
-    .form-home  .pi {
-      font-size: 0.9rem;
+
+  .p-inputtext:enabled:hover {
+    border-color: rgb(209, 213, 219);
   }
-  
-  .form-home .p-card{
-      
+}
+
+
+@media (max-width: 1300px) {
+  .p-card {
+    width: 66.6667% !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .p-dialog {
+    width: 60vw !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .p-dialog {
+    width: 60vw !important;
+  }
+
+  .first-title {
+    font-size: 2.25rem !important;
+  }
+  .second-title {
+    font-size: 1.75rem !important;
+  }
+
+  .title > p {
+    font-size: 1.2rem !important;
+  }
+
+  .form-home .p-card .p-card-title {
+    font-size: 1.2rem;
+  }
+
+  form > p {
+    font-size: 0.9rem;
+  }
+
+  .form-home .p-inputtext {
+    font-size: 0.9rem;
+  }
+
+  .form-home .p-button {
+    font-size: 0.9rem;
+  }
+
+  .form-home .pi {
+    font-size: 0.9rem;
+  }
+
+  .form-home .p-card {
     width: 83.3333% !important;
   }
+}
+
+@media (max-width: 650px) {
+  .p-dialog {
+    width: 80vw !important;
   }
-  
-  
-  
-  @media (max-width: 650px) {
-  
-    .p-dialog{
-      width:80vw !important;
-    }
-  
-    .first-title{
-  
-      font-size:2rem !important;
-    } 
-    .second-title{
-  
-      font-size:1.5rem !important;
-    }  
-  
-    .title > p{
-      font-size:1.1rem !important;
-    }
-  
-    .form-home .p-card{
-      
-      width: 83.3333% !important;
-    }
-  
-  } 
-  
-  
-  @media (max-width: 500px) {
-  
-    .dialog-input{
-      flex-direction: column !important;
-    }
-     
-    .p-dialog .p-dialog-header .p-dialog-title {
-      
-      font-size: 1rem !important;
-  
-    }
-  
-    .form-home  .p-icon {
-      width: 0.9rem !important ;
-      height: 0.9rem !important;
-    }
-  
-    .first-title{
-  
-      font-size:1.75rem !important;
-    } 
-    .second-title{
-  
-      font-size:1.25rem !important;
-    }  
-  
-    .title > p{
-      font-size:1rem !important;
-    }
-  
-    .form-home .p-card{
-      
-      width: 83.3333% !important;
-    }
-  
-    .second-title{
-      width:70%;
-      margin:auto
-    }
-  
-  } 
 
+  .first-title {
+    font-size: 2rem !important;
+  }
+  .second-title {
+    font-size: 1.5rem !important;
+  }
 
+  .title > p {
+    font-size: 1.1rem !important;
+  }
 
-  
-  
-    
-  
-  
+  .form-home .p-card {
+    width: 83.3333% !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .dialog-input {
+    flex-direction: column !important;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 1rem !important;
+  }
+
+  .form-home .p-icon {
+    width: 0.9rem !important ;
+    height: 0.9rem !important;
+  }
+
+  .first-title {
+    font-size: 1.75rem !important;
+  }
+  .second-title {
+    font-size: 1.25rem !important;
+  }
+
+  .title > p {
+    font-size: 1rem !important;
+  }
+
+  .form-home .p-card {
+    width: 83.3333% !important;
+  }
+
+  .second-title {
+    width: 70%;
+    margin: auto;
+  }
+}

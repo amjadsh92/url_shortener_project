@@ -8,7 +8,7 @@ import "../styles/fonts.css";
 import "../styles/colors.css";
 import "primeicons/primeicons.css";
 import "primeicons/primeicons.css";
-import * as yup from 'yup';
+import * as yup from "yup";
 import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
@@ -61,9 +61,7 @@ function SignupPage({ setLoading }) {
     };
   }, []);
 
-
   const toLoginPage = () => {
-    
     setLoading(true);
     setTimeout(() => {
       navigate("/login");
@@ -71,18 +69,17 @@ function SignupPage({ setLoading }) {
   };
 
   const toHomePage = () => {
-    
     navigate("/");
   };
 
   const handleUsername = (e) => {
-    setErrorMessage("")
+    setErrorMessage("");
     setBorderRedZone({});
     setUsername(e.value);
   };
 
   const handlePassword = (e) => {
-    setErrorMessage("")
+    setErrorMessage("");
     setBorderRedZone({});
     setPassword(e.target.value);
   };
@@ -100,7 +97,7 @@ function SignupPage({ setLoading }) {
       .max(20, "Username must be at most 20 characters long")
       .matches(/^[a-zA-Z0-9]+$/, "Username must be alphanumeric")
       .required("Username is required"),
-      
+
     password: yup
       .string()
       .required("Password is required")
@@ -113,7 +110,7 @@ function SignupPage({ setLoading }) {
     confirmPassword: yup
       .string()
       .required("Confirm your password")
-      .oneOf([yup.ref("password"), null], "Passwords must match"),  
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
 
   const validCredentialFormat = async (data) => {
@@ -122,30 +119,28 @@ function SignupPage({ setLoading }) {
 
     try {
       await schema.validate(data, { abortEarly: false });
-    
-      return "valid"
+
+      return "valid";
     } catch (err) {
       if (err.inner) {
-        
-        path = err.inner[0].path
-        message = err.inner[0].message
-        return {path, message}
+        path = err.inner[0].path;
+        message = err.inner[0].message;
+        return { path, message };
       }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage("")
+    setErrorMessage("");
     setBorderRedZone({});
     const baseURL = import.meta.env.VITE_BASE_URL;
     let credentials = { username, password, confirmPassword };
-    let credentialsFormat = await validCredentialFormat(credentials) 
-    
-    if(credentialsFormat !== "valid"){
-      
-      setErrorMessage(credentialsFormat.message)
-      
+    let credentialsFormat = await validCredentialFormat(credentials);
+
+    if (credentialsFormat !== "valid") {
+      setErrorMessage(credentialsFormat.message);
+
       if (credentialsFormat.path === "username") {
         setBorderRedZone({ ...borderRedZone, usernameField: true });
       } else if (credentialsFormat.path === "password") {
@@ -153,8 +148,8 @@ function SignupPage({ setLoading }) {
       } else if (credentialsFormat.path === "confirmPassword") {
         setBorderRedZone({ ...borderRedZone, confirmPasswordField: true });
       }
-      
-      return
+
+      return;
     }
 
     try {
@@ -167,7 +162,6 @@ function SignupPage({ setLoading }) {
       });
 
       if (response.ok) {
-        
         const result = await response.json();
 
         setDialog({
@@ -177,11 +171,10 @@ function SignupPage({ setLoading }) {
       } else if (!response.ok) {
         const result = await response.json();
 
-        setErrorMessage(result.error)
-        if (result.path === "username"){
-        setBorderRedZone({...borderRedZone, usernameField:true})
+        setErrorMessage(result.error);
+        if (result.path === "username") {
+          setBorderRedZone({ ...borderRedZone, usernameField: true });
         }
-        
       }
     } catch (error) {
       setDialog({
@@ -197,32 +190,32 @@ function SignupPage({ setLoading }) {
           <p className="sub-title text-center text-gray">
             Welcome to our URL shotener app
           </p>
-          
+
           <form className="mt-4" onSubmit={handleSubmit}>
             <div className="mb-4">
-            <p className="url font-semibold mb-2">Username</p>
-            <AutoComplete
-              className={`${borderRedZone?.usernameField ? "border-red borderRedZone" : ""}`}
-              value={username}
-              field="label"
-              optionGroupLabel="label"
-              optionGroupChildren="items"
-              placeholder="Enter your username"
-              onChange={handleUsername}
-              required
-            />
+              <p className="url font-semibold mb-2">Username</p>
+              <AutoComplete
+                className={`${borderRedZone?.usernameField ? "border-red borderRedZone" : ""}`}
+                value={username}
+                field="label"
+                optionGroupLabel="label"
+                optionGroupChildren="items"
+                placeholder="Enter your username"
+                onChange={handleUsername}
+                required
+              />
             </div>
             <div className="mb-4">
-            <p className="url font-semibold mb-2">Password</p>
-            <Password
-              id="password"
-              toggleMask
-              feedback={false}
-              className={`${borderRedZone?.passwordField ? "border-red borderRedZone" : ""}`}
-              placeholder="Enter your password"
-              onChange={handlePassword}
-              required
-            />
+              <p className="url font-semibold mb-2">Password</p>
+              <Password
+                id="password"
+                toggleMask
+                feedback={false}
+                className={`${borderRedZone?.passwordField ? "border-red borderRedZone" : ""}`}
+                placeholder="Enter your password"
+                onChange={handlePassword}
+                required
+              />
             </div>
             <p className="url font-semibold mb-2">Confirm Password</p>
             <Password
@@ -235,9 +228,7 @@ function SignupPage({ setLoading }) {
               required
             />
 
-           
             <p className="text-red-700 text-sm ml-1 mt-4">{errorMessage}</p>
-              
 
             <Button className="mt-3 w-full" label={"Sign up"} type="submit" />
 
@@ -285,7 +276,6 @@ function SignupPage({ setLoading }) {
               </Dialog>
             </div>
           </form>
-          
         </Card>
       </div>
     </div>
@@ -293,11 +283,9 @@ function SignupPage({ setLoading }) {
 }
 
 function DialogContent({ message, username, toLoginPage, closeDialog }) {
-  // if (!goodResponse) return <div className="mt-4"><span className="mt-4 ml-6px">{message}</span> <i className="pi pi-times-circle" style={{ color: "red" }}></i></div>;
-
   const handleClick = () => {
-    closeDialog();        
-    toLoginPage();        
+    closeDialog();
+    toLoginPage();
   };
 
   return (
