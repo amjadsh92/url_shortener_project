@@ -22,6 +22,7 @@ function SignupPage({ setLoading }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [signupLoading, setSignupLoading] = useState(false)
   const [dialog, setDialog] = useState({
     visible: false,
     message: "",
@@ -132,6 +133,7 @@ function SignupPage({ setLoading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSignupLoading(true)
     setErrorMessage("");
     setBorderRedZone({});
     const baseURL = import.meta.env.VITE_BASE_URL;
@@ -139,6 +141,7 @@ function SignupPage({ setLoading }) {
     let credentialsFormat = await validCredentialFormat(credentials);
 
     if (credentialsFormat !== "valid") {
+      setSignupLoading(false)
       setErrorMessage(credentialsFormat.message);
 
       if (credentialsFormat.path === "username") {
@@ -162,6 +165,7 @@ function SignupPage({ setLoading }) {
       });
 
       if (response.ok) {
+        setSignupLoading(false)
         const result = await response.json();
 
         setDialog({
@@ -170,6 +174,7 @@ function SignupPage({ setLoading }) {
         });
       } else if (!response.ok) {
         const result = await response.json();
+        setSignupLoading(false)
 
         setErrorMessage(result.error);
         if (result.path === "username") {
@@ -177,6 +182,7 @@ function SignupPage({ setLoading }) {
         }
       }
     } catch (error) {
+      setSignupLoading(false)
       setDialog({
         visible: true,
         message: "The server is down.Try again later",
@@ -230,7 +236,7 @@ function SignupPage({ setLoading }) {
 
             <p className="text-red-700 text-sm ml-1 mt-4">{errorMessage}</p>
 
-            <Button className="mt-3 w-full" label={"Sign up"} type="submit" />
+            <Button className="mt-3 w-full" label={`${signupLoading ? "" : "Sign up"}`} icon={`${ signupLoading ?  "pi pi-spin pi-spinner": ""}`}  type="submit" />
 
             <div className="login flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Already have an account?</p>
