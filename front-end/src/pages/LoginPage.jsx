@@ -40,9 +40,10 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
         const result = await res.json();
         if (result.isAuthenticated) {
           navigate("/");
-        } else if (navigationType === "navigation") {
-          setAlertMessage(false);
-        }
+        } 
+        // else if (navigationType === "navigation") {
+        //   setAlertMessage(false);
+        // }
       } catch (err) {
         console.log("error");
       }finally{
@@ -164,6 +165,7 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
               feedback={false}
               placeholder="Enter your password"
               onChange={handlePassword}
+              required
             />
 
 

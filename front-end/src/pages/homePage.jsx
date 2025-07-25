@@ -39,6 +39,7 @@ function HomePage({ setAlertMessage, setLoading }) {
 
   useEffect(() => {
     const fetchAuthentication = async () => {
+      setAlertMessage(false)
       try {
         const res = await fetch(`${baseURL}/api/authentication`, {
           credentials: "include",
@@ -186,11 +187,11 @@ function HomePage({ setAlertMessage, setLoading }) {
           {!isAuthenticated ? (
             <div className="login">
               <span onClick={toLoginPage} className="cursor-pointer">
-                Login
+                Log in
               </span>
               <span>|</span>
               <span onClick={toSignupPage} className="cursor-pointer">
-                Signup
+                Sign up
               </span>
             </div>
           ) : (

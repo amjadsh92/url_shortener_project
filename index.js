@@ -241,6 +241,17 @@ const handleAPIs = () => {
   
   app.post("/api/login", 
     passport.authenticate("local"), (req, res) => {
+
+      const username = req.body?.username;
+      const password = req.body?.password;
+
+      if (!username){
+        return res.status(400).json({error:"No username has been provided"})
+      }
+
+      if (!password){
+        return res.status(400).json({error:"No password has been provided"})
+      }
      
       if (req.isAuthenticated()) {
         res.json({message:`You are authenticated, your username is ${req.user.username}`, success:true});
