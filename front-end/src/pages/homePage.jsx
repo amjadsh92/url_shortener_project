@@ -136,7 +136,7 @@ function HomePage({ setAlertMessage, setLoading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     setShorturlLoading(true);
     let url = { originalURL, shortSlug };
 

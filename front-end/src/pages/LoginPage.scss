@@ -1,40 +1,36 @@
-
-.form-login{
-.p-card .p-card-title {
+.form-login {
+  .p-card .p-card-title {
     padding: 1.25rem;
     text-align: center;
+  }
 
-}
-
-.p-card{
-  
+  .p-card {
     width: 45% !important;
-  
   }
 
-.p-password{
+  .p-password {
     display: block;
-}
-
-
-.p-password-input{
-        
-    width:100% !important;
- }
-
-.p-autocomplete-input{
-    width:100% !important;
   }
-  
-.p-autocomplete {
+
+  .p-password-input {
+    width: 100% !important;
+  }
+
+  .p-autocomplete-input {
+    width: 100% !important;
+  }
+
+  .p-autocomplete {
     width: 100%;
     margin-bottom: 0.5rem;
-
   }
-  
-.p-button{
-    border-radius:20px;
-}  
 
+  .p-button {
+    border-radius: 20px;
+  }
+
+  .p-button .p-button-label {
+     transition-duration:unset;
+
+  }  
 }
-

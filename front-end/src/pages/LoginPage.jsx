@@ -19,6 +19,7 @@ import { Password } from "primereact/password";
 function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false)
   const [dialog, setDialog] = useState({
     visible: false,
     message: "",
@@ -74,6 +75,7 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoginLoading(true)
     const baseURL = import.meta.env.VITE_BASE_URL;
     let credentials = { username, password };
 
@@ -88,29 +90,28 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
       });
 
       if (response.ok) {
-        
+        setLoginLoading(false)
         setLoading(true);
         setTimeout(() => {
           navigate("/");
         }, 1000);
         
       } else if (response.status === 401) {
-        
+        setLoginLoading(false)        
         setDialog({
           visible: true,
           message: "Unvalid credentials!",
         });
       } else if (!response.ok) {
-        
         const result = await response.json();
-
+        setLoginLoading(false)
         setDialog({
           visible: true,
           message: result.error,
         });
       }
     } catch (error) {
-      
+      setLoginLoading(false)
       setDialog({
         visible: true,
         message: "The server is down.Try again later",
@@ -165,7 +166,8 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
               onChange={handlePassword}
             />
 
-            <Button className="mt-4 w-full" label={"Log in"} type="submit" />
+
+            <Button className="mt-4 w-full" label={loginLoading ? "" : "Log in"} icon={`${ loginLoading ?  "pi pi-spin pi-spinner": ""}`} type="submit" />
 
             <div className="create-account flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Don't have an account?</p>
