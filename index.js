@@ -101,12 +101,15 @@ const handleAPIs = () => {
    const selectURLsQuery = `SELECT original_url, short_url FROM mapping_long_short_url WHERE username =$1`
    const selectURLsResult = await pool.query(selectURLsQuery, [`${username}`]);
    let listOfURLs = selectURLsResult.rows
-   if(listOfURLs){
-    res.json({listOfURLs})
-   }
-   else{
+   const numberOfURLs  = listOfURLs.length
+
+   if(!numberOfURLs){
     res.status(400).json({error:"No urls found"})
    }
+   else if(listOfURLs){
+    res.json({listOfURLs})
+   }
+   
   } catch{
     res.status(500).json({error:"An error has occured when fetching urls"})
   }
