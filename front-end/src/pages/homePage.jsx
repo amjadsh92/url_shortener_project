@@ -40,6 +40,7 @@ function HomePage({ setAlertMessage, setLoading }) {
   useEffect(() => {
     const fetchAuthentication = async () => {
       setAlertMessage(false)
+      setErrorMessage(false)
       try {
         const res = await fetch(`${baseURL}/api/authentication`, {
           credentials: "include",
@@ -101,12 +102,14 @@ function HomePage({ setAlertMessage, setLoading }) {
 
   const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
+    setErrorMessage(false)
     setBorderRedZone({});
   };
 
   const handleShortURLChange = (e) => {
     setShortSlug(e.value);
     setBorderRedZone({});
+    setErrorMessage(false)
   };
 
   const handleLogout = async () => {
@@ -139,7 +142,7 @@ function HomePage({ setAlertMessage, setLoading }) {
     e.preventDefault();
     
     setShorturlLoading(true);
-    let url = { originalURL, shortSlug };
+    let url = { originalURL, shortSlug, username };
 
     try {
       const response = await fetch(`${baseURL}/api/short-url`, {
@@ -161,6 +164,7 @@ function HomePage({ setAlertMessage, setLoading }) {
         setBadRequest(false);
         setBorderRedZone({});
       } else if (response.status === 401) {
+        setErrorMessage("");
         setAlertMessage(true);
         toLoginPage();
       } else {

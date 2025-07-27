@@ -144,6 +144,8 @@ const handleAPIs = () => {
   app.post("/api/short-url", async function (req, res) {
     let originalURL = req.body.originalURL?.trim();
     let shortURL = req.body.shortSlug?.trim();
+    let username = req.body.username 
+
 
     if (!originalURL) {
       res
@@ -197,11 +199,14 @@ const handleAPIs = () => {
         return;
       }
 
+
+
       selectQuery = `SELECT original_url FROM mapping_long_short_url WHERE short_url=$1`;
       const result = await pool.query(selectQuery, [shortURL]);
       const shortUrlExists = result.rows.length;
 
-      if (!shortUrlExists) {
+      if (!shortUrlExists && !username) {
+
         insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url) VALUES($1,$2)`;
 
         await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
@@ -213,6 +218,23 @@ const handleAPIs = () => {
         return;
       }
 
+      if (!shortUrlExists && username){
+
+
+        insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
+
+        await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`, `${username}`]);
+
+        res.json({
+          original_url: `${originalURL}`,
+          short_url: process.env.BASE_URL + "/" + shortURL,
+          username:`${username}`
+        });
+        return;
+
+      }
+
+
       const extracted_original_url = result.rows[0].original_url;
 
       if (extracted_original_url !== originalURL) {
@@ -223,12 +245,38 @@ const handleAPIs = () => {
       }
 
       if (extracted_original_url === originalURL) {
-        res.json({
+        console.log(username)
+        if (!username){
+        return res.json({
           original_url: `${originalURL}`,
           short_url: process.env.BASE_URL + "/" + shortURL,
-        });
+        });}
+        
+          selectUsername = "SELECT username FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3"
+          const usernameResult = await pool.query(selectUsername, [`${originalURL}`, `${shortURL}`, `${username}`]);
+          const usernameExtracted = usernameResult?.rows[0]?.username
+          console.log(usernameExtracted)
+          if(!usernameExtracted){
+          insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
+          await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`, `${username}`]);
+          return res.json({
+            original_url: `${originalURL}`,
+            short_url: process.env.BASE_URL + "/" + shortURL,
+            username:`${username}`
+          });
+          
+        }
+          return res.json({
+            original_url: `${originalURL}`,
+            short_url: process.env.BASE_URL + "/" + shortURL,
+            username:`${username}`
+          });
+        
+        
+        }
       }
-    } catch (e) {
+     catch (e) {
+      console.log(e)
       res.status(400).json({
         error: "The long_url you have provided is invalid",
         name: "long",

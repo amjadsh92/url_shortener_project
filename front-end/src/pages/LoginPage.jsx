@@ -29,8 +29,8 @@ function LoginPage({ alertMessage, setAlertMessage, setLoading  }) {
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    const navigationEntries = performance.getEntriesByType("navigation");
-    const navigationType = navigationEntries[0]?.type;
+    // const navigationEntries = performance.getEntriesByType("navigation");
+    // const navigationType = navigationEntries[0]?.type;
 
     const fetchAuthentication = async () => {
       try {
