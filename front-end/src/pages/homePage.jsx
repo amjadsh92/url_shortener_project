@@ -12,6 +12,7 @@ import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { useState, useEffect, useRef } from "react";
+import { DataTable } from 'primereact/datatable';
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +32,7 @@ function HomePage({ setAlertMessage, setLoading }) {
   const [showMenu, setShowMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
+  
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
@@ -71,6 +73,10 @@ function HomePage({ setAlertMessage, setLoading }) {
       }
     };
   }, [isAuthenticated]);
+
+  
+
+
 
   const toSignupPage = () => {
     setLoading(true);
@@ -323,3 +329,51 @@ function HomePage({ setAlertMessage, setLoading }) {
 }
 
 export default HomePage;
+
+
+function ListOfURLs(){
+
+  const [filters, setFilters] = useState({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    'original_url': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    'short_url': { value: null, matchMode: FilterMatchMode.STARTS_WITH }
+  });
+  const [globalFilterValue, setGlobalFilterValue] = useState('');
+
+  const onGlobalFilterChange = (e) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+
+    _filters['global'].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+};
+
+const renderHeader = () => {
+  return (
+      <div className="flex justify-content-end">
+          <IconField iconPosition="left">
+              <InputIcon className="pi pi-search" />
+              <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+          </IconField>
+      </div>
+  );
+};
+
+
+const header = renderHeader();
+
+return (
+  <div className="card">
+      <DataTable value={customers} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+              globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No urls found.">
+          <Column field="original_url" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
+          <Column header="Country" field="short_url" style={{ minWidth: '14rem' }}  filter filterPlaceholder="Search by short url" />
+         
+      </DataTable>
+  </div>
+);
+
+
+}

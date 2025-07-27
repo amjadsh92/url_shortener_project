@@ -94,6 +94,26 @@ const connectToDatabase = async () => {
 
 const handleAPIs = () => {
 
+  app.post("/api/user", async function (req, res) {
+    
+   try{ 
+   const username = req.body.username
+   const selectURLsQuery = `SELECT original_url, short_url FROM mapping_long_short_url WHERE username =$1`
+   const selectURLsResult = await pool.query(selectURLsQuery, [`${username}`]);
+   let listOfURLs = selectURLsResult.rows
+   if(listOfURLs){
+    res.json({listOfURLs})
+   }
+   else{
+    res.status(400).json({error:"No urls found"})
+   }
+  } catch{
+    res.status(500).json({error:"An error has occured when fetching urls"})
+  }
+
+  
+})
+
   app.get("/api/authentication", function (req, res) {
 
     console.log(req?.session)
@@ -240,12 +260,12 @@ const handleAPIs = () => {
       if (extracted_original_url !== originalURL) {
         res
           .status(400)
-          .json({ error: "The short_url already exists", name: "short" });
+          .json({ error: "This short_url corresponds to a different long_url", name: "short" });
         return;
       }
 
       if (extracted_original_url === originalURL) {
-        console.log(username)
+        
         if (!username){
         return res.json({
           original_url: `${originalURL}`,
@@ -255,7 +275,7 @@ const handleAPIs = () => {
           selectUsername = "SELECT username FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3"
           const usernameResult = await pool.query(selectUsername, [`${originalURL}`, `${shortURL}`, `${username}`]);
           const usernameExtracted = usernameResult?.rows[0]?.username
-          console.log(usernameExtracted)
+        
           if(!usernameExtracted){
           insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
           await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`, `${username}`]);
@@ -345,17 +365,7 @@ const handleAPIs = () => {
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-      // let username = req.body.username?.trim()
-      // let password = req.body.password
-
-      // if (!username){
-      //   res.status(400).json({error:"The username can't be empty!"})
-      //   return
-      // }
-      // if (!password){
-      //   res.status(400).json({error:"The password can't be empty!"})
-      //   return
-      // }
+      
 
         const username = req.body.username;
         const password = req.body.password;
