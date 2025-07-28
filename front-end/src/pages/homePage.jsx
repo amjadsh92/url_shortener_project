@@ -32,6 +32,7 @@ function HomePage({ setAlertMessage, setLoading }) {
   const [showMenu, setShowMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
+  const [listOfURLs, setListOfURLs ] = useState([]);
   
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -52,6 +53,9 @@ function HomePage({ setAlertMessage, setLoading }) {
           setIsAuthenticated(result.isAuthenticated);
           setUsername(result.username);
         }
+        if (isAuthenticated){
+          await fetchURLs()
+        }
       } catch (err) {
         setIsAuthenticated(false);
       } finally {
@@ -59,8 +63,42 @@ function HomePage({ setAlertMessage, setLoading }) {
         setLoading(false);
       }
     };
+
+    const fetchURLs = async () => {
+
+      try {
+        const res = await fetch(`${baseURL}/api/user`, {
+          method: "POST",
+          headers: {
+          "Content-Type": "application/json",
+          },
+          body:JSON.stringify({username}),
+          credentials: "include",
+        });
+
+        if (res.ok){
+          const result = await res.json();
+          let listOfURLsResult = result.listOfURLs
+        if(listOfURLsResult){
+          setListOfURLs(listOfURLsResult)
+          // console.log("listOFURLS",listOfURLs)
+
+        }
+
+        }
+        if(!res.ok){
+          console.log(res.error)
+        }
+        
+      } catch (err) {
+        console.log("can't fetch url")
+      } 
+       
+
+    }
     fetchAuthentication();
 
+    
     const img = new Image();
     img.src = "5559852.jpg";
 
@@ -253,6 +291,7 @@ function HomePage({ setAlertMessage, setLoading }) {
               <p className="url font-semibold mb-2">
                 Paste your long link here
               </p>
+              
               <AutoComplete
                 className={`${borderRedZone?.long ? "border-red borderRedZone" : "border-grey"}`}
                 value={originalURL}
@@ -263,7 +302,7 @@ function HomePage({ setAlertMessage, setLoading }) {
                 onChange={handleOriginalURLChange}
                 required
               />
-
+              {console.log("listOFURLs", listOfURLs)}
               <p className="url font-semibold mb-2">
                 Create your own slug (optional)
               </p>
@@ -366,7 +405,7 @@ const header = renderHeader();
 
 return (
   <div className="card">
-      <DataTable value={customers} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+      <DataTable value={url} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
               globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No urls found.">
           <Column field="original_url" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
           <Column header="Country" field="short_url" style={{ minWidth: '14rem' }}  filter filterPlaceholder="Search by short url" />
