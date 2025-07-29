@@ -370,9 +370,9 @@ function HomePage({ setAlertMessage, setLoading }) {
       {username ? (
         <div className="listOfURLs p-1px mb-8">
         <div className="tableOfURLs mt-6">
-        <h2 className="second-title text-center text-white mb-6">
+        <p className="listOfURLsTitle text-center text-white mb-6">
         Here is a list of your URLs:
-       </h2> 
+       </p>
         <ListOfURLs listOfURLs={listOfURLs} /> </div></div>) : "" }
     </div>
     
