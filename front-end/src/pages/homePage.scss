@@ -92,26 +92,40 @@
   width: 50vw !important;
 }
 
+.tableOfURLs{
+  width:60%;
+  margin:auto;
+}
+
+.listOfURLs{
+
+  background-image: url('yeg.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100%;
+
+}
+
 .home-table{
   
   .p-datatable {
   
-  width: 75%;
+  width: 100%;
   margin: auto;
   margin-bottom: 70px;
 } 
 
 .p-datatable .p-datatable-header {
 
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
   
 } 
 
 .p-datatable .p-paginator-bottom {
 
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 
 }
 

@@ -367,8 +367,15 @@ function HomePage({ setAlertMessage, setLoading }) {
           </Card>
         </div>
       </div>
-      {username ? <ListOfURLs listOfURLs={listOfURLs} /> : "" }
+      {username ? (
+        <div className="listOfURLs">
+        <div className="tableOfURLs mt-5">
+        <h2 className="second-title text-left text-white mb-7">
+        Hi {username}, here is a list of your URLs:
+       </h2>
+        <ListOfURLs listOfURLs={listOfURLs} /> </div></div>) : "" }
     </div>
+    
   );
 }
 
