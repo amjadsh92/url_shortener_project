@@ -13,9 +13,13 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { useState, useEffect, useRef } from "react";
 import { DataTable } from 'primereact/datatable';
+import { FilterMatchMode} from 'primereact/api';
+import { IconField } from 'primereact/iconfield';
+import { InputIcon } from 'primereact/inputicon';
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
+import { Column } from 'primereact/column';
 
 function HomePage({ setAlertMessage, setLoading }) {
   let [originalURL, setOriginalURL] = useState("");
@@ -363,6 +367,7 @@ function HomePage({ setAlertMessage, setLoading }) {
           </Card>
         </div>
       </div>
+      {username ? <ListOfURLs listOfURLs={listOfURLs} /> : "" }
     </div>
   );
 }
@@ -370,7 +375,7 @@ function HomePage({ setAlertMessage, setLoading }) {
 export default HomePage;
 
 
-function ListOfURLs(){
+function ListOfURLs({listOfURLs}){
 
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -404,11 +409,11 @@ const renderHeader = () => {
 const header = renderHeader();
 
 return (
-  <div className="card">
-      <DataTable value={url} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
-              globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No urls found.">
-          <Column field="original_url" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
-          <Column header="Country" field="short_url" style={{ minWidth: '14rem' }}  filter filterPlaceholder="Search by short url" />
+  <div className="home-table">
+      <DataTable value={listOfURLs} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" 
+              globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No URLs found.">
+          <Column field="original_url" header="original_url" filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
+          <Column header="short_url" field="short_url" style={{ minWidth: '14rem' }}  filter filterPlaceholder="Search by short url" />
          
       </DataTable>
   </div>

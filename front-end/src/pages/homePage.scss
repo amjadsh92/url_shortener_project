@@ -92,6 +92,31 @@
   width: 50vw !important;
 }
 
+.home-table{
+  
+  .p-datatable {
+  
+  width: 75%;
+  margin: auto;
+  margin-bottom: 70px;
+} 
+
+.p-datatable .p-datatable-header {
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  
+} 
+
+.p-datatable .p-paginator-bottom {
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+}
+
+} 
+
 .first-title {
   font-size: 2.5rem !important;
 }
