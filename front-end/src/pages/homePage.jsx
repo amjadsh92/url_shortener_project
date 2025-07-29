@@ -413,6 +413,16 @@ const renderHeader = () => {
   );
 };
 
+const deleteButtonTemplate = () => {
+  return (
+    <Button
+      icon="pi pi-trash"
+      className="p-button-rounded p-button-text p-button-danger"
+      tooltip="Delete"
+    />
+  );
+};
+
 
 const header = renderHeader();
 
@@ -422,6 +432,7 @@ return (
               globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No URLs found.">
           <Column field="original_url" header="original_url" filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
           <Column header="short_url" field="short_url" style={{ minWidth: '14rem' }}  filter filterPlaceholder="Search by short url" />
+          <Column body={deleteButtonTemplate} header="Actions" style={{ width: '8rem' }} />
          
       </DataTable>
   </div>
