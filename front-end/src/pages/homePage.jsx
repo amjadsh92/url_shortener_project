@@ -85,6 +85,7 @@ function HomePage({ setAlertMessage, setLoading }) {
           const result = await res.json();
           let listOfURLsResult = result.listOfURLs
         if(listOfURLsResult){
+          listOfURLsResult.map((url) => url.short_url = `${baseURL}/${url.short_url}` )
           setListOfURLs(listOfURLsResult)
           // console.log("listOFURLS",listOfURLs)
 
