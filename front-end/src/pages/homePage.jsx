@@ -87,7 +87,7 @@ function HomePage({ setAlertMessage, setLoading }) {
         if(listOfURLsResult){
           listOfURLsResult.map((url) => url.short_url = `${baseURL}/${url.short_url}` )
           setListOfURLs(listOfURLsResult)
-          // console.log("listOFURLS",listOfURLs)
+          
 
         }
 
@@ -434,10 +434,10 @@ const header = renderHeader();
 return (
   <div className="home-table">
       <DataTable value={listOfURLs} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" 
-              globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No URLs found.">
-          <Column field="original_url" header="original_url" filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
-          <Column header="short_url" field="short_url" style={{ minWidth: '14rem' }}  filter filterPlaceholder="Search by short url" />
-          <Column body={deleteButtonTemplate} header="Actions" style={{ width: '8rem' }} />
+              globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No URLs found." >
+          <Column field="original_url" header="Original URL" filter filterPlaceholder="Search by original URL" style={{ minWidth: '14rem' }} headerClassName="text-center"  />
+          <Column header="Short URL" field="short_url" style={{ minWidth: '14rem'}}  filter filterPlaceholder="Search by short URL" />
+          <Column body={deleteButtonTemplate} style={{ minWidth: '12rem'}}  />
          
       </DataTable>
   </div>

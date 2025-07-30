@@ -62,3 +62,8 @@
 .mb-10{
   margin-bottom: 7rem;
 }
+
+.pad-left{
+
+  padding-left:1rem !important;
+}
