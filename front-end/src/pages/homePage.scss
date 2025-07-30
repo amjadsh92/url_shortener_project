@@ -95,10 +95,12 @@
 .tableOfURLs{
   width:60%;
   margin:auto;
+  position:relative;
+ 
 }
 
 .listOfURLs{
-
+ 
   // background-image: url('yeg.jpg');
   // background-size: cover;
   // background-position: center;
@@ -112,6 +114,17 @@
 
   font-family: "Montserrat", sans-serif;
   color: white;
+  font-size:20px;
+}
+
+
+.shortURLImage{
+
+  position:absolute;
+  height:100px;
+  left:-200px;
+  top:250px;
+
 }
 
 

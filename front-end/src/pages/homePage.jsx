@@ -21,6 +21,7 @@ import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
 import { Column } from 'primereact/column';
 
+
 function HomePage({ setAlertMessage, setLoading }) {
   let [originalURL, setOriginalURL] = useState("");
   let [shortURL, setShortURL] = useState("");
@@ -290,7 +291,7 @@ function HomePage({ setAlertMessage, setLoading }) {
           </p>
         </div>
         <div className="form-home p-1px">
-          <Card title="Shorten a long link" className="mt-6 mb-6 mx-auto">
+          <Card title="Shorten a long link" className="mt-6 mb-10 mx-auto">
             <form onSubmit={handleSubmit}>
               <p className="url font-semibold mb-2">
                 Paste your long link here
@@ -369,11 +370,14 @@ function HomePage({ setAlertMessage, setLoading }) {
       </div>
       {username ? (
         <div className="listOfURLs p-1px mb-8">
+       
         <div className="tableOfURLs mt-6">
+        <img  src="/shortURL.png" className="shortURLImage" />
         <p className="listOfURLsTitle text-center text-white mb-6">
         Here is a list of your URLs:
        </p>
-        <ListOfURLs listOfURLs={listOfURLs} /> </div></div>) : "" }
+       <ListOfURLs listOfURLs={listOfURLs} /> 
+        </div></div>) : "" }
     </div>
     
   );
