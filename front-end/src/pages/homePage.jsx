@@ -431,15 +431,15 @@ const deleteButtonTemplate = () => {
 
 const originalUrlTemplate = (rowData) => {
   return (
-    <a href={rowData.original_url} target="_blank" rel="noopener noreferrer">
-      {rowData.original_url}
+    <a href={rowData.original_url} className="truncate-text" target="_blank" rel="noopener noreferrer">
+      {rowData.original_url} 
     </a>
   );
 };
 
 const shortUrlTemplate = (rowData) => {
   return (
-    <a href={rowData.short_url} target="_blank" rel="noopener noreferrer">
+    <a href={rowData.short_url} className="truncate-text" target="_blank" rel="noopener noreferrer">
       {rowData.short_url}
     </a>
   );
@@ -452,7 +452,7 @@ return (
   <div className="home-table">
       <DataTable value={listOfURLs} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" 
               globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No URLs found." >
-          <Column field="original_url" header="Original URL" filter filterPlaceholder="Search by original URL" body={originalUrlTemplate} style={{ minWidth: '14rem' }} headerClassName="text-center"  />
+          <Column field="original_url" header="Original URL" filter filterPlaceholder="Search by original URL" body={originalUrlTemplate} style={{ minWidth: '14rem' }} headerClassName="text-center" />
           <Column header="Short URL" field="short_url" body={shortUrlTemplate} style={{ minWidth: '14rem'}}  filter filterPlaceholder="Search by short URL" />
           <Column body={deleteButtonTemplate} style={{ minWidth: '12rem'}}  />
          

@@ -141,7 +141,26 @@ tr td:nth-child(3) {
   text-align:right;
 }
 
+a:visited {
+  color: #171c28;
 }
+
+a{
+  color: #171c28;
+}
+
+.truncate-text {
+  display: inline-block;
+  max-width: 200px;      
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
+}
+
+
 
 
 .listOfURLsTitle{
