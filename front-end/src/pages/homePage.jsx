@@ -39,6 +39,7 @@ function HomePage({ setAlertMessage, setLoading }) {
   const [username, setUsername] = useState("");
   const [listOfURLs, setListOfURLs ] = useState([]);
   
+  
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
@@ -395,6 +396,10 @@ function ListOfURLs({listOfURLs}){
     'short_url': { value: null, matchMode: FilterMatchMode.STARTS_WITH }
   });
   const [globalFilterValue, setGlobalFilterValue] = useState('');
+  const [dialog, setDialog] = useState({
+    visible: false,
+    message: "",
+  });
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -418,13 +423,27 @@ const renderHeader = () => {
   );
 };
 
+const deleteURL = () => {
+
+  setDialog({...dialog, visible:true, message:"Are you sure you want to delete this URL ?"} )
+ }
+
+
 const deleteButtonTemplate = () => {
+
+  
+   
   return (
+    <>
     <Button
       icon="pi pi-trash"
       className="p-button-rounded p-button-text p-button-danger"
+      onClick={deleteURL}
       tooltip="Delete"
     />
+
+    
+                </>
   );
 };
 
@@ -457,8 +476,49 @@ return (
           <Column body={deleteButtonTemplate} style={{ minWidth: '12rem'}}  />
          
       </DataTable>
+
+      <div className="table-delete">
+                  <Dialog
+                    header="Confirmation"
+                    visible={dialog.visible}
+                    className="dialog-delete"
+                    style={{ width: "150px", wordBreak: "break-word" }}
+                    breakpoints={{ "400px": "300px", "338px": "250px" }}
+                    onHide={() => setDialog({ ...dialog, visible: false })}
+                    footer={
+                      <div>
+                        <Button
+                          label="Yes"
+                          icon="pi pi-check"
+                          onClick={() => setDialog({ ...dialog, visible: false })}
+                          autoFocus
+                        />
+                         <Button
+                          label="Cancel"
+                          icon="pi pi-times"
+                          onClick={() => setDialog({ ...dialog, visible: false })}
+                          autoFocus
+                        />
+                      </div>
+                    }
+                  >
+                    <DialogContent
+                      message={dialog.message}
+                      
+                    />
+                  </Dialog>
+                </div>
   </div>
 );
 
 
+}
+
+
+function DialogContent({ message }) {
+  return (
+    <>
+      <div className="mt-4 ml-6px">{message}</div>
+    </>
+  );
 }
