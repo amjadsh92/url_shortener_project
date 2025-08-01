@@ -94,11 +94,33 @@ const connectToDatabase = async () => {
 
 const handleAPIs = () => {
 
+  app.delete("/api/deleteURL/:id", async function (req, res) {
+   
+    try{
+    const id= req.params.id;
+    const deleteURLQuery = "DELETE FROM mapping_long_short_url WHERE map_id=$1"
+    const deleteURLResult = await pool.query(deleteURLQuery, [`${id}`]);
+    if (deleteURLResult.rowCount === 1){
+     return res.json({message:"The URL has been successfully deleted"})
+    }
+    else if (deleteURLResult.rowCount === 0){
+
+      return res.json({message:"This URL doesn't exist in our database"})
+
+    }
+  } catch{
+
+    return res.status(500).json({error:"The server is down, Try again later"})
+
+  }
+
+  })
+
   app.post("/api/user", async function (req, res) {
     
    try{ 
    const username = req.body.username
-   const selectURLsQuery = `SELECT original_url, short_url FROM mapping_long_short_url WHERE username =$1`
+   const selectURLsQuery = `SELECT map_id, original_url, short_url FROM mapping_long_short_url WHERE username =$1`
    const selectURLsResult = await pool.query(selectURLsQuery, [`${username}`]);
    let listOfURLs = selectURLsResult.rows
    const numberOfURLs  = listOfURLs.length
