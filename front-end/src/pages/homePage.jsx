@@ -383,7 +383,9 @@ function ListOfURLs({ listOfURLs }) {
     visible: false,
     message: "",
   });
-  const [confirmDelete, setConfirmDelete] = useState(false)
+  // const [confirmDelete, setConfirmDelete] = useState(false)
+  const [loadingDelete, setLoadingDelete] = useState(false)
+  const [finalizeDelete, setFinalizeDelete] = useState(false)
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -414,7 +416,9 @@ function ListOfURLs({ listOfURLs }) {
   };
 
   const confirmDeleteURL = async (id) => {
-
+    
+    setLoadingDelete(true)
+    
     try {
       const res = await fetch(`${baseURL}/api/deleteURL/${id}`, {
         method: "DELETE",
@@ -428,34 +432,42 @@ function ListOfURLs({ listOfURLs }) {
       if (res.ok) {
         const result = await res.json()
         setDialog({...dialog, message:result.message,id:0})
+        // setFinalizeDelete(true)
       }
       if (!res.ok) {
 
         const result = await res.json()
         setDialog({...dialog, message:result.error, id:0})
+        // setFinalizeDelete(true)
         
       }
     } catch (err) {
       console.log(err)
       setDialog({...dialog, message:"Failed to delete URL. The server is down", id:0})
+      // setFinalizeDelete(true)
       
+    }finally{
+      setLoadingDelete(false)
+      setFinalizeDelete(true)
     }
 
   }
 
   const deleteURL = (id) => {
 
-    if(confirmDelete){
+    // if(confirmDelete){
 
-      confirmDeleteURL(id)
-      return
+    //   confirmDeleteURL(id)
+    //   return
 
-    }
+    // }
+
+    setFinalizeDelete(false)
     setDialog({
       ...dialog,
       id,
       visible: true,
-      message: "Are you sure you want to delete this URL ?",
+      message: "Are you sure you want to delete this URL ?"
     });
   };
 
@@ -543,24 +555,39 @@ function ListOfURLs({ listOfURLs }) {
           className="dialog-delete"
           style={{ width: "150px", wordBreak: "break-word" }}
           breakpoints={{ "400px": "300px", "338px": "250px" }}
-          onHide={() => setDialog({ ...dialog, visible: false })}
+          onHide={() => {
+            setFinalizeDelete(false)
+            setDialog({ ...dialog, visible: false })}}
           footer={
             <div>
-              <Button
+            { !finalizeDelete ? (<><Button
                 label="Yes"
-                icon="pi pi-check"
+                icon={ loadingDelete ? "pi pi pi-spin pi-spinner" : "pi pi-check"}
                 onClick={() => {
-                  setConfirmDelete(true)
-                  deleteURL(dialog.id)
+                  
+                  confirmDeleteURL(dialog.id)
                   }}
                 autoFocus
               />
               <Button
                 label="Cancel"
                 icon="pi pi-times"
-                onClick={() => setDialog({ ...dialog, visible: false })}
+                onClick={() => {
+                  setDialog({ ...dialog, visible: false })
+                 
+                }
+              
+              }
                 autoFocus
-              />
+              /></>) : <Button
+              label="OK"
+              icon="pi pi-check"
+              onClick={() => {
+                
+                setDialog({ ...dialog, visible: false })
+                }}
+              autoFocus
+            /> }
             </div>
           }
         >
