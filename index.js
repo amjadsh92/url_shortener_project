@@ -105,7 +105,7 @@ const handleAPIs = () => {
     }
     else if (deleteURLResult.rowCount === 0){
 
-      return res.json({message:"This URL doesn't exist in our database"})
+      return res.json({error:"This URL doesn't exist in our database"})
 
     }
   } catch{

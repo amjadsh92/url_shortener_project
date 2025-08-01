@@ -12,15 +12,14 @@ import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { useState, useEffect, useRef } from "react";
-import { DataTable } from 'primereact/datatable';
-import { FilterMatchMode} from 'primereact/api';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
+import { DataTable } from "primereact/datatable";
+import { FilterMatchMode } from "primereact/api";
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
-import { Column } from 'primereact/column';
-
+import { Column } from "primereact/column";
 
 function HomePage({ setAlertMessage, setLoading }) {
   let [originalURL, setOriginalURL] = useState("");
@@ -37,19 +36,17 @@ function HomePage({ setAlertMessage, setLoading }) {
   const [showMenu, setShowMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
-  const [listOfURLs, setListOfURLs ] = useState([]);
-  
-  
+  const [listOfURLs, setListOfURLs] = useState([]);
+
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
   const usernameRef = useRef(null);
-  
 
   useEffect(() => {
     const fetchAuthentication = async () => {
-      setAlertMessage(false)
-      setErrorMessage(false)
+      setAlertMessage(false);
+      setErrorMessage(false);
       try {
         const res = await fetch(`${baseURL}/api/authentication`, {
           credentials: "include",
@@ -59,53 +56,46 @@ function HomePage({ setAlertMessage, setLoading }) {
           setIsAuthenticated(result.isAuthenticated);
           setUsername(result.username);
         }
-        if (isAuthenticated){
-          await fetchURLs()
+        if (isAuthenticated) {
+          await fetchURLs();
         }
       } catch (err) {
         setIsAuthenticated(false);
       } finally {
-        
         setLoading(false);
       }
     };
 
     const fetchURLs = async () => {
-
       try {
         const res = await fetch(`${baseURL}/api/user`, {
           method: "POST",
           headers: {
-          "Content-Type": "application/json",
+            "Content-Type": "application/json",
           },
-          body:JSON.stringify({username}),
+          body: JSON.stringify({ username }),
           credentials: "include",
         });
 
-        if (res.ok){
+        if (res.ok) {
           const result = await res.json();
-          let listOfURLsResult = result.listOfURLs
-        if(listOfURLsResult){
-          listOfURLsResult.map((url) => url.short_url = `${baseURL}/${url.short_url}` )
-          setListOfURLs(listOfURLsResult)
-          
-
+          let listOfURLsResult = result.listOfURLs;
+          if (listOfURLsResult) {
+            listOfURLsResult.map(
+              (url) => (url.short_url = `${baseURL}/${url.short_url}`)
+            );
+            setListOfURLs(listOfURLsResult);
+          }
         }
-
+        if (!res.ok) {
+          console.log(res.error);
         }
-        if(!res.ok){
-          console.log(res.error)
-        }
-        
       } catch (err) {
-        console.log("can't fetch url")
-      } 
-       
-
-    }
+        console.log("can't fetch url");
+      }
+    };
     fetchAuthentication();
 
-    
     const img = new Image();
     img.src = "5559852.jpg";
 
@@ -119,15 +109,11 @@ function HomePage({ setAlertMessage, setLoading }) {
     };
   }, [isAuthenticated]);
 
-  
-
-
-
   const toSignupPage = () => {
     setLoading(true);
     setTimeout(() => {
       navigate("/signup");
-      }, 1000);
+    }, 1000);
   };
 
   const toLoginPage = () => {
@@ -137,12 +123,8 @@ function HomePage({ setAlertMessage, setLoading }) {
     }, 1000);
   };
 
- 
   const hideMenu = () => {
-    if (
-      (usernameRef.current && !usernameRef.current.contains(event.target)) 
-      
-    ) {
+    if (usernameRef.current && !usernameRef.current.contains(event.target)) {
       setShowMenu(false);
     }
   };
@@ -153,14 +135,14 @@ function HomePage({ setAlertMessage, setLoading }) {
 
   const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
-    setErrorMessage(false)
+    setErrorMessage(false);
     setBorderRedZone({});
   };
 
   const handleShortURLChange = (e) => {
     setShortSlug(e.value);
     setBorderRedZone({});
-    setErrorMessage(false)
+    setErrorMessage(false);
   };
 
   const handleLogout = async () => {
@@ -191,7 +173,7 @@ function HomePage({ setAlertMessage, setLoading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     setShorturlLoading(true);
     let url = { originalURL, shortSlug, username };
 
@@ -298,7 +280,7 @@ function HomePage({ setAlertMessage, setLoading }) {
               <p className="url font-semibold mb-2">
                 Paste your long link here
               </p>
-              
+
               <AutoComplete
                 className={`${borderRedZone?.long ? "border-red borderRedZone" : "border-grey"}`}
                 value={originalURL}
@@ -332,7 +314,7 @@ function HomePage({ setAlertMessage, setLoading }) {
                 label={"Get your link for free"}
               />
             </form>
-           
+
             <Dialog
               header="Here is your short URL!"
               visible={showDialog}
@@ -372,148 +354,222 @@ function HomePage({ setAlertMessage, setLoading }) {
       </div>
       {username ? (
         <div className="listOfURLs p-1px mb-8">
-       
-        <div className="tableOfURLs mt-6">
-        <img  src="/shortURL.png" className="shortURLImage" />
-        <p className="listOfURLsTitle text-center text-white mb-6">
-        Here is a list of your URLs:
-       </p>
-       <ListOfURLs listOfURLs={listOfURLs} /> 
-        </div></div>) : "" }
+          <div className="tableOfURLs mt-6">
+            <img src="/shortURL.png" className="shortURLImage" />
+            <p className="listOfURLsTitle text-center text-white mb-6">
+              Here is a list of your URLs:
+            </p>
+            <ListOfURLs listOfURLs={listOfURLs} />
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
-    
   );
 }
 
 export default HomePage;
 
-
-function ListOfURLs({listOfURLs}){
-
+function ListOfURLs({ listOfURLs }) {
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    'original_url': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    'short_url': { value: null, matchMode: FilterMatchMode.STARTS_WITH }
+    original_url: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    short_url: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   });
-  const [globalFilterValue, setGlobalFilterValue] = useState('');
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [dialog, setDialog] = useState({
+    id:0,
     visible: false,
     message: "",
   });
+  const [confirmDelete, setConfirmDelete] = useState(false)
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
     let _filters = { ...filters };
 
-    _filters['global'].value = value;
+    _filters["global"].value = value;
 
     setFilters(_filters);
     setGlobalFilterValue(value);
-};
+  };
 
-const renderHeader = () => {
-  return (
+  const renderHeader = () => {
+    return (
       <div className="flex justify-content-end">
-         {/* <h5>Here is the list of your URLs</h5> */}
-          <IconField iconPosition="left">
-              <InputIcon className="pi pi-search" />
-              <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
-          </IconField>
+       
+        <IconField iconPosition="left">
+          <InputIcon className="pi pi-search" />
+          <InputText
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            placeholder="Keyword Search"
+          />
+        </IconField>
       </div>
-  );
-};
+    );
+  };
 
-const deleteURL = () => {
+  const confirmDeleteURL = async (id) => {
 
-  setDialog({...dialog, visible:true, message:"Are you sure you want to delete this URL ?"} )
- }
+    try {
+      const res = await fetch(`${baseURL}/api/deleteURL/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        
+        credentials: "include",
+      });
 
+      if (res.ok) {
+        const result = await res.json()
+        setDialog({...dialog, message:result.message,id:0})
+      }
+      if (!res.ok) {
 
-const deleteButtonTemplate = () => {
+        const result = await res.json()
+        setDialog({...dialog, message:result.error, id:0})
+        
+      }
+    } catch (err) {
+      console.log(err)
+      setDialog({...dialog, message:"Failed to delete URL. The server is down", id:0})
+      
+    }
 
-  
+  }
+
+  const deleteURL = (id) => {
+
+    if(confirmDelete){
+
+      confirmDeleteURL(id)
+      return
+
+    }
+    setDialog({
+      ...dialog,
+      id,
+      visible: true,
+      message: "Are you sure you want to delete this URL ?",
+    });
+  };
+
+  const deleteButtonTemplate = (rowData) => {
+
+    const id = rowData.map_id
    
+    return (
+      <>
+        <Button
+          icon="pi pi-trash"
+          className="p-button-rounded p-button-text p-button-danger"
+          onClick={() => deleteURL(id)}
+          tooltip="Delete"
+        />
+      </>
+    );
+  };
+
+  const originalUrlTemplate = (rowData) => {
+    return (
+      <a
+        href={rowData.original_url}
+        className="truncate-text"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {rowData.original_url}
+      </a>
+    );
+  };
+
+  const shortUrlTemplate = (rowData) => {
+    return (
+      <a
+        href={rowData.short_url}
+        className="truncate-text"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {rowData.short_url}
+      </a>
+    );
+  };
+
+  const header = renderHeader();
+
   return (
-    <>
-    <Button
-      icon="pi pi-trash"
-      className="p-button-rounded p-button-text p-button-danger"
-      onClick={deleteURL}
-      tooltip="Delete"
-    />
-
-    
-                </>
-  );
-};
-
-
-const originalUrlTemplate = (rowData) => {
-  return (
-    <a href={rowData.original_url} className="truncate-text" target="_blank" rel="noopener noreferrer">
-      {rowData.original_url} 
-    </a>
-  );
-};
-
-const shortUrlTemplate = (rowData) => {
-  return (
-    <a href={rowData.short_url} className="truncate-text" target="_blank" rel="noopener noreferrer">
-      {rowData.short_url}
-    </a>
-  );
-};
-
-
-const header = renderHeader();
-
-return (
-  <div className="home-table">
-      <DataTable value={listOfURLs} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" 
-              globalFilterFields={['original_url', 'short_url']} header={header} emptyMessage="No URLs found." >
-          <Column field="original_url" header="Original URL" filter filterPlaceholder="Search by original URL" body={originalUrlTemplate} style={{ minWidth: '14rem' }} headerClassName="text-center" />
-          <Column header="Short URL" field="short_url" body={shortUrlTemplate} style={{ minWidth: '14rem'}}  filter filterPlaceholder="Search by short URL" />
-          <Column body={deleteButtonTemplate} style={{ minWidth: '12rem'}}  />
-         
+    <div className="home-table">
+      <DataTable
+        value={listOfURLs}
+        paginator
+        rows={10}
+        dataKey="map_id"
+        filters={filters}
+        filterDisplay="row"
+        globalFilterFields={["original_url", "short_url"]}
+        header={header}
+        emptyMessage="No URLs found."
+      >
+        <Column
+          field="original_url"
+          header="Original URL"
+          filter
+          filterPlaceholder="Search by original URL"
+          body={originalUrlTemplate}
+          style={{ minWidth: "14rem" }}
+          headerClassName="text-center"
+        />
+        <Column
+          header="Short URL"
+          field="short_url"
+          body={shortUrlTemplate}
+          style={{ minWidth: "14rem" }}
+          filter
+          filterPlaceholder="Search by short URL"
+        />
+        <Column body={deleteButtonTemplate} style={{ minWidth: "12rem" }} />
       </DataTable>
 
       <div className="table-delete">
-                  <Dialog
-                    header="Confirmation"
-                    visible={dialog.visible}
-                    className="dialog-delete"
-                    style={{ width: "150px", wordBreak: "break-word" }}
-                    breakpoints={{ "400px": "300px", "338px": "250px" }}
-                    onHide={() => setDialog({ ...dialog, visible: false })}
-                    footer={
-                      <div>
-                        <Button
-                          label="Yes"
-                          icon="pi pi-check"
-                          onClick={() => setDialog({ ...dialog, visible: false })}
-                          autoFocus
-                        />
-                         <Button
-                          label="Cancel"
-                          icon="pi pi-times"
-                          onClick={() => setDialog({ ...dialog, visible: false })}
-                          autoFocus
-                        />
-                      </div>
-                    }
-                  >
-                    <DialogContent
-                      message={dialog.message}
-                      
-                    />
-                  </Dialog>
-                </div>
-  </div>
-);
-
-
+        <Dialog
+          header="Confirmation"
+          visible={dialog.visible}
+          className="dialog-delete"
+          style={{ width: "150px", wordBreak: "break-word" }}
+          breakpoints={{ "400px": "300px", "338px": "250px" }}
+          onHide={() => setDialog({ ...dialog, visible: false })}
+          footer={
+            <div>
+              <Button
+                label="Yes"
+                icon="pi pi-check"
+                onClick={() => {
+                  setConfirmDelete(true)
+                  deleteURL(dialog.id)
+                  }}
+                autoFocus
+              />
+              <Button
+                label="Cancel"
+                icon="pi pi-times"
+                onClick={() => setDialog({ ...dialog, visible: false })}
+                autoFocus
+              />
+            </div>
+          }
+        >
+          <DialogContent message={dialog.message} />
+        </Dialog>
+      </div>
+    </div>
+  );
 }
-
 
 function DialogContent({ message }) {
   return (
