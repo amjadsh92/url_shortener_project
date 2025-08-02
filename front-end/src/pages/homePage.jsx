@@ -368,7 +368,7 @@ function HomePage({ setAlertMessage, setLoading }) {
             <p className="listOfURLsTitle text-center text-white mb-6">
               Here is a list of your URLs:
             </p>
-            <ListOfURLs listOfURLs={listOfURLs} />
+            <ListOfURLs listOfURLs={listOfURLs} setListOfURLs={setListOfURLs} />
           </div>
         </div>
       ) : (
@@ -380,7 +380,7 @@ function HomePage({ setAlertMessage, setLoading }) {
 
 export default HomePage;
 
-function ListOfURLs({ listOfURLs }) {
+function ListOfURLs({ listOfURLs, setListOfURLs }) {
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     original_url: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -438,8 +438,10 @@ function ListOfURLs({ listOfURLs }) {
 
       if (res.ok) {
         const result = await res.json();
+        listOfURLs = listOfURLs.filter((url) => url.map_id !== dialog.id)
+        setListOfURLs(listOfURLs)
         setDialog({ ...dialog, message: result.message, id: 0 });
-        // setFinalizeDelete(true)
+        
       }
       if (!res.ok) {
         const result = await res.json();
