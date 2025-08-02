@@ -190,8 +190,17 @@ function HomePage({ setAlertMessage, setLoading }) {
       if (response.ok) {
         setShorturlLoading(false);
         const result = await response.json();
-        originalURL = result.original_url;
+        // originalURL = result.original_url;
+        // const id = result.id
         setShortURL(result.short_url);
+        setListOfURLs([
+          ...listOfURLs,
+          {
+            map_id: result.map_id,
+            original_url: result.original_url,
+            short_url: result.short_url,
+          },
+        ]);
         setShowDialog(true);
         setErrorMessage("");
         setBadRequest(false);
@@ -379,13 +388,13 @@ function ListOfURLs({ listOfURLs }) {
   });
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [dialog, setDialog] = useState({
-    id:0,
+    id: 0,
     visible: false,
     message: "",
   });
   // const [confirmDelete, setConfirmDelete] = useState(false)
-  const [loadingDelete, setLoadingDelete] = useState(false)
-  const [finalizeDelete, setFinalizeDelete] = useState(false)
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [finalizeDelete, setFinalizeDelete] = useState(false);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -402,7 +411,6 @@ function ListOfURLs({ listOfURLs }) {
   const renderHeader = () => {
     return (
       <div className="flex justify-content-end">
-       
         <IconField iconPosition="left">
           <InputIcon className="pi pi-search" />
           <InputText
@@ -416,45 +424,43 @@ function ListOfURLs({ listOfURLs }) {
   };
 
   const confirmDeleteURL = async (id) => {
-    
-    setLoadingDelete(true)
-    
+    setLoadingDelete(true);
+
     try {
       const res = await fetch(`${baseURL}/api/deleteURL/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        
+
         credentials: "include",
       });
 
       if (res.ok) {
-        const result = await res.json()
-        setDialog({...dialog, message:result.message,id:0})
+        const result = await res.json();
+        setDialog({ ...dialog, message: result.message, id: 0 });
         // setFinalizeDelete(true)
       }
       if (!res.ok) {
-
-        const result = await res.json()
-        setDialog({...dialog, message:result.error, id:0})
+        const result = await res.json();
+        setDialog({ ...dialog, message: result.error, id: 0 });
         // setFinalizeDelete(true)
-        
       }
     } catch (err) {
-      console.log(err)
-      setDialog({...dialog, message:"Failed to delete URL. The server is down", id:0})
+      console.log(err);
+      setDialog({
+        ...dialog,
+        message: "Failed to delete URL. The server is down",
+        id: 0,
+      });
       // setFinalizeDelete(true)
-      
-    }finally{
-      setLoadingDelete(false)
-      setFinalizeDelete(true)
+    } finally {
+      setLoadingDelete(false);
+      setFinalizeDelete(true);
     }
-
-  }
+  };
 
   const deleteURL = (id) => {
-
     // if(confirmDelete){
 
     //   confirmDeleteURL(id)
@@ -462,19 +468,18 @@ function ListOfURLs({ listOfURLs }) {
 
     // }
 
-    setFinalizeDelete(false)
+    setFinalizeDelete(false);
     setDialog({
       ...dialog,
       id,
       visible: true,
-      message: "Are you sure you want to delete this URL ?"
+      message: "Are you sure you want to delete this URL ?",
     });
   };
 
   const deleteButtonTemplate = (rowData) => {
+    const id = rowData.map_id;
 
-    const id = rowData.map_id
-   
     return (
       <>
         <Button
@@ -556,38 +561,42 @@ function ListOfURLs({ listOfURLs }) {
           style={{ width: "150px", wordBreak: "break-word" }}
           breakpoints={{ "400px": "300px", "338px": "250px" }}
           onHide={() => {
-            setFinalizeDelete(false)
-            setDialog({ ...dialog, visible: false })}}
+            setFinalizeDelete(false);
+            setDialog({ ...dialog, visible: false });
+          }}
           footer={
             <div>
-            { !finalizeDelete ? (<><Button
-                label="Yes"
-                icon={ loadingDelete ? "pi pi pi-spin pi-spinner" : "pi pi-check"}
-                onClick={() => {
-                  
-                  confirmDeleteURL(dialog.id)
+              {!finalizeDelete ? (
+                <>
+                  <Button
+                    label="Yes"
+                    icon={
+                      loadingDelete ? "pi pi pi-spin pi-spinner" : "pi pi-check"
+                    }
+                    onClick={() => {
+                      confirmDeleteURL(dialog.id);
+                    }}
+                    autoFocus
+                  />
+                  <Button
+                    label="Cancel"
+                    icon="pi pi-times"
+                    onClick={() => {
+                      setDialog({ ...dialog, visible: false });
+                    }}
+                    autoFocus
+                  />
+                </>
+              ) : (
+                <Button
+                  label="OK"
+                  icon="pi pi-check"
+                  onClick={() => {
+                    setDialog({ ...dialog, visible: false });
                   }}
-                autoFocus
-              />
-              <Button
-                label="Cancel"
-                icon="pi pi-times"
-                onClick={() => {
-                  setDialog({ ...dialog, visible: false })
-                 
-                }
-              
-              }
-                autoFocus
-              /></>) : <Button
-              label="OK"
-              icon="pi pi-check"
-              onClick={() => {
-                
-                setDialog({ ...dialog, visible: false })
-                }}
-              autoFocus
-            /> }
+                  autoFocus
+                />
+              )}
             </div>
           }
         >
