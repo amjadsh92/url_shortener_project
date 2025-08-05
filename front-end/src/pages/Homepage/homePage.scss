@@ -1,3 +1,12 @@
+.bg-hero {
+  
+  background-image: url('5559852.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 99.9vh;
+}
+
+
 .menu {
   padding-right: 20px !important;
   height: 50px;
@@ -19,24 +28,24 @@
   align-content: center;
 }
 
-.navlinks {
+.navlink {
   display: flex;
   justify-content: end;
   align-items: center;
   gap: 8px;
 }
 
-.navlinks > div > div > span {
+.navlink > div > div > span {
   font-family: "Montserrat", sans-serif;
   color: white;
 }
 
-.navlinks > .login > span {
+.navlink > .login > span {
   font-family: "Montserrat", sans-serif;
   color: white;
 }
 
-.navlinks > .login {
+.navlink > .login {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -45,7 +54,7 @@
   margin-right: 20px;
 }
 
-.navlinks > div > .username {
+.navlink > div > .username {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -56,7 +65,7 @@
   cursor: pointer;
 }
 
-.navlinks > div > .username:hover {
+.navlink > div > .username:hover {
   background-color: rgba(40, 81, 140, 0.3882352);
 }
 

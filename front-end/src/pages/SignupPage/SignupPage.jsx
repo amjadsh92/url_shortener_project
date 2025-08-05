@@ -1,11 +1,11 @@
 /* eslint-disable */
-import "./signupPage.scss";
+import "./SignupPage.scss";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primeflex/primeflex.css";
-import "../App.css";
-import "../styles/spaces.css";
-import "../styles/fonts.css";
-import "../styles/colors.css";
+import "../../App.css";
+import "../../styles/spaces.css";
+import "../../styles/fonts.css";
+import "../../styles/colors.css";
 import "primeicons/primeicons.css";
 import "primeicons/primeicons.css";
 import * as yup from "yup";
@@ -13,11 +13,11 @@ import { AutoComplete } from "primereact/autocomplete";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { useState, useEffect } from "react";
-import { Dialog } from "primereact/dialog";
 import { Password } from "primereact/password";
 import { useNavigate } from "react-router-dom";
+import SignupResultModal from "./components/SignUp/SignupResultModal";
 
-function SignupPage({ setLoading }) {
+function SignupPage({ setPageLoading }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +44,7 @@ function SignupPage({ setLoading }) {
       } catch (err) {
         console.log("failed to know authentication state");
       } finally {
-        setLoading(false);
+        setPageLoading(false);
       }
     };
     fetchAuthentication();
@@ -63,7 +63,7 @@ function SignupPage({ setLoading }) {
   }, []);
 
   const toLoginPage = () => {
-    setLoading(true);
+    setPageLoading(true);
     setTimeout(() => {
       navigate("/login");
     }, 1000);
@@ -254,33 +254,8 @@ function SignupPage({ setLoading }) {
             >
               Back to Home
             </p>
-            <div className="form-signup">
-              <Dialog
-                header="Your registration"
-                visible={dialog.visible}
-                className="dialog-signup"
-                style={{ width: "150px", wordBreak: "break-word" }}
-                breakpoints={{ "400px": "300px", "338px": "250px" }}
-                onHide={() => setDialog({ ...dialog, visible: false })}
-                footer={
-                  <div>
-                    <Button
-                      label="OK"
-                      icon="pi pi-check"
-                      onClick={() => setDialog({ ...dialog, visible: false })}
-                      autoFocus
-                    />
-                  </div>
-                }
-              >
-                <DialogContent
-                  message={dialog.message}
-                  username={username}
-                  toLoginPage={toLoginPage}
-                  closeDialog={() => setDialog({ ...dialog, visible: false })}
-                />
-              </Dialog>
-            </div>
+           
+            <SignupResultModal dialog={dialog} setDialog={setDialog} username={username} toLoginPage={toLoginPage} />
           </form>
         </Card>
       </div>
@@ -288,27 +263,64 @@ function SignupPage({ setLoading }) {
   );
 }
 
-function DialogContent({ message, username, toLoginPage, closeDialog }) {
-  const handleClick = () => {
-    closeDialog();
-    toLoginPage();
-  };
 
-  return (
-    <>
-      <div className="mt-4 ml-6px">{message}</div>
-      <p className="ml-6px">
-        Your username is <b>{username}</b>
-      </p>
-      <span className="ml-6px">You can log in </span>
-      <span
-        className="cursor-pointer text-primary font-semibold"
-        onClick={handleClick}
-      >
-        here
-      </span>
-    </>
-  );
-}
+
+// function SignupResultModal({dialog, setDialog,username, toLoginPage}){
+
+//   return (
+
+//     <div className="form-signup">
+//               <Dialog
+//                 header="Your registration"
+//                 visible={dialog.visible}
+//                 className="dialog-signup"
+//                 style={{ width: "150px", wordBreak: "break-word" }}
+//                 breakpoints={{ "400px": "300px", "338px": "250px" }}
+//                 onHide={() => setDialog({ ...dialog, visible: false })}
+//                 footer={
+//                   <div>
+//                     <Button
+//                       label="OK"
+//                       icon="pi pi-check"
+//                       onClick={() => setDialog({ ...dialog, visible: false })}
+//                       autoFocus
+//                     />
+//                   </div>
+//                 }
+//               >
+//                 <DialogContent
+//                   message={dialog.message}
+//                   username={username}
+//                   toLoginPage={toLoginPage}
+//                   closeDialog={() => setDialog({ ...dialog, visible: false })}
+//                 />
+//               </Dialog>
+//             </div>
+
+//   )
+// }
+
+// function DialogContent({ message, username, toLoginPage, closeDialog }) {
+//   const handleClick = () => {
+//     closeDialog();
+//     toLoginPage();
+//   };
+
+//   return (
+//     <>
+//       <div className="mt-4 ml-6px">{message}</div>
+//       <p className="ml-6px">
+//         Your username is <b>{username}</b>
+//       </p>
+//       <span className="ml-6px">You can log in </span>
+//       <span
+//         className="cursor-pointer text-primary font-semibold"
+//         onClick={handleClick}
+//       >
+//         here
+//       </span>
+//     </>
+//   );
+// }
 
 export default SignupPage;
