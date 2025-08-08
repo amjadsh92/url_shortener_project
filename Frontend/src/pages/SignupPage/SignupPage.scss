@@ -34,20 +34,18 @@
     // margin-bottom: 0.5rem;
   }
 
-  .borderRedZone{
-
+  .borderRedZone {
     .p-inputtext {
       outline: none;
-    
     }
-  
+
     .p-inputtext:enabled:focus {
       outline: none;
       outline-offset: unset;
       box-shadow: unset;
       border-color: rgb(209, 213, 219);
     }
-  
+
     .p-inputtext:enabled:hover {
       border-color: rgb(209, 213, 219);
     }
@@ -61,12 +59,11 @@
     width: 30vw !important;
   }
 
-  .pi{
+  .pi {
     vertical-align: middle;
   }
 
   .p-button .p-button-label {
-    transition-duration:unset;
-
- }  
+    transition-duration: unset;
+  }
 }

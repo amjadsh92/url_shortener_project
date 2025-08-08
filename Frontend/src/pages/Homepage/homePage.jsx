@@ -51,12 +51,8 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
 
     const fetchURLs = async () => {
       try {
-        const res = await fetch(`${baseURL}/api/user`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username }),
+        const res = await fetch(`${baseURL}/api/user?username=${username}`, {
+          
           credentials: "include",
         });
 
