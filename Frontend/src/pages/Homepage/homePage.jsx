@@ -25,6 +25,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
 
   const navigate = useNavigate();
   const usernameRef = useRef(null);
+  const listOfURLsRef = useRef(null);
 
   useEffect(() => {
     const fetchAuthentication = async () => {
@@ -101,6 +102,12 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
     }
   };
 
+  
+
+  const scrollToList = () => {
+    listOfURLsRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="bg-hero w-full h-full p-1px">
       <Navbar
@@ -113,6 +120,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         setPageLoading={setPageLoading}
         showNavMenu={showNavMenu}
         setShowNavMenu={setShowNavMenu}
+        toMyShortURLs={scrollToList}
       />
       <div className="home" onClick={hideMenu}>
         <Title />
@@ -125,7 +133,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         />
 
       {username ? (
-        <ListOfURLs listOfURLs={listOfURLs} setListOfURLs={setListOfURLs} />
+        <ListOfURLs listOfURLs={listOfURLs} setListOfURLs={setListOfURLs} listOfURLsRef={listOfURLsRef} />
       ) : (
         ""
       )}

@@ -23,6 +23,7 @@ function Navbar({
   setPageLoading,
   showNavMenu,
   setShowNavMenu,
+  toMyShortURLs
 }) {
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -76,6 +77,7 @@ function Navbar({
             username={username}
             showNavMenu={showNavMenu}
             handleLogout={handleLogout}
+            toMyShortURLs={toMyShortURLs}
           />
         )}
       </div>

@@ -20,7 +20,7 @@ import { Column } from "primereact/column";
 import ConfirmDeletionModal from "./ConfirmDeletionModal";
 
 
-function ListOfURLs({ listOfURLs, setListOfURLs }) {
+function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     original_url: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -156,7 +156,7 @@ function ListOfURLs({ listOfURLs, setListOfURLs }) {
 
   return (
 
-    <div className="listOfURLs p-1px mb-8">
+    <div className="listOfURLs p-1px mb-8" ref={listOfURLsRef}>
       <div className="tableOfURLs mt-6">
             {/* <img src="/shortURL.png" className="shortURLImage" /> */}
             <p className="listOfURLsTitle text-center text-white mb-6">

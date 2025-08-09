@@ -10,8 +10,16 @@ import "primeicons/primeicons.css";
 import "primeicons/primeicons.css";
 
 
-function NavMenu({ handleLogout }) {
+function NavMenu({ handleLogout, toMyShortURLs }) {
     return (
+      <>
+       <div
+      className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full"
+      onClick={toMyShortURLs}
+    >
+     
+      <span>My short URLs</span>
+    </div>
       <div
         className="menu flex justify-content-center gap-2 align-items-center cursor-pointer w-full"
         onClick={handleLogout}
@@ -19,6 +27,8 @@ function NavMenu({ handleLogout }) {
         <i className="pi pi-sign-out" style={{ color: "white" }}></i>{" "}
         <span>Log out</span>
       </div>
+     
+    </>
     );
   }
 

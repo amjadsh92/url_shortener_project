@@ -18,6 +18,7 @@ function Dashboard({
     username,
     showNavMenu,
     handleLogout,
+    toMyShortURLs
   }) {
     return (
       <div className="flex flex-column">
@@ -27,7 +28,7 @@ function Dashboard({
           username={username}
           showNavMenu={showNavMenu}
         />
-        {showNavMenu && <NavMenu handleLogout={handleLogout} />}
+        {showNavMenu && <NavMenu handleLogout={handleLogout} toMyShortURLs={toMyShortURLs} />}
       </div>
     );
   }
