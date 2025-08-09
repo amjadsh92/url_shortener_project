@@ -188,6 +188,7 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
           </form>
         </Card>
       </div>
+      <p className="footer text-center text-white text-sm mt-8">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
     </div>
   );
 }

@@ -16,6 +16,10 @@ import { useState, useEffect } from "react";
 import { Password } from "primereact/password";
 import { useNavigate } from "react-router-dom";
 import SignupResultModal from "./components/SignUp/SignupResultModal";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import {faCopyright} from '@fortawesome/free-solid-svg-icons'
+
+
 
 function SignupPage({ setPageLoading }) {
   const navigate = useNavigate();
@@ -259,6 +263,7 @@ function SignupPage({ setPageLoading }) {
           </form>
         </Card>
       </div>
+      <p className="footer text-center text-white text-sm">&copy;2025, Amjad Sharafeddine. All rights reserved.</p>
     </div>
   );
 }

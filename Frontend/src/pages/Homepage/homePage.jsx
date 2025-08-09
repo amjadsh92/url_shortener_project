@@ -15,6 +15,8 @@ import Navbar from "./components/NavBar/NavBar";
 import ShorteningURLForm from "./components/ShorteningURLForm/ShorteningURLForm";
 import Title from "./components/Title/Title";
 
+
+
 function HomePage({ setAuthorizationMessage, setPageLoading }) {
   const [showNavMenu, setShowNavMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -137,8 +139,9 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
       ) : (
         ""
       )}
+      <p className="footer text-center text-white text-sm">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
       </div>
-     
+      
     </div>
   );
 }

@@ -1,3 +1,19 @@
+.bg-hero {
+  
+  background-image: url('5559852.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 99.9vh;
+}
+
+
+.centered {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
 .form-login {
   .p-card .p-card-title {
     padding: 1.25rem;
