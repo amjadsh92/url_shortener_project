@@ -38,12 +38,17 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
           credentials: "include",
         });
         const result = await res.json();
+
         if (result) {
           setIsAuthenticated(result.isAuthenticated);
           setUsername(result.username);
         }
-        if (isAuthenticated) {
+        if (result.isAuthenticated) {
           await fetchURLs();
+        }
+        else if(!result.isAuthenticated){
+          sessionStorage.removeItem("originalURL")
+          sessionStorage.removeItem("shortSlug");
         }
       } catch (err) {
         setIsAuthenticated(false);

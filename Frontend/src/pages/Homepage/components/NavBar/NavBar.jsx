@@ -52,7 +52,8 @@ function Navbar({
 
       if (response.ok) {
         await response.json();
-
+        sessionStorage.removeItem("originalURL")
+        sessionStorage.removeItem("shortSlug");
         setTimeout(() => {
           setIsAuthenticated(false);
         }, 2000);

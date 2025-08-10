@@ -127,7 +127,7 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
 
   return (
     <div className="bg-hero w-full h-full p-1px align-content-center">
-      <div className="form-login p-1px">
+      <div className="form-login p-1px mt-6">
         <Card
           title="Welcome to our URL Shortener APP"
           className="mt-6 mb-6 mx-auto"
@@ -188,7 +188,7 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
           </form>
         </Card>
       </div>
-      <p className="footer text-center text-white text-sm mt-8">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
+      <p className="footer text-center text-white text-sm mt-6">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
     </div>
   );
 }

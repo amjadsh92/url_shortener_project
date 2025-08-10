@@ -35,20 +35,31 @@ function ShorteningURLForm({
   useEffect(()=> {
     setErrorMessage(false)
     setBorderRedZone(false)
-    setOriginalURL("");
-    setShortSlug("");
+    setBadRequest(false)
+    const savedOriginal = sessionStorage.getItem("originalURL") || "";
+    const savedSlug = sessionStorage.getItem("shortSlug") || "";
+
+    setOriginalURL(savedOriginal);
+    setShortSlug(savedSlug);
+    
   }, [username]);
 
-  const handleOriginalURLChange = (e) => {
+
+  
+const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
+    sessionStorage.setItem("originalURL", e.value);
     setErrorMessage(false);
     setBorderRedZone({});
+    setBadRequest(false)
   };
 
-  const handleShortURLChange = (e) => {
+const handleShortURLChange = (e) => {
     setShortSlug(e.value);
+    sessionStorage.setItem("shortSlug", e.value);
     setBorderRedZone({});
     setErrorMessage(false);
+    setBadRequest(false)
   };
 
   const handleSubmit = async (e) => {
@@ -104,6 +115,7 @@ function ShorteningURLForm({
       console.log(error);
       setErrorMessage("The server is down. Please Try again later.");
       setShorturlLoading(false);
+      
     }
   };
 
@@ -137,7 +149,7 @@ function ShorteningURLForm({
             onChange={handleShortURLChange}
           />
           {badRequest && (
-            <p className="text-red-700 text-sm ml-1 mb-3">{errorMessage}</p>
+            <p className="text-red-700 text-sm ml-1 mb-2 mt-5">{errorMessage}</p>
           )}
           <Button
             className="mt-4 min-w-183px"
