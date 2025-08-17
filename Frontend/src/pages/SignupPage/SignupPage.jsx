@@ -238,9 +238,9 @@ function SignupPage({ setPageLoading }) {
               required
             />
 
-            <p className="text-red-700 text-sm ml-1 mt-4">{errorMessage}</p>
+            <p className="errorMessage text-red-700 ml-1 mt-4">{errorMessage}</p>
 
-            <Button className="mt-3 w-full" label={`${signupLoading ? "" : "Sign up"}`} icon={`${ signupLoading ?  "pi pi-spin pi-spinner": ""}`}  type="submit" />
+            <Button className=" sign-up-button mt-3 w-full" label={`${signupLoading ? "" : "Sign up"}`} icon={`${ signupLoading ?  "pi pi-spin pi-spinner": ""}`}  type="submit" />
 
             <div className="login flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Already have an account?</p>
@@ -263,7 +263,7 @@ function SignupPage({ setPageLoading }) {
           </form>
         </Card>
       </div>
-      <p className="footer text-center text-white text-sm">&copy;2025, Amjad Sharafeddine. All rights reserved.</p>
+      <p className="footer text-center text-white">&copy;2025, Amjad Sharafeddine. All rights reserved.</p>
     </div>
   );
 }

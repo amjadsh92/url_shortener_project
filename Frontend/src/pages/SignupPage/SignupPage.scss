@@ -11,7 +11,17 @@
 }
 
 
+
+.footer{
+  font-size:13.33333 !important;
+ }
+
+
 .form-signup {
+
+  .errorMessage{
+    font-size: 0.875rem !important;
+  }
   .p-card .p-card-title {
     padding: 1.25rem;
     padding-bottom: 0rem;
@@ -75,4 +85,278 @@
   .p-button .p-button-label {
     transition-duration: unset;
   }
+}
+
+
+@media (max-width: 1300px) {
+  .form-signup
+  {
+    .p-card {
+    width: 66.6667% !important;
+  }
+}
+
+
+}
+
+
+
+@media (max-width: 1000px) {
+  
+
+.dialog-signup.p-dialog.p-dialog-header.p-dialog-title {
+    font-size: 1rem !important;
+  }
+
+.dialog-signup.p-dialog {
+    width: 40vw !important;
+  }
+
+
+}
+
+
+
+@media (max-width: 850px) {
+  
+
+  // .dialog-signup.p-dialog.p-dialog-header.p-dialog-title {
+  //     font-size: 1rem !important;
+  //   }
+  
+  .dialog-signup.p-dialog {
+      width: 45vw !important;
+    }
+  
+  
+  }
+
+
+@media (max-width: 650px) {
+
+  
+
+  .dialog-signup .p-dialog-header .p-dialog-title {
+      font-size: 1rem !important;
+    }
+  
+  .dialogContent-signup > div{
+  
+    font-size:14.4px;
+    
+  }
+  .dialogContent-signup > p{
+  
+    font-size:14.4px;
+    
+  }
+  .dialogContent-signup > span{
+  
+    font-size:14.4px;
+    
+  }
+
+
+
+  
+
+  .dialog-signup{
+    .p-dialog-footer{
+      .p-button{
+        height:40px;
+        font-size:14.4px
+      }
+    }
+
+    .pi{
+      font-size:14.4px;
+    }
+
+    .p-icon {
+      width: 0.9rem;
+      height: 0.9rem;
+  }
+  }
+  
+  .dialog-signup.p-dialog {
+      width: 50vw !important;
+    }
+
+  
+
+  .form-signup
+  {
+
+    
+      .errorMessage{
+        font-size: 0.83rem !important;
+       }
+    
+    
+    
+    .p-card {
+    width: 83% !important;
+  }
+
+  .p-inputtext {
+    font-size: 14.4px;
+}
+
+
+  form > p{
+
+    font-size:14.4px !important;
+
+  }
+
+  form > div > p{
+
+    font-size:14.4px !important;
+
+  }
+
+   .p-card .p-card-title {
+    font-size: 1.2rem;
+  }
+
+  .create-account > p{
+    font-size:14.4px;
+  }
+
+  .sign-up-button{
+    font-size:14.4px !important;
+  }
+}
+
+
+}
+
+
+
+@media (max-width: 600px) {
+
+  .dialog-signup.p-dialog {
+    width: 60vw !important;
+  }
+
+
+}  
+
+@media (max-width: 500px) {
+
+  
+  .form-signup{
+    .errorMessage{
+      font-size: 0.8rem !important;
+     }
+  }
+  
+  
+  .dialog-signup .p-dialog-header .p-dialog-title {
+    font-size: 0.9rem !important;
+  }
+
+  .dialog-signup{
+    .p-dialog-footer{
+      .p-button{
+        
+        height:35px;
+        font-size:13.4px
+      }
+    }
+
+    .pi{
+      font-size:13.4px;
+    }
+
+    .p-icon {
+      width: 0.8rem;
+      height: 0.8rem;
+  }
+  }
+
+  // .dialogContent-login{
+  //   margin-top:2px;
+  //   font-size:13.4px;
+    
+  // }
+
+
+  .dialogContent-signup > div{
+  
+    font-size:13.4px;
+    
+  }
+  .dialogContent-signup > p{
+  
+    font-size:13.4px;
+    
+  }
+  .dialogContent-signup > span{
+  
+    font-size:13.4px;
+    
+  }
+
+
+  .dialog-signup.p-dialog {
+    width: 70vw !important;
+  }
+
+} 
+
+@media (max-width: 400px) {
+
+  .dialog-signup.p-dialog {
+    width: 80vw !important;
+  }
+
+  .form-signup
+  {
+
+   .errorMessage{
+    font-size: 0.75rem !important;
+   }
+
+
+    .p-inputtext {
+      font-size: 13.4px;
+  }
+
+
+    .p-card {
+    width: 90% !important;
+  }
+
+  form > p{
+
+    font-size:13.4px !important;
+
+  }
+
+  form > div > p{
+
+    font-size:13.4px !important;
+
+  }
+
+   .p-card .p-card-title {
+    font-size: 1.15rem;
+  }
+
+  .create-account > p{
+    font-size:11.4px;
+  }
+
+  .sign-up-button{
+    font-size:13.4px !important;
+  }
+
+  .footer{
+    font-size:12.33333 !important;
+   }
+  
+}
+
+
 }

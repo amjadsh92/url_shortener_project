@@ -121,7 +121,7 @@ const handleShortURLChange = (e) => {
 
   return (
     <div className="form-home p-1px">
-       <Card title="Shorten a long link" className="mt-6 mb-10 mx-auto">
+       <Card title="Shorten a long link" className=" shortURLForm mt-6 mx-auto">
         <form onSubmit={handleSubmit}>
           <p className="url font-semibold mb-2">Paste your long link here</p>
 
@@ -149,7 +149,7 @@ const handleShortURLChange = (e) => {
             onChange={handleShortURLChange}
           />
           {badRequest && (
-            <p className="text-red-700 text-sm ml-1 mb-2 mt-5">{errorMessage}</p>
+            <p className="errorMessage text-red-700 ml-1 mb-2 mt-5">{errorMessage}</p>
           )}
           <Button
             className="mt-4 min-w-183px"

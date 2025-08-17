@@ -49,12 +49,14 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
   const renderHeader = () => {
     return (
       <div className="flex justify-content-end">
-        <IconField iconPosition="left">
+        <IconField iconPosition="left" >
           <InputIcon className="pi pi-search" />
           <InputText
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
             placeholder="Keyword Search"
+            className="keywordSearch"
+            
           />
         </IconField>
       </div>
@@ -120,7 +122,7 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
           icon="pi pi-trash"
           className="p-button-rounded p-button-text p-button-danger"
           onClick={() => deleteURL(map_id)}
-          tooltip="Delete"
+          // tooltip="Delete"
         />
       </>
     );
@@ -180,18 +182,25 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
           filter
           filterPlaceholder="Search by original URL"
           body={originalUrlTemplate}
-          style={{ minWidth: "14rem" }}
+          // style={{ minWidth: "14rem" }}
+          className="originalURLColumn"
           headerClassName="text-center"
         />
         <Column
           header="Short URL"
           field="short_url"
           body={shortUrlTemplate}
-          style={{ minWidth: "14rem" }}
+          // style={{ minWidth: "14rem" }}
           filter
           filterPlaceholder="Search by short URL"
+          className="shortURLColumn"
         />
-        <Column body={deleteButtonTemplate} style={{ minWidth: "12rem" }} />
+        <Column 
+        
+          body={deleteButtonTemplate} 
+          // style={{minWidth:"12rem" }}
+          className="deleteURLColumn" 
+           />
       </DataTable>
 
       

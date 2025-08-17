@@ -68,7 +68,7 @@ function Navbar({
 
   return (
     <div className="navbar" onClick={hideMenu}>
-      <div className="navlink">
+      <div className={`${isAuthenticated ? 'navlink-auth' : 'navlink'}`}>
         {!isAuthenticated ? (
           <Guest toLoginPage={toLoginPage} toSignupPage={toSignupPage} />
         ) : (

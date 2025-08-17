@@ -15,7 +15,7 @@ function Title(){
     return(
      
   <div className="title">
-    <h1 className="first-title text-center text-white mt-50px">
+    <h1 className="first-title text-center text-white">
       URL Shortener App
     </h1>
     <h1 className="second-title text-center text-white mt-5 ">

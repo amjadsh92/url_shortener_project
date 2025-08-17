@@ -161,7 +161,7 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
             />
 
             <Button
-              className="mt-4 w-full"
+              className="log-in-button mt-4 w-full"
               label={loginLoading ? "" : "Log in"}
               icon={`${loginLoading ? "pi pi-spin pi-spinner" : ""}`}
               type="submit"
@@ -178,17 +178,18 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
             </div>
 
             <p
-              className="cursor-pointer back-home-color mt-4 text-center font-semibold no-underline"
+              className="back-home cursor-pointer back-home-color mt-4 text-center font-semibold no-underline"
               onClick={toHomePage}
             >
               Back to Home
             </p>
-
+            
             <LoginResultModal dialog={dialog} setDialog={setDialog} />
+            
           </form>
         </Card>
       </div>
-      <p className="footer text-center text-white text-sm mt-6">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
+      <p className="footer text-center text-white mt-6 sm:text-sm">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
     </div>
   );
 }

@@ -16,9 +16,9 @@ function LoginResultModal({ dialog, setDialog }) {
     <Dialog
       header="Your registration"
       visible={dialog.visible}
-      className="dialog-signup"
-      style={{ width: "150px", wordBreak: "break-word" }}
-      breakpoints={{ "400px": "300px", "338px": "250px" }}
+      className="dialog-login"
+      // style={{ width: "150px", wordBreak: "break-word" }}
+      // breakpoints={{ "400px": "300px", "338px": "250px" }}
       onHide={() => setDialog({ ...dialog, visible: false })}
       footer={
         <div>
@@ -39,7 +39,7 @@ function LoginResultModal({ dialog, setDialog }) {
 function DialogContent({ message }) {
   return (
     <>
-      <div className="mt-4 ml-6px">{message}</div>
+      <div className="dialogContent-login">{message}</div>
     </>
   );
 }

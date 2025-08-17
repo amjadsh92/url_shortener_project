@@ -47,8 +47,8 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
           await fetchURLs();
         }
         else if(!result.isAuthenticated){
-          sessionStorage.removeItem("originalURL")
-          sessionStorage.removeItem("shortSlug");
+          // sessionStorage.removeItem("originalURL")
+          // sessionStorage.removeItem("shortSlug");
         }
       } catch (err) {
         setIsAuthenticated(false);
@@ -144,7 +144,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
       ) : (
         ""
       )}
-      <p className="footer text-center text-white text-sm">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
+      <p className="footer text-center text-white">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
       </div>
       
     </div>

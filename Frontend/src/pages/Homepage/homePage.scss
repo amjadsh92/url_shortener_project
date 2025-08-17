@@ -10,6 +10,38 @@
   margin-top:1.5rem;
 }
 
+.p-column-filter-row .p-column-filter-element {
+  // flex: 1 1 auto;
+  // width: 1%;
+  min-width: 8rem;
+}
+
+.shortURLForm{
+  margin-bottom:100px;
+}
+
+
+.originalURLColumn{
+  min-width:14rem
+ }
+
+ .shortURLColumn{
+  min-width:14rem
+ }
+
+ .deleteURLColumn{
+  min-width:12rem
+ }
+
+
+.form-home .errorMessage{
+  font-size: 0.875rem !important;
+}
+
+.footer{
+  font-size:0.875rem !important;
+ }
+
 
 .menu {
   padding-right: 20px !important;
@@ -32,14 +64,14 @@
   align-content: center;
 }
 
-.navlink {
+.navlink, .navlink-auth {
   display: flex;
   justify-content: end;
   align-items: center;
   gap: 8px;
 }
 
-.navlink > div > div > span {
+.navlink, .navlink-auth > div > div > span {
   font-family: "Montserrat", sans-serif;
   color: white;
 }
@@ -58,7 +90,7 @@
   margin-right: 20px;
 }
 
-.navlink > div > .username {
+.navlink-auth > div > .username {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -69,7 +101,7 @@
   cursor: pointer;
 }
 
-.navlink > div > .username:hover {
+.navlink-auth > div > .username:hover {
   background-color: rgba(40, 81, 140, 0.3882352);
 }
 
@@ -83,27 +115,31 @@
 
 .title {
   padding: 2rem;
+  margin-top:50px;
 }
 
-.p-dialog .p-dialog-header {
+
+.shorturl.p-dialog .p-dialog-header {
   padding: 0px;
 }
 
-.p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+.shorturl.p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
   margin-right: 17px;
   margin-top: 10px;
 }
 
-.p-dialog .p-dialog-header .p-dialog-title {
+.shorturl.p-dialog .p-dialog-header .p-dialog-title {
   font-weight: 700;
   font-size: 1.25rem;
   margin-top: 15px;
   margin-left: 30px;
 }
 
-.p-dialog {
+.shorturl.p-dialog {
   width: 50vw !important;
 }
+
+
 
 .tableOfURLs{
   width:60%;
@@ -290,15 +326,118 @@ a{
   }
 }
 
+
+@media (max-width: 1000px) {
+  .form-home .p-card {
+    width: 83.333% !important;
+
+    
+  }
+
+  .tableOfURLs{
+    width:83.333% !important;
+    
+   
+  }  
+}
+
 @media (max-width: 900px) {
-  .p-dialog {
+ 
+  .shorturl.p-dialog {
     width: 60vw !important;
   }
 }
 
+
 @media (max-width: 850px) {
-  .p-dialog {
+
+  
+  .navlink > .login > span {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size:15px;
+  }
+
+  .navlink-auth .username > span {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size:15px;
+  }
+
+
+  .listOfURLsTitle {
+    
+    font-size: 19.2px !important;
+}
+
+.p-inputtext {
+  
+  font-size: 15px!important;
+  
+}
+
+.listOfURLs .p-datatable .p-datatable-thead > tr > th {
+  padding-left: 3rem;
+  
+}
+
+.listOfURLs .p-datatable .p-datatable-tbody > tr > td {
+ 
+  padding-left: 3rem;
+  font-size: 15px;
+}
+
+.listOfURLs tr td:nth-child(3) {
+  padding-left: 7rem !important;
+  
+}
+
+
+li.p-column-filter-row-item {
+  font-size: 15px !important;
+}
+ 
+.home-table{
+  .pi {
+    font-size: 0.95rem;
+}
+}
+ 
+  .footer {
+    font-size: 13px !important;
+    // width: 60%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .shorturl .p-dialog-header .p-dialog-title {
+    font-size: 1.1rem !important;
+  }
+
+  .shorturl.p-dialog {
     width: 60vw !important;
+  }
+
+  .shorturl{
+     .p-inputtext{
+      font-size:0.9rem;
+     }
+     .p-button-label{
+      font-size:0.9rem;
+     }
+     .p-button-icon{
+      font-size:0.9rem;
+     }
+     .p-dialog-header .p-dialog-header-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+     }
+
+     .p-icon{
+      width: 0.975rem;
+      height: 0.975rem;
+     }
   }
 
   .first-title {
@@ -316,9 +455,12 @@ a{
     font-size: 1.2rem;
   }
 
-  form > p {
+  .home{
+    form > p {
     font-size: 0.9rem;
   }
+
+}
 
   .form-home .p-inputtext {
     font-size: 0.9rem;
@@ -338,9 +480,82 @@ a{
 }
 
 @media (max-width: 650px) {
-  .p-dialog {
+ 
+ 
+  .listOfURLsTitle {
+    
+    font-size: 17.6px !important;
+}
+
+.p-inputtext {
+  
+  font-size: 14px!important;
+  
+}
+
+// .listOfURLs .p-datatable .p-datatable-thead > tr > th {
+//   padding-left: 2rem;
+//   font-size:15px
+// }
+
+// .listOfURLs .p-datatable .p-datatable-tbody > tr > td {
+ 
+//   padding-left: 2rem;
+//   font-size: 14px;
+// }
+
+// .listOfURLs tr td:nth-child(3) {
+//   padding-left: 8rem !important;
+  
+// }
+
+
+.listOfURLs tr td:nth-child(3) {
+  padding-left: 3rem !important;
+}
+
+.listOfURLs tr td:nth-child(2) {
+padding-left: 1rem !important;
+}
+
+.listOfURLs tr th:nth-child(2) {
+padding-left: 1rem !important;
+}
+
+.originalURLColumn{
+min-width:7rem
+}
+
+.shortURLColumn{
+min-width:7rem
+}
+
+.deleteURLColumn{
+min-width:0rem;
+width:10px;
+padding-left:0px !important;
+}
+
+ 
+.home-table{
+  .pi {
+    font-size: 0.9rem;
+}
+}
+ 
+ .keywordSearch{
+
+  width:200px !important;
+ }
+ 
+ li.p-column-filter-row-item {
+  font-size: 14px !important;
+}
+ 
+  .shorturl.p-dialog{ 
     width: 80vw !important;
-  }
+  
+}
 
   .first-title {
     font-size: 2rem !important;
@@ -358,14 +573,220 @@ a{
   }
 }
 
+
+
+
 @media (max-width: 500px) {
+
+  .listOfURLs tr td:nth-child(3) {
+    padding-left: 2rem !important;
+}
+
+.listOfURLs tr td:nth-child(2) {
+  padding-left: 1rem !important;
+}
+
+.listOfURLs tr th:nth-child(2) {
+  padding-left: 1rem !important;
+}
+
+ .originalURLColumn{
+  min-width:7rem
+ }
+
+ .shortURLColumn{
+  min-width:7rem
+ }
+
+ .deleteURLColumn{
+  min-width:0rem;
+  width:10px;
+  padding-left:0px !important;
+ }
+
+
+ li.p-column-filter-row-item {
+  font-size: 13px !important;
+}
+
+
+
+  .listOfURLsTitle {
+    
+    font-size: 16px !important;
+}
+
+.p-inputtext {
+  
+  font-size: 13px!important;
+  
+}
+
+.listOfURLs .p-datatable .p-datatable-thead > tr > th {
+  padding-left: 2rem;
+  font-size:14px
+}
+
+.listOfURLs .p-datatable .p-datatable-tbody > tr > td {
+ 
+  padding-left: 2rem;
+  font-size: 13px;
+}
+
+.listOfURLs tr td:nth-child(3) {
+  padding-right: 1rem !important;
+  
+}
+ 
+.home-table{
+  .pi {
+    font-size: 0.85rem;
+}
+}
+
+
+.linkCopied{
+    font-size: 12px !important;
+  }
+
+.navbar{
+  height:unset;
+}
+
+.title {
+  margin-top: 20px;
+}  
+
+ .navlink-auth{
+  display:block;
+  width:100%;
+ }
+
+ .navlink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+ .navlink > .login > span {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size:15px;
+  }
+
+  .navlink-auth .username > span {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size:14px;
+  }
+
+
+  .navlink-auth > div > .username {
+      padding-right:10px !important;
+      justify-content: center;
+      // margin-right: 10px;
+  }
+
+
+  .navlink-auth .menu > span {
+
+     font-size: 14px;
+  }
+
+  .navlink-auth .menu > .pi {
+
+    font-size: 0.9rem;
+ }
+  
+
+  .navlink > .login {
+    
+    margin-right: 0px !important;
+  }
+
+  .footer {
+    font-size: 12px !important;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .form-home .errorMessage{
+    font-size: 0.75rem !important;
+  }
+
+
+  .form-home .p-card .p-card-title {
+    font-size: 1.1rem;
+  }
+
+  .home{
+    
+    form > p {
+    font-size: 0.8rem;
+  }
+}
+
+  .form-home .p-inputtext {
+    font-size: 0.8rem;
+  }
+
+  .form-home .p-button {
+    font-size: 0.8rem;
+  }
+
+  .form-home .pi {
+    font-size: 0.8rem;
+  }
+  
+
+ 
+
+  .shorturl.p-dialog {
+    width: 70vw !important;
+  }
+
+  .shorturl{
+     .p-inputtext{
+      font-size:0.85rem;
+     }
+     .p-button-label{
+      font-size:0.85rem;
+     }
+     .p-button-icon{
+      font-size:0.85rem;
+     }
+     .p-dialog-header .p-dialog-header-icon {
+      width: 1.65rem;
+      height: 1.65rem;
+     }
+
+     .p-icon{
+      width: 0.95rem;
+      height: 0.95rem;
+     }
+  }
+
+    
+ .shorturl .p-dialog-header .p-dialog-title {
+  font-size: 1rem !important;
+}
+
+  .shorturl {
+    
   .dialog-input {
     flex-direction: column !important;
   }
 
-  .p-dialog .p-dialog-header .p-dialog-title {
-    font-size: 1rem !important;
-  }
+  
+
+}
+
+
 
   .form-home .p-icon {
     width: 0.9rem !important ;
@@ -391,4 +812,194 @@ a{
     width: 70%;
     margin: auto;
   }
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    
+    min-width: 2rem;
+    height: 2rem;
+  }
+
+  .p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
+    background-color: transparent;
+    border: 0 none;
+    color: #6b7280;
+    min-width: 2.5rem;
+    height: 3rem;
+    margin: 0.143rem;
+    transition: box-shadow 0.2s;
+    border-radius: 50%;
+  } 
+}
+
+
+@media (max-width: 400px) {
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    
+    min-width: 2rem;
+    height: 2rem;
+  }
+
+
+.p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
+  background-color: transparent;
+  border: 0 none;
+  color: #6b7280;
+  min-width: 2.5rem;
+  height: 3rem;
+  margin: 0.143rem;
+  transition: box-shadow 0.2s;
+  border-radius: 50%;
+}
+
+
+  .tableOfURLs{
+    width:85% !important;
+    
+   
+  } 
+  
+  li.p-column-filter-row-item {
+    font-size: 12px !important;
+  }  
+
+  .listOfURLsTitle {
+    
+    font-size: 15.2px !important;
+}
+
+.p-inputtext {
+  
+  font-size: 12px!important;
+  
+}
+
+.listOfURLs .p-datatable .p-datatable-thead > tr > th {
+  padding-left: 2rem;
+  font-size:13px
+}
+
+.listOfURLs .p-datatable .p-datatable-tbody > tr > td {
+ 
+  padding-left: 2rem;
+  font-size: 12px;
+}
+
+.listOfURLs tr td:nth-child(3) {
+  padding-right: 1rem !important;
+  
+}
+ 
+.home-table{
+  .pi {
+    font-size: 0.8rem;
+}
+}
+
+
+.title {
+  padding: 0rem !important;
+  margin-top:80px !important;
+}
+
+.navlink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.navlink > .login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 50px;
+  margin-right: 0px;
+}
+
+.navlink-auth .username > span {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  font-size:13.5px;
+}
+
+.navlink-auth > div > .username > .pi {
+  font-size:0.9rem !important;
+  // margin-right: 10px;
+}
+
+// .footer{
+//   font-size:12px !important;
+//  }
+.navlink-auth .menu > span {
+
+  font-size: 13.5px;
+}
+
+.navlink-auth .menu > .pi {
+
+ font-size: 0.87rem;
+}
+
+.footer {
+  font-size: 11px !important;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 10px;
+}
+  .form-home .p-button {
+    width:100%;
+  }
+
+  .navlink > .login > span {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size:15px;
+  }
+
+
+  .first-title {
+    font-size: 1.45rem !important;
+  }
+  .second-title {
+    font-size: 1rem !important;
+  }
+
+  .title > p {
+    font-size: 0.95rem !important;
+  }
+  
+  
+  .shorturl.p-dialog {
+    width: 80vw !important;
+  }
+
+  .shorturl{
+     .p-inputtext{
+      font-size:0.8rem;
+     }
+     .p-button-label{
+      font-size:0.85rem;
+     }
+     .p-button-icon{
+      font-size:0.85rem;
+     }
+     .p-dialog-header .p-dialog-header-icon {
+      width: 1.55rem;
+      height: 1.55rem;
+     }
+
+     .p-icon{
+      width: 0.9rem;
+      height: 0.9rem;
+     }
+  }
+
+    
+ .shorturl .p-dialog-header .p-dialog-title {
+  font-size: 0.95rem !important;
+}
+
 }

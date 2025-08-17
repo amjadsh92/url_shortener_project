@@ -51,7 +51,7 @@ function ShortURLModal({showDialog, setShowDialog, shortURL}){
         </div>
 
         {copied && (
-          <small className="text-green-600 font-medium ml-1 mb-3">
+          <small className="linkCopied text-green-600 font-medium mt-3 ml-1 mb-3">
             Link copied to clipboard!
           </small>
         )}
