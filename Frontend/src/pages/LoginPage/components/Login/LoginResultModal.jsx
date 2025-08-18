@@ -17,8 +17,6 @@ function LoginResultModal({ dialog, setDialog }) {
       header="Log in Failed"
       visible={dialog.visible}
       className="dialog-login"
-      // style={{ width: "150px", wordBreak: "break-word" }}
-      // breakpoints={{ "400px": "300px", "338px": "250px" }}
       onHide={() => setDialog({ ...dialog, visible: false })}
       footer={
         <div>

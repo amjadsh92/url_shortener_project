@@ -46,10 +46,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         if (result.isAuthenticated) {
           await fetchURLs();
         }
-        else if(!result.isAuthenticated){
-          // sessionStorage.removeItem("originalURL")
-          // sessionStorage.removeItem("shortSlug");
-        }
+        
       } catch (err) {
         setIsAuthenticated(false);
       } finally {

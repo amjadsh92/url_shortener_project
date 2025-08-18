@@ -16,7 +16,11 @@ import { useState, useEffect } from "react";
 import { Password } from "primereact/password";
 import LoginResultModal from "./components/Login/LoginResultModal";
 
-function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoading }) {
+function LoginPage({
+  authorizationMessage,
+  setAuthorizationMessage,
+  setPageLoading,
+}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
@@ -107,7 +111,7 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
       setLoginLoading(false);
       setDialog({
         visible: true,
-        message: "The server is down.Try again later",
+        message: "The server is down.Try again later.",
       });
     }
   };
@@ -183,13 +187,14 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
             >
               Back to Home
             </p>
-            
+
             <LoginResultModal dialog={dialog} setDialog={setDialog} />
-            
           </form>
         </Card>
       </div>
-      <p className="footer text-center text-white mt-6 sm:text-sm">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
+      <p className="footer text-center text-white mt-6 sm:text-sm">
+        &copy; 2025, Amjad Sharafeddine. All rights reserved.
+      </p>
     </div>
   );
 }

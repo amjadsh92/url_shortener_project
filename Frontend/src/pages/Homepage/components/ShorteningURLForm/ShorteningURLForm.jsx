@@ -32,51 +32,40 @@ function ShorteningURLForm({
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
-  useEffect(()=> {
-    setErrorMessage(false)
-    setBorderRedZone(false)
-    setBadRequest(false)
+  useEffect(() => {
+    setErrorMessage(false);
+    setBorderRedZone(false);
+    setBadRequest(false);
 
-   
-  
- 
-    
     const savedOriginal = sessionStorage.getItem("originalURL") || "";
     const savedSlug = sessionStorage.getItem("shortSlug") || "";
 
     setOriginalURL(savedOriginal);
     setShortSlug(savedSlug);
-
-    
-    
   }, [username]);
 
-
-  
-const handleOriginalURLChange = (e) => {
+  const handleOriginalURLChange = (e) => {
     setOriginalURL(e.value);
     sessionStorage.setItem("originalURL", e.value);
     setErrorMessage(false);
     setBorderRedZone({});
-    setBadRequest(false)
+    setBadRequest(false);
   };
 
-const handleShortURLChange = (e) => {
+  const handleShortURLChange = (e) => {
     setShortSlug(e.value);
     sessionStorage.setItem("shortSlug", e.value);
     setBorderRedZone({});
     setErrorMessage(false);
-    setBadRequest(false)
+    setBadRequest(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShorturlLoading(true);
-    
-    
+
     let url = { originalURL, shortSlug, username };
 
-    
     try {
       const response = await fetch(`${baseURL}/api/short-url`, {
         method: "POST",
@@ -122,13 +111,12 @@ const handleShortURLChange = (e) => {
       console.log(error);
       setErrorMessage("The server is down. Please Try again later.");
       setShorturlLoading(false);
-      
     }
   };
 
   return (
     <div className="form-home p-1px">
-       <Card title="Shorten a long link" className=" shortURLForm mt-6 mx-auto">
+      <Card title="Shorten a long link" className=" shortURLForm mt-6 mx-auto">
         <form onSubmit={handleSubmit}>
           <p className="url font-semibold mb-2">Paste your long link here</p>
 
@@ -156,7 +144,9 @@ const handleShortURLChange = (e) => {
             onChange={handleShortURLChange}
           />
           {badRequest && (
-            <p className="errorMessage text-red-700 ml-1 mb-2 mt-5">{errorMessage}</p>
+            <p className="errorMessage text-red-700 ml-1 mb-2 mt-5">
+              {errorMessage}
+            </p>
           )}
           <Button
             className="mt-4 min-w-183px"
@@ -166,16 +156,14 @@ const handleShortURLChange = (e) => {
           />
         </form>
 
-       
-        <ShortURLModal showDialog={showDialog} setShowDialog={setShowDialog} shortURL={shortURL} />
-      </Card> 
-     
+        <ShortURLModal
+          showDialog={showDialog}
+          setShowDialog={setShowDialog}
+          shortURL={shortURL}
+        />
+      </Card>
     </div>
   );
 }
 
 export default ShorteningURLForm;
-
-
-
-
