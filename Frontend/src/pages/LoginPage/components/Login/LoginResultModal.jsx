@@ -14,7 +14,7 @@ import { Button } from "primereact/button";
 function LoginResultModal({ dialog, setDialog }) {
   return (
     <Dialog
-      header="Your registration"
+      header="Log in Failed"
       visible={dialog.visible}
       className="dialog-login"
       // style={{ width: "150px", wordBreak: "break-word" }}

@@ -18,7 +18,7 @@ exports.deleteURL  = async function (req, res) {
     } catch {
       return res
         .status(500)
-        .json({ error: "The server is down, Try again later" });
+        .json({ error: "The server is down, Try again later." });
     }
   };
 
@@ -28,7 +28,7 @@ exports.redirectURL =   async function (req, res) {
     const shorturl = req.params.shorturl;
 
     if (!shorturl) {
-      res.status(400).json({ error: "No short url was provided" });
+      res.status(400).json({ error: "No short URL was provided" });
       return;
     }
 
@@ -57,7 +57,7 @@ exports.redirectURL =   async function (req, res) {
       if (!originalURL) {
         res
           .status(400)
-          .json({ error: "No long_url has been provided", name: "long" });
+          .json({ error: "No long URL has been provided", name: "long" });
         return;
       }
   
@@ -71,7 +71,7 @@ exports.redirectURL =   async function (req, res) {
       const originalUrlLength = originalURL.length;
       if (originalUrlLength > 2048) {
         res.status(400).json({
-          error: "You exceeded the maximum length of a url",
+          error: "You exceeded the maximum length of a URL",
           name: "long",
         });
         return;
@@ -155,7 +155,7 @@ exports.redirectURL =   async function (req, res) {
           res
             .status(400)
             .json({
-              error: "This short_url corresponds to a different long_url",
+              error: "This short URL already corresponds to a different URL",
               name: "short",
             });
           return;
@@ -201,24 +201,19 @@ exports.redirectURL =   async function (req, res) {
               username: `${username}`,
             });
           }
-          // return res.json({
-          //   original_url: `${originalURL}`,
-          //   short_url: process.env.BASE_URL + "/" + shortURL,
-          //   username:`${username}`
-          // });
-  
+          
           res
             .status(400)
             .json({
               error:
-                "This short url already exists in your list.",
+                "This short URL is already in your list.",
               name:"short"  
             });
         }
       } catch (e) {
         console.log(e);
         res.status(400).json({
-          error: "The long_url you have provided is invalid",
+          error: "The long URL you have provided is invalid",
           name: "long",
         });
       }

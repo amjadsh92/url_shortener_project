@@ -100,7 +100,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
     setPageLoading(true);
     setTimeout(() => {
       navigate("/login");
-    }, 1000);
+    }, 500);
   };
 
   const hideMenu = () => {

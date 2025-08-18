@@ -212,9 +212,9 @@ a{
 }
 
 
-.dialog-delete.p-dialog {
-  width: 30vw !important;
-}
+// .dialog-delete.p-dialog {
+//   width: 30vw !important;
+// }
 
 .listOfURLsTitle{
 
@@ -320,6 +320,57 @@ a{
 }
 
 
+.dialogContent-delete{
+
+  margin-left:6px;
+  margin-top:1.5rem;
+ }
+
+//  .dialog-login.p-dialog .p-dialog-header {
+//     padding: 0px;
+//   }
+  
+  // .dialog-login.p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+  //   margin-right: 17px;
+  //   margin-top: 14px;
+  // }
+  
+  .dialog-delete.p-dialog.p-dialog-header.p-dialog-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    // margin-top: 15px;
+    // margin-left: 30px;
+  }
+  
+  .dialog-delete.p-dialog {
+    width: 35% !important;
+  }
+
+
+
+  .dialog-delete{
+    .p-dialog-footer{
+      .p-button{
+        width:110px;
+        height:40px;
+        font-size:14px
+      }
+    }
+  
+    .pi{
+      font-size: 14px;
+    }
+  
+    .p-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+  }
+
+}
+  
+  
+
+
 @media (max-width: 1300px) {
   .p-card {
     width: 66.6667% !important;
@@ -328,6 +379,48 @@ a{
 
 
 @media (max-width: 1000px) {
+
+  .dialog-delete.p-dialog.p-dialog-header.p-dialog-title {
+    font-size: 1rem !important;
+  }
+
+
+  .dialogContent-delete{
+    margin-top:3px;
+    font-size:14.4px;
+    
+  }
+
+  .dialog-delete{
+    .p-dialog-footer{
+      .p-button{
+        width:110px;
+        height:40px;
+        font-size:14.4px
+      }
+    }
+
+    .pi{
+      font-size:14.4px;
+    }
+
+    .p-icon {
+      width: 0.9rem;
+      height: 0.9rem;
+  }
+  }
+  
+  
+
+  
+
+
+.dialog-delete.p-dialog {
+    width: 45% !important;
+  }
+
+
+
   .form-home .p-card {
     width: 83.333% !important;
 
@@ -350,6 +443,47 @@ a{
 
 
 @media (max-width: 850px) {
+
+
+
+  .dialog-delete.p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 1.1rem !important;
+  }
+
+
+  .dialogContent-delete{
+    margin-top:3px;
+    font-size:14px;
+    
+  }
+
+  .dialog-delete{
+    .p-dialog-footer{
+      .p-button{
+        width:100px;
+        height:40px;
+        font-size:13px
+      }
+    }
+
+    .pi{
+      font-size:13px;
+    }
+
+    .p-icon {
+      width: 0.9rem;
+      height: 0.9rem;
+  }
+  }
+  
+  
+
+  
+
+
+.dialog-delete.p-dialog {
+    width: 50% !important;
+  }
 
   
   .navlink > .login > span {
@@ -493,6 +627,49 @@ li.p-column-filter-row-item {
   
 }
 
+
+
+.dialog-delete.p-dialog .p-dialog-header .p-dialog-title {
+  font-size: 1rem !important;
+}
+
+
+.dialogContent-delete{
+  margin-top:3px;
+  font-size:13px;
+  
+}
+
+.dialog-delete{
+  .p-dialog-footer{
+    .p-button{
+      width:93px;
+      height:40px;
+      font-size:11.5px
+    }
+  }
+
+  .pi{
+    font-size: 11px;
+  }
+
+  .p-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+}
+}
+
+
+
+
+
+
+.dialog-delete.p-dialog {
+  width: 55% !important;
+}
+
+
+
 // .listOfURLs .p-datatable .p-datatable-thead > tr > th {
 //   padding-left: 2rem;
 //   font-size:15px
@@ -577,6 +754,47 @@ padding-left:0px !important;
 
 
 @media (max-width: 500px) {
+
+
+
+  .dialog-delete.p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 0.9rem !important;
+  }
+  
+  
+  .dialogContent-delete{
+    margin-top:3px;
+    font-size:12.5px;
+    
+  }
+  
+  .dialog-delete{
+    .p-dialog-footer{
+      .p-button{
+        width:87px;
+        height:35px;
+        font-size:10.5px
+      }
+    }
+  
+    .pi{
+      font-size: 10px;
+    }
+  
+    .p-icon {
+      width: 0.8rem;
+      height: 0.8rem;
+  }
+  }
+  
+  
+.dialog-delete.p-dialog {
+    width: 80% !important;
+  }
+  
+  
+
+
 
   .listOfURLs tr td:nth-child(3) {
     padding-left: 2rem !important;

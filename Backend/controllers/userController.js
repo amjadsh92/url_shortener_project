@@ -13,14 +13,14 @@ exports.listOfURLs = async function (req, res) {
       const numberOfURLs = listOfURLs.length;
 
       if (!numberOfURLs) {
-        res.status(400).json({ error: "No urls found" });
+        res.status(400).json({ error: "No URLs found" });
       } else if (listOfURLs) {
         res.json({ listOfURLs });
       }
     } catch {
       res
         .status(500)
-        .json({ error: "An error has occured when fetching urls" });
+        .json({ error: "An error has occured when fetching URLs" });
     }
   }
 

@@ -36,11 +36,18 @@ function ShorteningURLForm({
     setErrorMessage(false)
     setBorderRedZone(false)
     setBadRequest(false)
+
+   
+  
+ 
+    
     const savedOriginal = sessionStorage.getItem("originalURL") || "";
     const savedSlug = sessionStorage.getItem("shortSlug") || "";
 
     setOriginalURL(savedOriginal);
     setShortSlug(savedSlug);
+
+    
     
   }, [username]);
 

@@ -36,7 +36,7 @@ function Navbar({
     setPageLoading(true);
     setTimeout(() => {
       navigate("/signup");
-    }, 1000);
+    }, 500);
   };
 
   const handleLogout = async () => {
@@ -56,7 +56,7 @@ function Navbar({
         sessionStorage.removeItem("shortSlug");
         setTimeout(() => {
           setIsAuthenticated(false);
-        }, 2000);
+        }, 1000);
       } else {
         const result = await response.json();
         console.log(result.error);

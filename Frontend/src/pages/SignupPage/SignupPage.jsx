@@ -24,6 +24,7 @@ import SignupResultModal from "./components/SignUp/SignupResultModal";
 function SignupPage({ setPageLoading }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [usernameToShowInModal, setUsernameToShowInModal] = useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [signupLoading, setSignupLoading] = useState(false)
@@ -70,7 +71,7 @@ function SignupPage({ setPageLoading }) {
     setPageLoading(true);
     setTimeout(() => {
       navigate("/login");
-    }, 1000);
+    }, 500);
   };
 
   const toHomePage = () => {
@@ -81,6 +82,7 @@ function SignupPage({ setPageLoading }) {
     setErrorMessage("");
     setBorderRedZone({});
     setUsername(e.value);
+    setUsernameToShowInModal(e.value)
   };
 
   const handlePassword = (e) => {
@@ -110,7 +112,7 @@ function SignupPage({ setPageLoading }) {
       .matches(/[A-Z]/, "At least one uppercase letter required")
       .matches(/[a-z]/, "At least one lowercase letter required")
       .matches(/[0-9]/, "At least one number required")
-      .matches(/[@$!%*?&]/, "At least one special character required"),
+      .matches(/^(?![A-Za-z0-9]+$).+/, "At least one special character required"),
 
     confirmPassword: yup
       .string()
@@ -140,6 +142,7 @@ function SignupPage({ setPageLoading }) {
     setSignupLoading(true)
     setErrorMessage("");
     setBorderRedZone({});
+    
     const baseURL = import.meta.env.VITE_BASE_URL;
     let credentials = { username, password, confirmPassword };
     let credentialsFormat = await validCredentialFormat(credentials);
@@ -171,11 +174,14 @@ function SignupPage({ setPageLoading }) {
       if (response.ok) {
         setSignupLoading(false)
         const result = await response.json();
-
+        setUsername("")
+        setPassword("")
+        setConfirmPassword("")
         setDialog({
           visible: true,
           message: result.message,
         });
+        
       } else if (!response.ok) {
         const result = await response.json();
         setSignupLoading(false)
@@ -219,6 +225,7 @@ function SignupPage({ setPageLoading }) {
               <p className="url font-semibold mb-2">Password</p>
               <Password
                 id="password"
+                value={password}
                 toggleMask
                 feedback={false}
                 className={`${borderRedZone?.passwordField ? "border-red borderRedZone" : ""}`}
@@ -259,7 +266,7 @@ function SignupPage({ setPageLoading }) {
               Back to Home
             </p>
            
-            <SignupResultModal dialog={dialog} setDialog={setDialog} username={username} toLoginPage={toLoginPage} />
+            <SignupResultModal dialog={dialog} setDialog={setDialog} username={usernameToShowInModal} toLoginPage={toLoginPage} />
           </form>
         </Card>
       </div>

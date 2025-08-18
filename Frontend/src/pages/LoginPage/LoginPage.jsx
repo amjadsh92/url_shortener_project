@@ -88,12 +88,12 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
         setPageLoading(true);
         setTimeout(() => {
           navigate("/");
-        }, 1000);
+        }, 500);
       } else if (response.status === 401) {
         setLoginLoading(false);
         setDialog({
           visible: true,
-          message: "Unvalid credentials!",
+          message: "Invalid credentials!",
         });
       } else if (!response.ok) {
         const result = await response.json();
@@ -117,7 +117,7 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
     setPageLoading(true);
     setTimeout(() => {
       navigate("/signup");
-    }, 1000);
+    }, 500);
   };
 
   const toHomePage = () => {
@@ -129,7 +129,7 @@ function LoginPage({ authorizationMessage, setAuthorizationMessage, setPageLoadi
     <div className="bg-hero w-full h-full p-1px align-content-center">
       <div className="form-login p-1px mt-6">
         <Card
-          title="Welcome to our URL Shortener APP"
+          title="Welcome to our URL Shortener App"
           className="mt-6 mb-6 mx-auto"
         >
           <form onSubmit={handleSubmit}>
