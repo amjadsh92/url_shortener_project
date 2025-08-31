@@ -116,7 +116,7 @@ function ShorteningURLForm({
 
   return (
     <div className="form-home p-1px">
-      <Card title="Shorten a long link" className=" shortURLForm mt-6 mx-auto">
+      <Card title="Shorten a long link" className=" shortURLForm mx-auto">
         <form onSubmit={handleSubmit}>
           <p className="url font-semibold mb-2">Paste your long link here</p>
 

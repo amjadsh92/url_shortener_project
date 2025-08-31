@@ -1,8 +1,32 @@
-.bg-hero {
-  background-image: url("5559852.jpg");
+.bg-hero-login {
+  position:relative;
+  background-image: url("../../assets/5559852.jpg");
   background-size: cover;
   background-position: center;
   min-height: 99.9vh;
+  align-content:center;
+  display:flex;
+  flex-direction: column;
+  
+}
+
+.footer-login{
+  margin-top: auto;   
+  margin-bottom: 10px;
+}
+
+
+.form-login{
+
+  margin-top:3rem !important;
+  margin-bottom:3rem !important;
+
+}
+
+.login-card{
+  // margin-top:3rem !important;
+  // margin-bottom:3rem !important;
+  margin:auto
 }
 
 .centered {
@@ -11,9 +35,10 @@
   transform: translateX(-50%);
 }
 
-.footer {
-  font-size: 13.33333 !important;
+.footer-login {
+  font-size: 0.875rem !important;
 }
+
 
 .dialogContent-login {
   margin-left: 6px;
@@ -84,12 +109,30 @@
 }
 
 @media (max-width: 850px) {
-  .dialog-login.p-dialog {
+
+  .footer-login {
+    font-size: 13px !important;
+  }
+
+ .dialog-login.p-dialog {
     width: 45vw !important;
   }
 }
 
 @media (max-width: 650px) {
+
+//  .bg-hero {
+  
+//   align-content:unset !important;
+  
+// }
+
+// .login-card{
+//   margin-top:1.5rem !important;
+//   margin-bottom:10.5rem !important;
+//   margin:auto
+// }
+
   .dialog-login .p-dialog-header .p-dialog-title {
     font-size: 1rem !important;
   }
@@ -123,6 +166,9 @@
   }
 
   .form-login {
+
+    // margin-top:1.5rem !important;
+
     .p-card {
       width: 83% !important;
     }
@@ -150,17 +196,35 @@
 }
 
 @media (max-width: 600px) {
+  
+  // .footer-login{
+  //   font-size:12px !important;
+  // }
+
   .dialog-login.p-dialog {
     width: 60vw !important;
   }
 }
 
 @media (max-width: 500px) {
+
+  .footer-login {
+    font-size: 12px !important;
+  }
+
+  .form-login{
+    margin-top:3rem !important;
+    margin-bottom:3rem !important;
+  }
   .form-login {
     .create-account > p {
       font-size: 13.4px;
     }
   }
+
+  // .login-card{
+  //   margin-bottom:9.5rem !important;
+  //   }
 
   .dialog-login .p-dialog-header .p-dialog-title {
     font-size: 0.9rem !important;
@@ -196,6 +260,17 @@
 }
 
 @media (max-width: 400px) {
+
+  .footer-login {
+    font-size: 11px !important;
+  }
+
+  .form-login{
+
+    margin-top:3rem !important;
+  
+  }
+
   .dialog-login.p-dialog {
     width: 80vw !important;
   }
@@ -225,9 +300,11 @@
       font-size: 13.4px !important;
     }
 
-    .footer {
-      font-size: 12.33333 !important;
-    }
+    
+  }
+
+  .footer-login {
+    font-size: 12.33333 !important;
   }
 }
 

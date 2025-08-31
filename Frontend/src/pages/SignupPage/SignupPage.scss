@@ -2,15 +2,30 @@
   width: 30vw !important;
 }
 
-.bg-hero {
-  background-image: url("5559852.jpg");
+.bg-hero-signup {
+  background-image: url("../../assets/5559852.jpg");
   background-size: cover;
   background-position: center;
   min-height: 99.9vh;
+  display:flex;
+  flex-direction: column;
+  
 }
 
-.footer {
-  font-size: 13.33333 !important;
+.footer-signup{
+  margin-top: auto;   
+  margin-bottom: 10px;
+}
+
+.footer-signup {
+  font-size: 0.875rem !important;
+}
+
+.card-signup{
+
+  margin-top:3rem !important;
+  margin-bottom:3rem !important;
+
 }
 
 .form-signup {
@@ -102,7 +117,9 @@
 
 @media (max-width: 850px) {
   
-
+  .footer-signup {
+    font-size: 13px !important;
+  }
   .dialog-signup.p-dialog {
     width: 45vw !important;
   }
@@ -187,6 +204,18 @@
 }
 
 @media (max-width: 500px) {
+
+  .card-signup{
+
+    margin-top:3rem !important;
+    margin-bottom:3rem !important;
+  
+  }
+
+  .footer-signup {
+    font-size: 12px !important;
+  }
+
   .form-signup {
     .errorMessage {
       font-size: 0.8rem !important;
@@ -231,6 +260,12 @@
 }
 
 @media (max-width: 400px) {
+
+  .footer-signup {
+    font-size: 11px !important;
+  }
+
+
   .dialog-signup.p-dialog {
     width: 80vw !important;
   }

@@ -193,16 +193,17 @@ function SignupPage({ setPageLoading }) {
       }
     } catch (error) {
       setSignupLoading(false)
-      setDialog({
-        visible: true,
-        message: "The server is down.Try again later",
-      });
+      // setDialog({
+      //   visible: true,
+      //   message: "The server is down.Try again later",
+      // });
+      setErrorMessage("The server is down. Try again later");
     }
   };
   return (
-    <div className="bg-hero align-content-center w-full h-full p-1px">
+    <div className="bg-hero-signup align-content-center w-full h-full p-1px">
       <div className="form-signup  p-1px">
-        <Card title="Create your account" className="mt-6 mb-6 mx-auto">
+        <Card title="Create your account" className="card-signup mx-auto">
           <p className="sub-title text-center text-gray">
             Welcome to our URL shotener app
           </p>
@@ -270,7 +271,7 @@ function SignupPage({ setPageLoading }) {
           </form>
         </Card>
       </div>
-      <p className="footer text-center text-white">&copy;2025, Amjad Sharafeddine. All rights reserved.</p>
+      <div className="footer-signup text-center text-white">&copy;2025, Amjad Sharafeddine. All rights reserved.</div>
     </div>
   );
 }

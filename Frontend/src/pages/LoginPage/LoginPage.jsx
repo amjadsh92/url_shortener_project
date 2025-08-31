@@ -130,11 +130,11 @@ function LoginPage({
   };
 
   return (
-    <div className="bg-hero w-full h-full p-1px align-content-center">
-      <div className="form-login p-1px mt-6">
+    <div className="bg-hero-login w-full h-full p-1px">
+      <div className="form-login p-1px">
         <Card
           title="Welcome to our URL Shortener App"
-          className="mt-6 mb-6 mx-auto"
+          className="login-card"
         >
           <form onSubmit={handleSubmit}>
             {authorizationMessage ? (
@@ -164,8 +164,10 @@ function LoginPage({
               required
             />
 
+           {/* <p class="errorMessage text-red-700 ml-1 mt-4"></p> */}
+
             <Button
-              className="log-in-button mt-4 w-full"
+              className="log-in-button mt-40px w-full"
               label={loginLoading ? "" : "Log in"}
               icon={`${loginLoading ? "pi pi-spin pi-spinner" : ""}`}
               type="submit"
@@ -192,7 +194,7 @@ function LoginPage({
           </form>
         </Card>
       </div>
-      <p className="footer text-center text-white mt-6 sm:text-sm">
+      <p className="footer-login text-center text-white sm:text-sm">
         &copy; 2025, Amjad Sharafeddine. All rights reserved.
       </p>
     </div>

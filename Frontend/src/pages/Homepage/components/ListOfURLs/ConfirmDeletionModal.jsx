@@ -24,8 +24,6 @@ function ConfirmDeletionModal({
       header="Confirmation"
       visible={dialog.visible}
       className="dialog-delete"
-      // style={{ width: "150px", wordBreak: "break-word" }}
-      // breakpoints={{ "400px": "300px", "338px": "250px" }}
       onHide={() => {
         setFinalizeDelete(false);
         setDialog({ ...dialog, visible: false });
@@ -73,8 +71,7 @@ function ConfirmDeletionModal({
 function DialogContent({ message }) {
   return (
     <>
-      {/* <div className="dialogContent-delete mt-4 ml-6px">{message}</div> */}
-      <div className="dialogContent-delete">{message}</div>
+     <div className="dialogContent-delete">{message}</div>
     </>
   );
 }

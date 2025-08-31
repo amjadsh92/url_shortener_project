@@ -162,7 +162,7 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
       <div className="tableOfURLs mt-6">
             {/* <img src="/shortURL.png" className="shortURLImage" /> */}
             <p className="listOfURLsTitle text-center text-white mb-6">
-              Here is a list of your URLs:
+              Here is the list of your URLs:
             </p>
     <div className="home-table">
       <DataTable

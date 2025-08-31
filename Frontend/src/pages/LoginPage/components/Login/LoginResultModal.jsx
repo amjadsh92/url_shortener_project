@@ -14,7 +14,7 @@ import { Button } from "primereact/button";
 function LoginResultModal({ dialog, setDialog }) {
   return (
     <Dialog
-      header="Log in Failed"
+      header="Login Failed"
       visible={dialog.visible}
       className="dialog-login"
       onHide={() => setDialog({ ...dialog, visible: false })}

@@ -28,7 +28,7 @@ exports.redirectURL =   async function (req, res) {
     const shorturl = req.params.shorturl;
 
     if (!shorturl) {
-      res.status(400).json({ error: "No short URL was provided" });
+      res.status(400).json({ error: "No short URL was provided." });
       return;
     }
 
@@ -57,14 +57,14 @@ exports.redirectURL =   async function (req, res) {
       if (!originalURL) {
         res
           .status(400)
-          .json({ error: "No long URL has been provided", name: "long" });
+          .json({ error: "No long URL has been provided.", name: "long" });
         return;
       }
   
       if (shortURL && !req?.session?.passport?.user) {
         res
           .status(401)
-          .json({ error: "You need to be logged in", name: "short" });
+          .json({ error: "You need to be logged in.", name: "short" });
         return;
       }
   

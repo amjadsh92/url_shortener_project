@@ -113,7 +113,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
   };
 
   return (
-    <div className="bg-hero w-full h-full p-1px">
+    <div className="bg-hero-home w-full h-full p-1px">
       <Navbar
         hideMenu={hideMenu}
         toLoginPage={toLoginPage}
@@ -126,7 +126,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         setShowNavMenu={setShowNavMenu}
         toMyShortURLs={scrollToList}
       />
-      <div className="home" onClick={hideMenu}>
+      <div className="home p-1px" onClick={hideMenu}>
         <Title />
         <ShorteningURLForm
           listOfURLs={listOfURLs}
@@ -141,9 +141,9 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
       ) : (
         ""
       )}
-      <p className="footer text-center text-white">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p>
+      {/* <p className="footer-home text-center text-white">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p> */}
       </div>
-      
+      <div className="footer-home text-center text-white">&copy; 2025, Amjad Sharafeddine. All rights reserved.</div>
     </div>
   );
 }
