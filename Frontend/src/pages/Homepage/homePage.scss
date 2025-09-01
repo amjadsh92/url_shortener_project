@@ -4,13 +4,22 @@
   background-size: cover;
   background-position: center;
   min-height: 99.9vh;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
-.home{
-  display:flex;
-  flex-direction:column
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+.truncate-username {
+  display: inline-block;
+  max-width: 16ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
 }
 
 .createShortURL {
@@ -20,9 +29,6 @@
 .p-column-filter-row .p-column-filter-element {
   min-width: 8rem;
 }
-
-
-
 
 .originalURLColumn {
   min-width: 14rem;
@@ -42,12 +48,10 @@
 
 .footer-home {
   font-size: 0.875rem !important;
-  margin-bottom:10px !important;
-  margin:auto;
+  margin-bottom: 10px !important;
+  margin: auto;
   text-align: center;
 }
-
-
 
 .navbar {
   height: 50px;
@@ -64,8 +68,6 @@
   align-items: center;
   gap: 8px;
 }
-
-
 
 .navlink,
 .navlink-auth > div > div > span {
@@ -115,7 +117,6 @@
   background-color: rgba(40, 81, 140, 0.3882352);
 }
 
-
 .navlink-auth > div > .menu {
   display: flex;
   justify-content: end;
@@ -125,13 +126,12 @@
   height: 50px;
   padding-left: 15px;
   cursor: pointer;
-  z-index:10000;
+  z-index: 10000;
 }
 
 .navlink-auth > div > .menu:hover {
   background-color: rgba(40, 81, 140, 0.6882352);
 }
-
 
 .title > h1 {
   font-family: "Montserrat", sans-serif;
@@ -146,8 +146,6 @@
   padding-top: 0.5rem !important;
   margin-top: 20px;
 }
-
-
 
 .shortURLForm {
   margin-bottom: 65px;
@@ -390,10 +388,42 @@
   .shorturl.p-dialog {
     width: 60vw !important;
   }
+
+  .truncate-username {
+    display: inline-block;
+    max-width: unset;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: unset;
+  
+  }
+
+
+  .navbar {
+    height: unset;
+  }
+
+  .navlink-auth {
+    display: block;
+    width: 100%;
+  }
+
+  .navlink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .navlink-auth > div > .username {
+    padding-right: 10px !important;
+    justify-content: center;
+  }
+
+  .navlink-auth .menu > span {
+    font-size: 14px;
+  }
 }
-
-
-
 
 @media (max-width: 850px) {
   .dialog-delete.p-dialog .p-dialog-header .p-dialog-title {
@@ -474,9 +504,6 @@
   .footer-home {
     font-size: 13px !important;
     width: 60%;
-    // margin: auto;
-    // text-align: center;
-    // margin-bottom: 10px;
   }
 
   .shorturl .p-dialog-header .p-dialog-title {
@@ -546,10 +573,7 @@
   }
 }
 
-
-
-@media(max-width: 750px){
-
+@media (max-width: 750px) {
   .navbar {
     height: unset;
   }
@@ -566,18 +590,14 @@
     gap: 8px;
   }
 
-
   .navlink-auth > div > .username {
     padding-right: 10px !important;
     justify-content: center;
-    // margin-right: 10px;
   }
 
   .navlink-auth .menu > span {
     font-size: 14px;
   }
-
-
 }
 
 @media (max-width: 650px) {
@@ -682,11 +702,10 @@
 }
 
 @media (max-width: 500px) {
-
   .shortURLForm {
     margin-bottom: 45px;
     margin-top: 2rem;
-}
+  }
 
   .dialog-delete.p-dialog .p-dialog-header .p-dialog-title {
     font-size: 0.9rem !important;
@@ -772,8 +791,6 @@
     padding-right: 1rem !important;
   }
 
-
-
   .home-table {
     .pi {
       font-size: 0.85rem;
@@ -787,10 +804,6 @@
   .navbar {
     height: unset;
   }
-
-  // .title {
-  //   margin-top: 20px;
-  // }
 
   .title {
     padding: 0rem !important;
@@ -824,7 +837,6 @@
   .navlink-auth > div > .username {
     padding-right: 10px !important;
     justify-content: center;
-    // margin-right: 10px;
   }
 
   .navlink-auth .menu > span {
@@ -842,9 +854,6 @@
   .footer-home {
     font-size: 12px !important;
     width: 70%;
-    // margin: auto;
-    // text-align: center;
-    // margin-bottom: 8px;
   }
 
   .form-home .errorMessage {
@@ -975,7 +984,7 @@
 
   .shortURLForm.p-card.p-component {
     margin-bottom: 55px;
-    margin-top:30px;
+    margin-top: 30px;
   }
 
   .tableOfURLs {
@@ -1056,9 +1065,6 @@
   .footer-home {
     font-size: 11px !important;
     width: 60%;
-    // margin: auto;
-    // text-align: center;
-    // margin-bottom: 10px;
   }
   .form-home .p-button {
     width: 100%;
@@ -1069,8 +1075,6 @@
     color: white;
     font-size: 15px;
   }
-
-  
 
   .first-title {
     font-size: 1.45rem !important;
