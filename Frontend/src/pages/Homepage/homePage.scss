@@ -91,6 +91,7 @@
 .navlink > .login > span {
   font-family: "Montserrat", sans-serif;
   color: white;
+  user-select:none;
 }
 
 .navlink > .login {
@@ -807,7 +808,7 @@
 
   .title {
     padding: 0rem !important;
-    margin-top: 40px !important;
+    margin-top: 25px !important;
   }
 
   .navlink-auth {
@@ -1025,7 +1026,7 @@
 
   .title {
     padding: 0rem !important;
-    margin-top: 40px !important;
+    margin-top: 25px !important;
   }
 
   .navlink {
@@ -1074,6 +1075,7 @@
     font-family: "Montserrat", sans-serif;
     color: white;
     font-size: 15px;
+    user-select: none;
   }
 
   .first-title {

@@ -58,7 +58,7 @@ function DialogContent({ message, username, toLoginPage, closeDialog }) {
       </p>
       <span className="ml-6px">You can log in </span>
       <span
-        className="cursor-pointer text-primary font-semibold"
+        className="cursor-pointer select-none text-primary font-semibold"
         onClick={handleClick}
       >
         here

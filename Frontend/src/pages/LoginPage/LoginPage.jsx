@@ -132,10 +132,7 @@ function LoginPage({
   return (
     <div className="bg-hero-login w-full h-full p-1px">
       <div className="form-login p-1px">
-        <Card
-          title="Welcome to our URL Shortener App"
-          className="login-card"
-        >
+        <Card title="Welcome to our URL Shortener App" className="login-card">
           <form onSubmit={handleSubmit}>
             {authorizationMessage ? (
               <p className="text-red-700 text-center mt-2 mb-6">
@@ -164,8 +161,6 @@ function LoginPage({
               required
             />
 
-           {/* <p class="errorMessage text-red-700 ml-1 mt-4"></p> */}
-
             <Button
               className="log-in-button mt-40px w-full"
               label={loginLoading ? "" : "Log in"}
@@ -176,7 +171,7 @@ function LoginPage({
             <div className="create-account flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Don't have an account?</p>
               <p
-                className="cursor-pointer text-primary font-semibold no-underline align-content-center"
+                className="cursor-pointer select-none text-primary font-semibold no-underline align-content-center"
                 onClick={toSignupPage}
               >
                 Create account
@@ -184,7 +179,7 @@ function LoginPage({
             </div>
 
             <p
-              className="back-home cursor-pointer back-home-color mt-4 text-center font-semibold no-underline"
+              className="back-home select-none cursor-pointer back-home-color mt-4 text-center font-semibold no-underline"
               onClick={toHomePage}
             >
               Back to Home

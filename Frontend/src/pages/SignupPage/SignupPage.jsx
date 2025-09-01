@@ -16,18 +16,14 @@ import { useState, useEffect } from "react";
 import { Password } from "primereact/password";
 import { useNavigate } from "react-router-dom";
 import SignupResultModal from "./components/SignUp/SignupResultModal";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import {faCopyright} from '@fortawesome/free-solid-svg-icons'
-
-
 
 function SignupPage({ setPageLoading }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [usernameToShowInModal, setUsernameToShowInModal] = useState("")
+  const [usernameToShowInModal, setUsernameToShowInModal] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [signupLoading, setSignupLoading] = useState(false)
+  const [signupLoading, setSignupLoading] = useState(false);
   const [dialog, setDialog] = useState({
     visible: false,
     message: "",
@@ -82,7 +78,7 @@ function SignupPage({ setPageLoading }) {
     setErrorMessage("");
     setBorderRedZone({});
     setUsername(e.value);
-    setUsernameToShowInModal(e.value)
+    setUsernameToShowInModal(e.value);
   };
 
   const handlePassword = (e) => {
@@ -112,7 +108,10 @@ function SignupPage({ setPageLoading }) {
       .matches(/[A-Z]/, "At least one uppercase letter required")
       .matches(/[a-z]/, "At least one lowercase letter required")
       .matches(/[0-9]/, "At least one number required")
-      .matches(/^(?![A-Za-z0-9]+$).+/, "At least one special character required"),
+      .matches(
+        /^(?![A-Za-z0-9]+$).+/,
+        "At least one special character required"
+      ),
 
     confirmPassword: yup
       .string()
@@ -139,16 +138,16 @@ function SignupPage({ setPageLoading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSignupLoading(true)
+    setSignupLoading(true);
     setErrorMessage("");
     setBorderRedZone({});
-    
+
     const baseURL = import.meta.env.VITE_BASE_URL;
     let credentials = { username, password, confirmPassword };
     let credentialsFormat = await validCredentialFormat(credentials);
 
     if (credentialsFormat !== "valid") {
-      setSignupLoading(false)
+      setSignupLoading(false);
       setErrorMessage(credentialsFormat.message);
 
       if (credentialsFormat.path === "username") {
@@ -172,19 +171,18 @@ function SignupPage({ setPageLoading }) {
       });
 
       if (response.ok) {
-        setSignupLoading(false)
+        setSignupLoading(false);
         const result = await response.json();
-        setUsername("")
-        setPassword("")
-        setConfirmPassword("")
+        setUsername("");
+        setPassword("");
+        setConfirmPassword("");
         setDialog({
           visible: true,
           message: result.message,
         });
-        
       } else if (!response.ok) {
         const result = await response.json();
-        setSignupLoading(false)
+        setSignupLoading(false);
 
         setErrorMessage(result.error);
         if (result.path === "username") {
@@ -192,12 +190,8 @@ function SignupPage({ setPageLoading }) {
         }
       }
     } catch (error) {
-      setSignupLoading(false)
-      // setDialog({
-      //   visible: true,
-      //   message: "The server is down.Try again later",
-      // });
-      setErrorMessage("The server is down. Try again later");
+      setSignupLoading(false);
+      setErrorMessage("The server is down. Try again later.");
     }
   };
   return (
@@ -246,14 +240,21 @@ function SignupPage({ setPageLoading }) {
               required
             />
 
-            <p className="errorMessage text-red-700 ml-1 mt-4">{errorMessage}</p>
+            <p className="errorMessage text-red-700 ml-1 mt-4">
+              {errorMessage}
+            </p>
 
-            <Button className=" sign-up-button mt-3 w-full" label={`${signupLoading ? "" : "Sign up"}`} icon={`${ signupLoading ?  "pi pi-spin pi-spinner": ""}`}  type="submit" />
+            <Button
+              className=" sign-up-button mt-3 w-full"
+              label={`${signupLoading ? "" : "Sign up"}`}
+              icon={`${signupLoading ? "pi pi-spin pi-spinner" : ""}`}
+              type="submit"
+            />
 
             <div className="login flex gap-3 justify-content-center mt-2">
               <p className="text-gray">Already have an account?</p>
               <p
-                className="cursor-pointer text-primary font-semibold no-underline align-content-center"
+                className="cursor-pointer select-none text-primary font-semibold no-underline align-content-center"
                 onClick={toLoginPage}
               >
                 Login
@@ -261,21 +262,26 @@ function SignupPage({ setPageLoading }) {
             </div>
 
             <p
-              className="cursor-pointer back-home-color mt-4 text-center font-semibold no-underline"
+              className="cursor-pointer select-none back-home-color mt-4 text-center font-semibold no-underline"
               onClick={toHomePage}
             >
               Back to Home
             </p>
-           
-            <SignupResultModal dialog={dialog} setDialog={setDialog} username={usernameToShowInModal} toLoginPage={toLoginPage} />
+
+            <SignupResultModal
+              dialog={dialog}
+              setDialog={setDialog}
+              username={usernameToShowInModal}
+              toLoginPage={toLoginPage}
+            />
           </form>
         </Card>
       </div>
-      <div className="footer-signup text-center text-white">&copy;2025, Amjad Sharafeddine. All rights reserved.</div>
+      <div className="footer-signup text-center text-white">
+        &copy;2025, Amjad Sharafeddine. All rights reserved.
+      </div>
     </div>
   );
 }
-
-
 
 export default SignupPage;
