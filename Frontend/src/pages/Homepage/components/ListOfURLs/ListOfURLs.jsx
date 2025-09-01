@@ -9,16 +9,14 @@ import "../../../../styles/colors.css";
 import "primeicons/primeicons.css";
 import "primeicons/primeicons.css";
 import { Button } from "primereact/button";
-import { useState} from "react";
+import { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { FilterMatchMode } from "primereact/api";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
-import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Column } from "primereact/column";
 import ConfirmDeletionModal from "./ConfirmDeletionModal";
-
 
 function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
   const [filters, setFilters] = useState({
@@ -49,14 +47,13 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
   const renderHeader = () => {
     return (
       <div className="flex justify-content-end">
-        <IconField iconPosition="left" >
+        <IconField iconPosition="left">
           <InputIcon className="pi pi-search" />
           <InputText
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
             placeholder="Keyword Search"
             className="keywordSearch"
-            
           />
         </IconField>
       </div>
@@ -78,15 +75,13 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
 
       if (res.ok) {
         const result = await res.json();
-        listOfURLs = listOfURLs.filter((url) => url.map_id !== dialog.map_id)
-        setListOfURLs(listOfURLs)
+        listOfURLs = listOfURLs.filter((url) => url.map_id !== dialog.map_id);
+        setListOfURLs(listOfURLs);
         setDialog({ ...dialog, message: result.message, map_id: 0 });
-        
       }
       if (!res.ok) {
         const result = await res.json();
         setDialog({ ...dialog, message: result.error, map_id: 0 });
-    
       }
     } catch (err) {
       console.log(err);
@@ -95,7 +90,6 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
         message: "Failed to delete URL. The server is down",
         map_id: 0,
       });
-    
     } finally {
       setLoadingDelete(false);
       setFinalizeDelete(true);
@@ -103,13 +97,12 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
   };
 
   const deleteURL = (map_id) => {
-    
     setFinalizeDelete(false);
     setDialog({
       ...dialog,
       map_id,
       visible: true,
-      message: "Are you sure you want to delete this URL ?",
+      message: "Are you sure you want to delete this URL?",
     });
   };
 
@@ -122,7 +115,6 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
           icon="pi pi-trash"
           className="p-button-rounded p-button-text p-button-danger"
           onClick={() => deleteURL(map_id)}
-          // tooltip="Delete"
         />
       </>
     );
@@ -157,173 +149,55 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
   const header = renderHeader();
 
   return (
-
     <div className="listOfURLs p-1px mb-8" ref={listOfURLsRef}>
       <div className="tableOfURLs mt-6">
-            {/* <img src="/shortURL.png" className="shortURLImage" /> */}
-            <p className="listOfURLsTitle text-center text-white mb-6">
-              Here is the list of your URLs:
-            </p>
-    <div className="home-table">
-      <DataTable
-        value={listOfURLs}
-        paginator
-        rows={10}
-        dataKey="map_id"
-        filters={filters}
-        filterDisplay="row"
-        globalFilterFields={["original_url", "short_url"]}
-        header={header}
-        emptyMessage="No URLs found."
-      >
-        <Column
-          field="original_url"
-          header="Original URL"
-          filter
-          filterPlaceholder="Search by original URL"
-          body={originalUrlTemplate}
-          // style={{ minWidth: "14rem" }}
-          className="originalURLColumn"
-          headerClassName="text-center"
-        />
-        <Column
-          header="Short URL"
-          field="short_url"
-          body={shortUrlTemplate}
-          // style={{ minWidth: "14rem" }}
-          filter
-          filterPlaceholder="Search by short URL"
-          className="shortURLColumn"
-        />
-        <Column 
-        
-          body={deleteButtonTemplate} 
-          // style={{minWidth:"12rem" }}
-          className="deleteURLColumn" 
-           />
-      </DataTable>
+        <p className="listOfURLsTitle text-center text-white mb-6">
+          Here is the list of your URLs:
+        </p>
+        <div className="home-table">
+          <DataTable
+            value={listOfURLs}
+            paginator
+            rows={10}
+            dataKey="map_id"
+            filters={filters}
+            filterDisplay="row"
+            globalFilterFields={["original_url", "short_url"]}
+            header={header}
+            emptyMessage="No URLs found."
+          >
+            <Column
+              field="original_url"
+              header="Original URL"
+              filter
+              filterPlaceholder="Search by original URL"
+              body={originalUrlTemplate}
+              className="originalURLColumn"
+              headerClassName="text-center"
+            />
+            <Column
+              header="Short URL"
+              field="short_url"
+              body={shortUrlTemplate}
+              filter
+              filterPlaceholder="Search by short URL"
+              className="shortURLColumn"
+            />
+            <Column body={deleteButtonTemplate} className="deleteURLColumn" />
+          </DataTable>
 
-      
-        {/* <Dialog
-          header="Confirmation"
-          visible={dialog.visible}
-          className="dialog-delete"
-          style={{ width: "150px", wordBreak: "break-word" }}
-          breakpoints={{ "400px": "300px", "338px": "250px" }}
-          onHide={() => {
-            setFinalizeDelete(false);
-            setDialog({ ...dialog, visible: false });
-          }}
-          footer={
-            <div>
-              {!finalizeDelete ? (
-                <>
-                  <Button
-                    label="Yes"
-                    icon={
-                      loadingDelete ? "pi pi pi-spin pi-spinner" : "pi pi-check"
-                    }
-                    onClick={() => {
-                      confirmDeleteURL(dialog.map_id);
-                    }}
-                    autoFocus
-                  />
-                  <Button
-                    label="Cancel"
-                    icon="pi pi-times"
-                    onClick={() => {
-                      setDialog({ ...dialog, visible: false });
-                    }}
-                    autoFocus
-                  />
-                </>
-              ) : (
-                <Button
-                  label="OK"
-                  icon="pi pi-check"
-                  onClick={() => {
-                    setDialog({ ...dialog, visible: false });
-                  }}
-                  autoFocus
-                />
-              )}
-            </div>
-          }
-        >
-          <DialogContent message={dialog.message} />
-        </Dialog> */}
-    <ConfirmDeletionModal dialog={dialog} setDialog={setDialog} setFinalizeDelete={setFinalizeDelete} finalizeDelete={finalizeDelete} loadingDelete={loadingDelete} confirmDeleteURL={confirmDeleteURL} />
-    </div>
-    </div>
+          <ConfirmDeletionModal
+            dialog={dialog}
+            setDialog={setDialog}
+            setFinalizeDelete={setFinalizeDelete}
+            finalizeDelete={finalizeDelete}
+            loadingDelete={loadingDelete}
+            confirmDeleteURL={confirmDeleteURL}
+          />
+        </div>
+      </div>
     </div>
   );
 }
-
-// function DialogContent({ message }) {
-//   return (
-//     <>
-//       <div className="mt-4 ml-6px">{message}</div>
-//     </>
-//   );
-// }
-
-
-// function ConfirmDeletionModal({dialog, setDialog, setFinalizeDelete, finalizeDelete, loadingDelete, confirmDeleteURL}){
-
-
-//   return(
-
-//     <Dialog
-//           header="Confirmation"
-//           visible={dialog.visible}
-//           className="dialog-delete"
-//           style={{ width: "150px", wordBreak: "break-word" }}
-//           breakpoints={{ "400px": "300px", "338px": "250px" }}
-//           onHide={() => {
-//             setFinalizeDelete(false);
-//             setDialog({ ...dialog, visible: false });
-//           }}
-//           footer={
-//             <div>
-//               {!finalizeDelete ? (
-//                 <>
-//                   <Button
-//                     label="Yes"
-//                     icon={
-//                       loadingDelete ? "pi pi pi-spin pi-spinner" : "pi pi-check"
-//                     }
-//                     onClick={() => {
-//                       confirmDeleteURL(dialog.map_id);
-//                     }}
-                    
-//                   />
-//                   <Button
-//                     label="Cancel"
-//                     icon="pi pi-times"
-//                     onClick={() => {
-//                       setDialog({ ...dialog, visible: false });
-//                     }}
-//                     autoFocus
-//                   />
-//                 </>
-//               ) : (
-//                 <Button
-//                   label="OK"
-//                   icon="pi pi-check"
-//                   onClick={() => {
-//                     setDialog({ ...dialog, visible: false });
-//                   }}
-//                   autoFocus
-//                 />
-//               )}
-//             </div>
-//           }
-//         >
-//           <DialogContent message={dialog.message} />
-//         </Dialog>
-
-//   )
-// }
-
 
 export default ListOfURLs;
