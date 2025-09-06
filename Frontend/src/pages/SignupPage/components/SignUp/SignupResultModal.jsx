@@ -52,7 +52,7 @@ function DialogContent({ message, username, toLoginPage, closeDialog }) {
 
   return (
     <div className="dialogContent-signup">
-      <div className="mt-4 ml-6px">{message}</div>
+      <div className="ml-6px">{message}</div>
       <p className="ml-6px">
         Your username is <b>{username}</b>
       </p>
