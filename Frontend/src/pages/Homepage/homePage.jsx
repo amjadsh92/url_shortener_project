@@ -15,8 +15,6 @@ import Navbar from "./components/NavBar/NavBar";
 import ShorteningURLForm from "./components/ShorteningURLForm/ShorteningURLForm";
 import Title from "./components/Title/Title";
 
-
-
 function HomePage({ setAuthorizationMessage, setPageLoading }) {
   const [showNavMenu, setShowNavMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,7 +44,6 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         if (result.isAuthenticated) {
           await fetchURLs();
         }
-        
       } catch (err) {
         setIsAuthenticated(false);
       } finally {
@@ -57,7 +54,6 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
     const fetchURLs = async () => {
       try {
         const res = await fetch(`${baseURL}/api/user?username=${username}`, {
-          
           credentials: "include",
         });
 
@@ -106,8 +102,6 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
     }
   };
 
-  
-
   const scrollToList = () => {
     listOfURLsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -136,14 +130,19 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
           toLoginPage={toLoginPage}
         />
 
-      {username ? (
-        <ListOfURLs listOfURLs={listOfURLs} setListOfURLs={setListOfURLs} listOfURLsRef={listOfURLsRef} />
-      ) : (
-        ""
-      )}
-      {/* <p className="footer-home text-center text-white">&copy; 2025, Amjad Sharafeddine. All rights reserved.</p> */}
+        {username ? (
+          <ListOfURLs
+            listOfURLs={listOfURLs}
+            setListOfURLs={setListOfURLs}
+            listOfURLsRef={listOfURLsRef}
+          />
+        ) : (
+          ""
+        )}
       </div>
-      <div className="footer-home text-center text-white">&copy; 2025, Amjad Sharafeddine. All rights reserved.</div>
+      <div className="footer-home text-center text-white">
+        &copy; 2025, Amjad Sharafeddine. All rights reserved.
+      </div>
     </div>
   );
 }

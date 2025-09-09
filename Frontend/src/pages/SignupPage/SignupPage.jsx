@@ -142,8 +142,17 @@ function SignupPage({ setPageLoading }) {
     setErrorMessage("");
     setBorderRedZone({});
 
+    let username_trimmed = username.trim();
+    setUsername(username_trimmed);
+
     const baseURL = import.meta.env.VITE_BASE_URL;
-    let credentials = { username, password, confirmPassword };
+    
+    let credentials = { 
+      username: username_trimmed || undefined, 
+      password, 
+      confirmPassword 
+    };
+
     let credentialsFormat = await validCredentialFormat(credentials);
 
     if (credentialsFormat !== "valid") {
@@ -240,7 +249,7 @@ function SignupPage({ setPageLoading }) {
               required
             />
 
-            <p className="errorMessage text-red-700 ml-1 mt-4">
+            <p className="errorMessage text-red-700 ml-1 mt-4 mb-2">
               {errorMessage}
             </p>
 
