@@ -33,7 +33,7 @@ function ShorteningURLForm({
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    setErrorMessage(false);
+    setErrorMessage("");
     setBorderRedZone(false);
     setBadRequest(false);
 
@@ -109,6 +109,7 @@ function ShorteningURLForm({
       }
     } catch (error) {
       console.log(error);
+      setBadRequest(true)
       setErrorMessage("The server is down. Please Try again later.");
       setShorturlLoading(false);
     }
