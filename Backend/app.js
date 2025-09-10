@@ -7,12 +7,12 @@ const bcrypt = require("bcrypt");
 app.use(express.json());
 
 
-app.use(
-  cors({
-    origin: "http://192.168.0.105",
-    credentials: true,
-  })
-);
+//app.use(
+//  cors({
+//    origin: "http://172.234.185.246",
+//    credentials: true,
+//  })
+//);
 app.use("/public", express.static(`${process.cwd()}/public`));
 app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
@@ -27,7 +27,7 @@ const pgSession = require("connect-pg-simple")(session);
 
 app.use(
   session({
-    secret: "some secret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: new pgSession({
