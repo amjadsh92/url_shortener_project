@@ -54,7 +54,7 @@ exports.login = (req, res) => {
         if (usernameExists) {
           res
             .status(400)
-            .json({ error: "The username is already taken", path: "username" });
+            .json({ error: "This username is already taken.", path: "username" });
           return;
         }
   

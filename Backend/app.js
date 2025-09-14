@@ -7,12 +7,12 @@ const bcrypt = require("bcrypt");
 app.use(express.json());
 
 
-//app.use(
+// app.use(
 //  cors({
-//    origin: "http://172.234.185.246",
+//    origin: "http://localhost:5173",
 //    credentials: true,
 //  })
-//);
+// );
 app.use("/public", express.static(`${process.cwd()}/public`));
 app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {

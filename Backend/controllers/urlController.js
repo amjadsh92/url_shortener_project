@@ -11,9 +11,9 @@ exports.deleteURL  = async function (req, res) {
         "DELETE FROM mapping_long_short_url WHERE map_id=$1";
       const deleteURLResult = await pool.query(deleteURLQuery, [`${id}`]);
       if (deleteURLResult.rowCount === 1) {
-        return res.json({ message: "The URL has been successfully deleted" });
+        return res.json({ message: "The URL has been deleted successfully." });
       } else if (deleteURLResult.rowCount === 0) {
-        return res.json({ error: "This URL doesn't exist in our database" });
+        return res.json({ error: "This URL doesn't exist in our database." });
       }
     } catch {
       return res
@@ -43,7 +43,8 @@ exports.redirectURL =   async function (req, res) {
       const originalURL = result.rows[0].original_url;
       res.redirect(`${originalURL}`);
     } else {
-      res.status(400).json({ error: "No short URL found for the given input" });
+      
+      res.status(400).json({ error: "No short URL found for the given input." });
     }
   }
 
@@ -71,7 +72,7 @@ exports.redirectURL =   async function (req, res) {
       const originalUrlLength = originalURL.length;
       if (originalUrlLength > 2048) {
         res.status(400).json({
-          error: "You exceeded the maximum length of a URL",
+          error: "You exceeded the maximum length of a URL.",
           name: "long",
         });
         return;
@@ -93,7 +94,7 @@ exports.redirectURL =   async function (req, res) {
   
         if (shortUrlLength > 100) {
           res.status(400).json({
-            error: "The maximum number of characters in the slug should be 100",
+            error: "The maximum number of characters in the slug should be 100.",
             name: "short",
           });
           return;
@@ -155,7 +156,7 @@ exports.redirectURL =   async function (req, res) {
           res
             .status(400)
             .json({
-              error: "This short URL already corresponds to a different URL",
+              error: "This short URL already corresponds to a different URL.",
               name: "short",
             });
           return;
@@ -213,7 +214,7 @@ exports.redirectURL =   async function (req, res) {
       } catch (e) {
         console.log(e);
         res.status(400).json({
-          error: "The long URL you have provided is invalid",
+          error: "The long URL you have provided is invalid.",
           name: "long",
         });
       }
