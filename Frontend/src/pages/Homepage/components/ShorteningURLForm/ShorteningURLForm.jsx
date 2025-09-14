@@ -92,6 +92,10 @@ function ShorteningURLForm({
         setErrorMessage("");
         setBadRequest(false);
         setBorderRedZone({});
+        sessionStorage.removeItem("originalURL");
+        sessionStorage.removeItem("shortSlug");
+        setShortSlug("")
+        setOriginalURL("")
       } else if (response.status === 401) {
         setErrorMessage("");
         setAuthorizationMessage(true);
