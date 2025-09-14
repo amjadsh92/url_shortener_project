@@ -2,7 +2,8 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate
 } from 'react-router-dom';
 
 import { useState } from "react";
@@ -36,6 +37,8 @@ function App() {
 
         <Route path="/login" element={  <LoginPage authorizationMessage={authorizationMessage} setAuthorizationMessage={setAuthorizationMessage} setPageLoading={setPageLoading} />} />
         <Route path="/signup" element={ <SignupPage setPageLoading={setPageLoading} />} />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
          
         </Routes>
       
