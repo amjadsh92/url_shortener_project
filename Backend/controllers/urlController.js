@@ -25,7 +25,17 @@ exports.deleteURL  = async function (req, res) {
 //redirect a short URL to Original URL
 
 exports.redirectURL =   async function (req, res) {
-    const shorturl = req.params.shorturl;
+    
+    let shorturl = req.params.shorturl;
+   
+    const prefix = req.route.path.split(':')[0]; 
+    console.log(prefix); 
+     if (prefix === '/_/'){
+       shorturl = '_/' + shorturl;
+     }
+
+
+
 
     if (!shorturl) {
       res.status(400).json({ error: "No short URL was provided." });
@@ -48,6 +58,9 @@ exports.redirectURL =   async function (req, res) {
     }
   }
 
+
+
+  
 // Create a Short URL that is linked to a long URL for a specific user
 
   exports.createShortURL = async function (req, res) {
@@ -87,9 +100,32 @@ exports.redirectURL =   async function (req, res) {
       try {
         new URL(originalURL);
   
-        if (!shortURL) {
-          shortURL = Math.floor(Math.random() * (1000000 - 1)) + 1;
+       
+
+        if(!shortURL){
+          
+          incrementCount = `UPDATE counter set count = count + 1 RETURNING count`;
+          const result = await pool.query(incrementCount);
+          let  count = result.rows[0].count;
+          
+
+          shortURL = '_/' + convertToBase62(count)
+
+          insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url) VALUES($1,$2)`;
+  
+          await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
+  
+          res.json({
+            original_url: `${originalURL}`,
+            short_url: process.env.BASE_URL + "/" + shortURL,
+          });
+          return;
+        
         }
+
+    
+       
+
         const shortUrlLength = shortURL.length;
   
         if (shortUrlLength > 100) {
@@ -219,3 +255,53 @@ exports.redirectURL =   async function (req, res) {
         });
       }
     }
+    
+    
+    
+    
+  function convertToBase62(number){
+    
+    let map = {
+        0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9',
+        10: 'a', 11: 'b', 12: 'c', 13: 'd', 14: 'e', 15: 'f', 16: 'g', 17: 'h', 18: 'i', 19: 'j',
+        20: 'k', 21: 'l', 22: 'm', 23: 'n', 24: 'o', 25: 'p', 26: 'q', 27: 'r', 28: 's', 29: 't',
+        30: 'u', 31: 'v', 32: 'w', 33: 'x', 34: 'y', 35: 'z',
+        36: 'A', 37: 'B', 38: 'C', 39: 'D', 40: 'E', 41: 'F', 42: 'G', 43: 'H', 44: 'I', 45: 'J',
+        46: 'K', 47: 'L', 48: 'M', 49: 'N', 50: 'O', 51: 'P', 52: 'Q', 53: 'R', 54: 'S', 55: 'T',
+        56: 'U', 57: 'V', 58: 'W', 59: 'X', 60: 'Y', 61: 'Z'
+    }
+    
+    let remainder = number % 62;
+    let quotient = (number - remainder) / 62 ;
+    let newQuotient;
+    
+    let convertedNumber = [];
+
+    if (quotient === 0 ){
+      return map[number]
+    }
+    
+    convertedNumber.push(map[remainder])
+    
+    while (quotient > 0) {
+      remainder = quotient % 62
+      newQuotient = (quotient - remainder) / 62 
+    
+      if ( newQuotient === 0){
+        convertedNumber.push(map[quotient])
+        quotient = newQuotient
+      }
+      else{
+        convertedNumber.push(map[remainder])
+        quotient = newQuotient
+      }
+
+
+    }    
+
+    convertedNumber =  convertedNumber.reverse().join("")
+
+    return convertedNumber
+    
+
+}   
