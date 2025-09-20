@@ -8,6 +8,7 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "@prisma/client": "^6.16.2",
     "bcrypt": "^6.0.0",
     "body-parser": "^1.19.0",
     "check-valid-url": "^0.1.0",
@@ -25,6 +26,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "prisma": "^6.16.2"
   }
 }
