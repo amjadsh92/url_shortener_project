@@ -1,7 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output = "../generator/prisma"
-  
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -10,13 +9,14 @@ datasource db {
 }
 
 model counter {
-  count Int @id
+  count Int
+  id    Int @id @default(1)
 }
 
 model mapping_long_short_url {
   map_id       Int     @id @default(autoincrement())
   original_url String? @db.VarChar(2048)
-  short_url    String? @db.VarChar(100)
+  short_slug   String? @db.VarChar(100)
   username     String? @db.VarChar(20)
   users        users?  @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
 }
