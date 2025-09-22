@@ -1,6 +1,7 @@
 
 const pool = require("../config/db");
-
+const { PrismaClient } = require('../generated/prisma');
+const prisma = new PrismaClient();
 
 //Delete a URL from the database
 
@@ -29,7 +30,7 @@ exports.redirectURL =   async function (req, res) {
     let shorturl = req.params.shorturl;
    
     const prefix = req.route.path.split(':')[0]; 
-    console.log(prefix); 
+  
      if (prefix === '/_/'){
        shorturl = '_/' + shorturl;
      }
@@ -63,199 +64,516 @@ exports.redirectURL =   async function (req, res) {
   
 // Create a Short URL that is linked to a long URL for a specific user
 
-  exports.createShortURL = async function (req, res) {
-      let originalURL = req.body.originalURL?.trim();
-      let shortURL = req.body.shortSlug?.trim();
-      let username = req.body.username;
+  // exports.createShortURL = async function (req, res) {
+  //     let originalURL = req.body.originalURL?.trim();
+  //     let shortURL = req.body.shortSlug?.trim();
+  //     let username = req.body.username;
   
-      if (!originalURL) {
-        res
-          .status(400)
-          .json({ error: "No long URL has been provided.", name: "long" });
-        return;
-      }
+  //     if (!originalURL) {
+  //       res
+  //         .status(400)
+  //         .json({ error: "No long URL has been provided.", name: "long" });
+  //       return;
+  //     }
   
-      if (shortURL && !req?.session?.passport?.user) {
-        res
-          .status(401)
-          .json({ error: "You need to be logged in.", name: "short" });
-        return;
-      }
+  //     if (shortURL && !req?.session?.passport?.user) {
+  //       res
+  //         .status(401)
+  //         .json({ error: "You need to be logged in.", name: "short" });
+  //       return;
+  //     }
   
-      const originalUrlLength = originalURL.length;
-      if (originalUrlLength > 2048) {
-        res.status(400).json({
-          error: "You exceeded the maximum length of a URL.",
-          name: "long",
-        });
-        return;
-      }
+  //     const originalUrlLength = originalURL.length;
+  //     if (originalUrlLength > 2048) {
+  //       res.status(400).json({
+  //         error: "You exceeded the maximum length of a URL.",
+  //         name: "long",
+  //       });
+  //       return;
+  //     }
   
-      const containsHTTPSRegex = /^https?/i;
-      const containsHTTPS = containsHTTPSRegex.test(originalURL);
-      if (!containsHTTPS) {
-        originalURL = "https://" + originalURL;
-      }
+  //     const containsHTTPSRegex = /^https?/i;
+  //     const containsHTTPS = containsHTTPSRegex.test(originalURL);
+  //     if (!containsHTTPS) {
+  //       originalURL = "https://" + originalURL;
+  //     }
   
-      try {
-        new URL(originalURL);
+  //     try {
+  //       new URL(originalURL);
   
        
 
-        if(!shortURL){
+  //       if(!shortURL){
           
-          incrementCount = `UPDATE counter set count = count + 1 RETURNING count`;
-          const result = await pool.query(incrementCount);
-          let  count = result.rows[0].count;
+  //         incrementCount = `UPDATE counter set count = count + 1 RETURNING count`;
+  //         const result = await pool.query(incrementCount);
+  //         let  count = result.rows[0].count;
           
 
-          shortURL = '_/' + convertToBase62(count)
+  //         shortURL = '_/' + convertToBase62(count)
 
-          insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url) VALUES($1,$2)`;
+  //         insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url) VALUES($1,$2)`;
   
-          await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
+  //         await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
   
-          res.json({
-            original_url: `${originalURL}`,
-            short_url: process.env.BASE_URL + "/" + shortURL,
-          });
-          return;
+  //         res.json({
+  //           original_url: `${originalURL}`,
+  //           short_url: process.env.BASE_URL + "/" + shortURL,
+  //         });
+  //         return;
         
-        }
+  //       }
 
     
        
 
-        const shortUrlLength = shortURL.length;
+  //       const shortUrlLength = shortURL.length;
   
-        if (shortUrlLength > 100) {
-          res.status(400).json({
-            error: "The maximum number of characters in the slug should be 100.",
-            name: "short",
-          });
-          return;
-        }
+  //       if (shortUrlLength > 100) {
+  //         res.status(400).json({
+  //           error: "The maximum number of characters in the slug should be 100.",
+  //           name: "short",
+  //         });
+  //         return;
+  //       }
   
-        const slugRegex = /^[a-zA-Z0-9_-]+$/;
+  //       const slugRegex = /^[a-zA-Z0-9_-]+$/;
   
-        if (!slugRegex.test(shortURL)) {
-          res.status(400).json({ error: "Invalid slug format.", name: "short" });
-          return;
-        }
+  //       if (!slugRegex.test(shortURL)) {
+  //         res.status(400).json({ error: "Invalid slug format.", name: "short" });
+  //         return;
+  //       }
   
-        selectQuery = `SELECT original_url FROM mapping_long_short_url WHERE short_url=$1`;
-        const result = await pool.query(selectQuery, [shortURL]);
-        const shortUrlExists = result.rows.length;
+  //       selectQuery = `SELECT original_url FROM mapping_long_short_url WHERE short_url=$1`;
+  //       const result = await pool.query(selectQuery, [shortURL]);
+  //       const shortUrlExists = result.rows.length;
   
-        if (!shortUrlExists && !username) {
-          insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url) VALUES($1,$2)`;
+  //       if (!shortUrlExists && !username) {
+  //         insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url) VALUES($1,$2)`;
   
-          await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
+  //         await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
   
-          res.json({
-            original_url: `${originalURL}`,
-            short_url: process.env.BASE_URL + "/" + shortURL,
-          });
-          return;
-        }
+  //         res.json({
+  //           original_url: `${originalURL}`,
+  //           short_url: process.env.BASE_URL + "/" + shortURL,
+  //         });
+  //         return;
+  //       }
   
-        if (!shortUrlExists && username) {
-          insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
+  //       if (!shortUrlExists && username) {
+  //         insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
   
-          await pool.query(insertQuery, [
-            `${originalURL}`,
-            `${shortURL}`,
-            `${username}`,
-          ]);
+  //         await pool.query(insertQuery, [
+  //           `${originalURL}`,
+  //           `${shortURL}`,
+  //           `${username}`,
+  //         ]);
   
-          selectIdQuery =
-            "SELECT map_id FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
-          const selectIdResult = await pool.query(selectIdQuery, [
-            `${originalURL}`,
-            `${shortURL}`,
-            `${username}`,
-          ]);
-          const idExtracted = selectIdResult.rows[0].map_id;
+  //         selectIdQuery =
+  //           "SELECT map_id FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
+  //         const selectIdResult = await pool.query(selectIdQuery, [
+  //           `${originalURL}`,
+  //           `${shortURL}`,
+  //           `${username}`,
+  //         ]);
+  //         const idExtracted = selectIdResult.rows[0].map_id;
   
-          res.json({
-            map_id: idExtracted,
-            original_url: `${originalURL}`,
-            short_url: process.env.BASE_URL + "/" + shortURL,
-            username: `${username}`,
-          });
-          return;
-        }
+  //         res.json({
+  //           map_id: idExtracted,
+  //           original_url: `${originalURL}`,
+  //           short_url: process.env.BASE_URL + "/" + shortURL,
+  //           username: `${username}`,
+  //         });
+  //         return;
+  //       }
   
-        const extracted_original_url = result.rows[0].original_url;
+  //       const extracted_original_url = result.rows[0].original_url;
   
-        if (extracted_original_url !== originalURL) {
-          res
-            .status(400)
-            .json({
-              error: "This short URL already corresponds to a different URL.",
-              name: "short",
-            });
-          return;
-        }
+  //       if (extracted_original_url !== originalURL) {
+  //         res
+  //           .status(400)
+  //           .json({
+  //             error: "This short URL already corresponds to a different URL.",
+  //             name: "short",
+  //           });
+  //         return;
+  //       }
   
-        if (extracted_original_url === originalURL) {
-          if (!username) {
-            return res.json({
-              original_url: `${originalURL}`,
-              short_url: process.env.BASE_URL + "/" + shortURL,
-            });
-          }
+  //       if (extracted_original_url === originalURL) {
+  //         if (!username) {
+  //           return res.json({
+  //             original_url: `${originalURL}`,
+  //             short_url: process.env.BASE_URL + "/" + shortURL,
+  //           });
+  //         }
   
-          selectUsername =
-            "SELECT username FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
-          const usernameResult = await pool.query(selectUsername, [
-            `${originalURL}`,
-            `${shortURL}`,
-            `${username}`,
-          ]);
-          const usernameExtracted = usernameResult?.rows[0]?.username;
+  //         selectUsername =
+  //           "SELECT username FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
+  //         const usernameResult = await pool.query(selectUsername, [
+  //           `${originalURL}`,
+  //           `${shortURL}`,
+  //           `${username}`,
+  //         ]);
+  //         const usernameExtracted = usernameResult?.rows[0]?.username;
   
-          if (!usernameExtracted) {
-            insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
-            await pool.query(insertQuery, [
-              `${originalURL}`,
-              `${shortURL}`,
-              `${username}`,
-            ]);
-            selectIdQuery =
-              "SELECT map_id FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
-            const selectIdResult = await pool.query(selectIdQuery, [
-              `${originalURL}`,
-              `${shortURL}`,
-              `${username}`,
-            ]);
-            const idExtracted = selectIdResult.rows[0].map_id;
+  //         if (!usernameExtracted) {
+  //           insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
+  //           await pool.query(insertQuery, [
+  //             `${originalURL}`,
+  //             `${shortURL}`,
+  //             `${username}`,
+  //           ]);
+  //           selectIdQuery =
+  //             "SELECT map_id FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
+  //           const selectIdResult = await pool.query(selectIdQuery, [
+  //             `${originalURL}`,
+  //             `${shortURL}`,
+  //             `${username}`,
+  //           ]);
+  //           const idExtracted = selectIdResult.rows[0].map_id;
   
-            return res.json({
-              map_id: idExtracted,
-              original_url: `${originalURL}`,
-              short_url: process.env.BASE_URL + "/" + shortURL,
-              username: `${username}`,
-            });
-          }
+  //           return res.json({
+  //             map_id: idExtracted,
+  //             original_url: `${originalURL}`,
+  //             short_url: process.env.BASE_URL + "/" + shortURL,
+  //             username: `${username}`,
+  //           });
+  //         }
           
-          res
-            .status(400)
-            .json({
-              error:
-                "This short URL is already in your list.",
-              name:"short"  
-            });
-        }
-      } catch (e) {
-        console.log(e);
-        res.status(400).json({
-          error: "The long URL you have provided is invalid.",
-          name: "long",
+  //         res
+  //           .status(400)
+  //           .json({
+  //             error:
+  //               "This short URL is already in your list.",
+  //             name:"short"  
+  //           });
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //       res.status(400).json({
+  //         error: "The long URL you have provided is invalid.",
+  //         name: "long",
+  //       });
+  //     }
+  //   }
+    
+
+//   exports.createShortURL = async function (req, res) {
+//   let originalURL = req.body.originalURL?.trim();
+//   let shortURL = req.body.shortSlug?.trim();
+//   let username = req.body.username;
+
+//   if (!originalURL) {
+//     res
+//       .status(400)
+//       .json({ error: "No long URL has been provided.", name: "long" });
+//     return;
+//   }
+
+//   if (shortURL && !req?.session?.passport?.user) {
+//     res.status(401).json({ error: "You need to be logged in.", name: "short" });
+//     return;
+//   }
+
+//   const originalUrlLength = originalURL.length;
+//   if (originalUrlLength > 2048) {
+//     res.status(400).json({
+//       error: "You exceeded the maximum length of a URL.",
+//       name: "long",
+//     });
+//     return;
+//   }
+
+//   const containsHTTPSRegex = /^https?/i;
+//   const containsHTTPS = containsHTTPSRegex.test(originalURL);
+//   if (!containsHTTPS) {
+//     originalURL = "https://" + originalURL;
+//   }
+
+//   try {
+//     new URL(originalURL);
+
+//     if (!shortURL) {
+//       incrementCount = `UPDATE counter set count = count + 1 RETURNING count`;
+//       const result = await pool.query(incrementCount);
+//       let count = result.rows[0].count;
+
+//       shortURL = "_/" + convertToBase62(count);
+//       if(!username){
+//         insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url) VALUES($1,$2)`;
+//         await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`]);
+//       }
+//       else{
+
+//          insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
+//          await pool.query(insertQuery, [`${originalURL}`, `${shortURL}`, `${username}`]);
+
+        
+//       }
+//       res.json({
+//         username: `${username ? username : ""}`,
+//         original_url: `${originalURL}`,
+//         short_url: process.env.BASE_URL + "/" + shortURL,
+//       });
+//       return;
+//     }
+
+//     const shortUrlLength = shortURL.length;
+
+//     if (shortUrlLength > 100) {
+//       res.status(400).json({
+//         error: "The maximum number of characters in the slug should be 100.",
+//         name: "short",
+//       });
+//       return;
+//     }
+
+//     const slugRegex = /^[a-zA-Z0-9_-]+$/;
+
+//     if (!slugRegex.test(shortURL)) {
+//       res.status(400).json({ error: "Invalid slug format.", name: "short" });
+//       return;
+//     }
+
+//     selectQuery = `SELECT original_url FROM mapping_long_short_url WHERE short_url=$1`;
+//     const result = await pool.query(selectQuery, [shortURL]);
+//     const shortUrlExists = result.rows.length;
+
+    
+
+//     if (!shortUrlExists) {
+//       insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
+
+//       await pool.query(insertQuery, [
+//         `${originalURL}`,
+//         `${shortURL}`,
+//         `${username}`,
+//       ]);
+
+//       selectIdQuery =
+//         "SELECT map_id FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
+//       const selectIdResult = await pool.query(selectIdQuery, [
+//         `${originalURL}`,
+//         `${shortURL}`,
+//         `${username}`,
+//       ]);
+//       const idExtracted = selectIdResult.rows[0].map_id;
+
+//       res.json({
+//         map_id: idExtracted,
+//         original_url: `${originalURL}`,
+//         short_url: process.env.BASE_URL + "/" + shortURL,
+//         username: `${username}`,
+//       });
+//       return;
+//     }
+
+//     const extracted_original_url = result.rows[0].original_url;
+
+//     if (extracted_original_url !== originalURL) {
+//       res.status(400).json({
+//         error: "This short URL already corresponds to a different URL.",
+//         name: "short",
+//       });
+//       return;
+//     }
+
+//     if (extracted_original_url === originalURL) {
+      
+
+//       selectUsername =
+//         "SELECT username FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
+//       const usernameResult = await pool.query(selectUsername, [
+//         `${originalURL}`,
+//         `${shortURL}`,
+//         `${username}`,
+//       ]);
+//       const usernameOfOriginalURL = usernameResult?.rows[0]?.username;
+
+//       if (usernameOfOriginalURL === username) {
+//         return res.status(400).json({
+//           error: "This short URL is already in your list.",
+//           name: "short",
+//         });
+//       }
+
+//       insertQuery = `INSERT INTO mapping_long_short_url(original_url, short_url, username) VALUES($1,$2,$3)`;
+//       await pool.query(insertQuery, [
+//         `${originalURL}`,
+//         `${shortURL}`,
+//         `${username}`,
+//       ]);
+//       selectIdQuery =
+//         "SELECT map_id FROM mapping_long_short_url WHERE original_url=$1 AND short_url=$2 AND username=$3";
+//       const selectIdResult = await pool.query(selectIdQuery, [
+//         `${originalURL}`,
+//         `${shortURL}`,
+//         `${username}`,
+//       ]);
+//       const idExtracted = selectIdResult.rows[0].map_id;
+
+//       return res.json({
+//         map_id: idExtracted,
+//         original_url: `${originalURL}`,
+//         short_url: process.env.BASE_URL + "/" + shortURL,
+//         username: `${username}`,
+//       });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//     res.status(400).json({
+//       error: "The long URL you have provided is invalid.",
+//       name: "long",
+//     });
+//   }
+// };
+
+
+
+exports.createShortURL = async function (req, res) {
+  let originalURL = req.body.originalURL?.trim();
+  let shortSlug = req.body.shortSlug?.trim(); // renamed here
+  let username = req.body.username;
+
+  if (!originalURL) {
+    return res
+      .status(400)
+      .json({ error: "No long URL has been provided.", name: "long" });
+  }
+
+  if (shortSlug && !req?.session?.passport?.user) {
+    return res
+      .status(401)
+      .json({ error: "You need to be logged in.", name: "short" });
+  }
+
+  const originalUrlLength = originalURL.length;
+  if (originalUrlLength > 2048) {
+    return res.status(400).json({
+      error: "You exceeded the maximum length of a URL.",
+      name: "long",
+    });
+  }
+
+  const containsHTTPSRegex = /^https?/i;
+  const containsHTTPS = containsHTTPSRegex.test(originalURL);
+  if (!containsHTTPS) {
+    originalURL = "https://" + originalURL;
+  }
+
+  try {
+    new URL(originalURL);
+
+   
+    if (!shortSlug) {
+      const result = await prisma.counter.update({
+        where: { id: 1 },
+        data: { count: { increment: 1 } },
+        select: { count: true },
+      });
+      let count = result.count;
+
+      shortSlug = "_/" + convertToBase62(count);
+
+      if (!username) {
+        await prisma.mapping_long_short_url.create({
+          data: { original_url: originalURL, short_url: shortSlug },
+        });
+      } else {
+        await prisma.mapping_long_short_url.create({
+          data: { original_url: originalURL, short_url: shortSlug, username },
         });
       }
+
+      return res.json({
+        username: username ? username : "",
+        original_url: originalURL,
+        short_url: process.env.BASE_URL + "/" + shortSlug,
+      });
     }
+
     
+    const shortSlugLength = shortSlug.length;
+
+    if (shortSlugLength > 100) {
+      return res.status(400).json({
+        error: "The maximum number of characters in the slug should be 100.",
+        name: "short",
+      });
+    }
+
+    const slugRegex = /^[a-zA-Z0-9_-]+$/;
+    if (!slugRegex.test(shortSlug)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid slug format.", name: "short" });
+    }
+
+    const result = await prisma.mapping_long_short_url.findFirst({
+      where: { short_url: shortSlug },
+      select: { original_url: true },
+    });
+
+    const shortSlugExists = !!result;
+
+    if (!shortSlugExists) {
+      const created = await prisma.mapping_long_short_url.create({
+        data: { original_url: originalURL, short_url: shortSlug, username },
+        select: { map_id: true },
+      });
+
+      return res.json({
+        map_id: created.map_id,
+        original_url: originalURL,
+        short_url: process.env.BASE_URL + "/" + shortSlug,
+        username,
+      });
+    }
+
+    const extracted_original_url = result.original_url;
+
+    if (extracted_original_url !== originalURL) {
+      return res.status(400).json({
+        error: "This short URL already corresponds to a different URL.",
+        name: "short",
+      });
+    }
+
+    if (extracted_original_url === originalURL) {
+      const usernameResult = await prisma.mapping_long_short_url.findFirst({
+        where: { original_url: originalURL, short_url: shortSlug, username },
+        select: { username: true },
+      });
+
+      const usernameOfOriginalURL = usernameResult?.username;
+
+      if (usernameOfOriginalURL === username) {
+        return res.status(400).json({
+          error: "This short URL is already in your list.",
+          name: "short",
+        });
+      }
+
+      const created = await prisma.mapping_long_short_url.create({
+        data: { original_url: originalURL, short_url: shortSlug, username },
+        select: { map_id: true },
+      });
+
+      return res.json({
+        map_id: created.map_id,
+        original_url: originalURL,
+        short_url: process.env.BASE_URL + "/" + shortSlug,
+        username,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({
+      error: "The long URL you have provided is invalid.",
+      name: "long",
+    });
+  }
+};
     
     
     
