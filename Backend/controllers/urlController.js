@@ -106,17 +106,22 @@ exports.createShortURL = async function (req, res) {
 
       shortSlug = "_/" + convertToBase62(count);
 
+      let createdRandomURL;
+
       if (!username) {
-        await prisma.mapping_long_short_url.create({
+        createdRandomURL = await prisma.mapping_long_short_url.create({
           data: { original_url: originalURL, short_slug: shortSlug },
+          select: { map_id: true }
         });
       } else {
-        await prisma.mapping_long_short_url.create({
+        createdRandomURL = await prisma.mapping_long_short_url.create({
           data: { original_url: originalURL, short_slug: shortSlug, username },
+          select: { map_id: true },
         });
       }
 
       return res.json({
+        map_id: createdRandomURL.map_id,
         username: username ? username : "",
         original_url: originalURL,
         short_url: process.env.BASE_URL + "/" + shortSlug,

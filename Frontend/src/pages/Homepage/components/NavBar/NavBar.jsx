@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Guest from "./Guest";
 
-
 function Navbar({
   hideMenu,
   toLoginPage,
@@ -23,7 +22,7 @@ function Navbar({
   setPageLoading,
   showNavMenu,
   setShowNavMenu,
-  toMyShortURLs
+  toMyShortURLs,
 }) {
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -52,7 +51,7 @@ function Navbar({
 
       if (response.ok) {
         await response.json();
-        sessionStorage.removeItem("originalURL")
+        sessionStorage.removeItem("originalURL");
         sessionStorage.removeItem("shortSlug");
         setTimeout(() => {
           setIsAuthenticated(false);
@@ -68,7 +67,7 @@ function Navbar({
 
   return (
     <div className="navbar" onClick={hideMenu}>
-      <div className={`${isAuthenticated ? 'navlink-auth' : 'navlink'}`}>
+      <div className={`${isAuthenticated ? "navlink-auth" : "navlink"}`}>
         {!isAuthenticated ? (
           <Guest toLoginPage={toLoginPage} toSignupPage={toSignupPage} />
         ) : (
@@ -87,4 +86,3 @@ function Navbar({
 }
 
 export default Navbar;
-

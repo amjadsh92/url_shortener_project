@@ -71,7 +71,7 @@ function ConfirmDeletionModal({
 function DialogContent({ message }) {
   return (
     <>
-     <div className="dialogContent-delete">{message}</div>
+      <div className="dialogContent-delete">{message}</div>
     </>
   );
 }
