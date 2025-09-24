@@ -1,6 +1,8 @@
 const pool = require("../config/db");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
+const { PrismaClient } = require('../generated/prisma');
+const prisma = new PrismaClient();
 
 exports.login = (req, res) => {
     const username = req.body?.username;
@@ -47,11 +49,15 @@ exports.login = (req, res) => {
   
         const username = req.body.username;
         const password = req.body.password;
-        const selectQuery = `SELECT username FROM users WHERE username=$1`;
-        const selectResult = await pool.query(selectQuery, [username]);
-        const usernameExists = selectResult.rows.length;
-  
-        if (usernameExists) {
+        // const selectQuery = `SELECT username FROM users WHERE username=$1`;
+        // const selectResult = await pool.query(selectQuery, [username]);
+        // const usernameExists = selectResult.rows.length;
+
+        const existingUser = await prisma.users.findUnique({
+          where: { username },
+        });
+      
+        if (existingUser) {
           res
             .status(400)
             .json({ error: "This username is already taken.", path: "username" });
@@ -62,10 +68,17 @@ exports.login = (req, res) => {
           const saltRounds = 10;
           const hashedPassword = await bcrypt.hash(password, saltRounds);
   
-          await pool.query(
-            "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id",
-            [username, hashedPassword]
-          );
+          // await pool.query(
+          //   "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id",
+          //   [username, hashedPassword]
+          // );
+
+        await prisma.users.create({
+            data: {
+              username,
+              password: hashedPassword,
+            },
+          });
   
           res.json({ message: "You are now registered!" });
         } catch (err) {

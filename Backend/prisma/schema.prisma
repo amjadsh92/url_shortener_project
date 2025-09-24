@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model counter {
+  count Int
+  id    Int @id @default(1)
+}
+
+model mapping_long_short_url {
+  map_id       Int     @id @default(autoincrement())
+  original_url String? @db.VarChar(2048)
+  short_slug   String? @db.VarChar(100)
+  username     String? @db.VarChar(20)
+  users        users?  @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model session {
+  sid    String   @id @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+}
+
+model users {
+  id                     Int                      @id @default(autoincrement())
+  username               String                   @unique @db.VarChar(20)
+  password               String
+  mapping_long_short_url mapping_long_short_url[]
+}

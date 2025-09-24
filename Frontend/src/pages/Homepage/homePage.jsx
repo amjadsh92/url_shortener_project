@@ -60,12 +60,24 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         if (res.ok) {
           const result = await res.json();
           let listOfURLsResult = result.listOfURLs;
+          console.log("listOfURLsResult", listOfURLsResult)
+          // if (listOfURLsResult) {
+          //   listOfURLsResult.map(
+          //     (url) => (url.short_slug = `${baseURL}/${url.short_slug}`)
+          //   );
+          //   setListOfURLs(listOfURLsResult);
+          // }
+
           if (listOfURLsResult) {
-            listOfURLsResult.map(
-              (url) => (url.short_url = `${baseURL}/${url.short_url}`)
-            );
-            setListOfURLs(listOfURLsResult);
-          }
+            const updatedList = listOfURLsResult.map((url) => {
+              return {
+                ...url,
+                short_url: `${baseURL}/${url.short_slug}`,
+              };
+            }).map(({ short_slug, ...rest }) => rest); 
+
+            setListOfURLs(updatedList);
+}
         }
         if (!res.ok) {
           console.log(res.error);
