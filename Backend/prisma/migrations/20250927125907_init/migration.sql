@@ -17,12 +17,13 @@ CREATE TABLE "public"."mapping_long_short_url" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."session" (
-    "sid" VARCHAR NOT NULL,
-    "sess" JSON NOT NULL,
-    "expire" TIMESTAMP(6) NOT NULL,
+CREATE TABLE "public"."sessions" (
+    "id" TEXT NOT NULL,
+    "sid" TEXT NOT NULL,
+    "data" TEXT NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "session_pkey" PRIMARY KEY ("sid")
+    CONSTRAINT "sessions_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -35,7 +36,7 @@ CREATE TABLE "public"."users" (
 );
 
 -- CreateIndex
-CREATE INDEX "IDX_session_expire" ON "public"."session"("expire");
+CREATE UNIQUE INDEX "sessions_sid_key" ON "public"."sessions"("sid");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_username_key" ON "public"."users"("username");

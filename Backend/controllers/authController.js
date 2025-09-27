@@ -1,4 +1,3 @@
-const pool = require("../config/db");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const { PrismaClient } = require('../generated/prisma');
@@ -49,10 +48,6 @@ exports.login = (req, res) => {
   
         const username = req.body.username;
         const password = req.body.password;
-        // const selectQuery = `SELECT username FROM users WHERE username=$1`;
-        // const selectResult = await pool.query(selectQuery, [username]);
-        // const usernameExists = selectResult.rows.length;
-
         const existingUser = await prisma.users.findUnique({
           where: { username },
         });
@@ -68,10 +63,6 @@ exports.login = (req, res) => {
           const saltRounds = 10;
           const hashedPassword = await bcrypt.hash(password, saltRounds);
   
-          // await pool.query(
-          //   "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id",
-          //   [username, hashedPassword]
-          // );
 
         await prisma.users.create({
             data: {

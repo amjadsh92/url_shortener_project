@@ -21,13 +21,15 @@ model mapping_long_short_url {
   users        users?  @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model session {
-  sid    String   @id @db.VarChar
-  sess   Json     @db.Json
-  expire DateTime @db.Timestamp(6)
+model Session {
+  id        String   @id @default(cuid())
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
 
-  @@index([expire], map: "IDX_session_expire")
+  @@map("sessions")
 }
+
 
 model users {
   id                     Int                      @id @default(autoincrement())
