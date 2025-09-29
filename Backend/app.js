@@ -8,12 +8,12 @@ const { PrismaClient } = require('./generated/prisma');
 const { PrismaSessionStore } = require("@rabithua/prisma-session-store");
 const prisma = new PrismaClient();
 
-// app.use(
-//  cors({
-//    origin: "http://localhost:5173",
-//    credentials: true,
-//  })
-// );
+app.use(
+ cors({
+   origin: "http://localhost:5173",
+   credentials: true,
+ })
+);
 app.use("/public", express.static(`${process.cwd()}/public`));
 app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
@@ -63,7 +63,7 @@ passport.use(
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id); // store only user.id in session
+  done(null, user.id); 
 });
 
 passport.deserializeUser(async (id, done) => {

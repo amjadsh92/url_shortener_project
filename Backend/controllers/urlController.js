@@ -1,5 +1,4 @@
-
-const { PrismaClient } = require('../generated/prisma');
+const { PrismaClient } = require("../generated/prisma");
 const prisma = new PrismaClient();
 
 //Delete a URL from the database
@@ -8,7 +7,6 @@ exports.deleteURL = async function (req, res) {
   try {
     const id = parseInt(req.params.id, 10);
 
-    
     const existing = await prisma.mapping_long_short_url.findUnique({
       where: { map_id: id },
     });
@@ -29,7 +27,6 @@ exports.deleteURL = async function (req, res) {
   }
 };
 
-
 exports.redirectURL = async function (req, res) {
   let shortSlug = req.params.shorturl;
 
@@ -42,7 +39,6 @@ exports.redirectURL = async function (req, res) {
     return res.status(400).json({ error: "No short URL was provided." });
   }
 
-  
   const result = await prisma.mapping_long_short_url.findFirst({
     where: { short_slug: shortSlug },
     select: { original_url: true },
@@ -55,14 +51,11 @@ exports.redirectURL = async function (req, res) {
       .status(400)
       .json({ error: "No short URL found for the given input." });
   }
-};  
-
-
-
+};
 
 exports.createShortURL = async function (req, res) {
   let originalURL = req.body.originalURL?.trim();
-  let shortSlug = req.body.shortSlug?.trim(); 
+  let shortSlug = req.body.shortSlug?.trim();
   let username = req.body.username;
 
   if (!originalURL) {
@@ -94,40 +87,50 @@ exports.createShortURL = async function (req, res) {
   try {
     new URL(originalURL);
 
-   
     if (!shortSlug) {
-      const result = await prisma.counter.update({
-        where: { id: 1 },
-        data: { count: { increment: 1 } },
-        select: { count: true },
-      });
-      let count = result.count;
+      
+      try {
+        const [counterUpdate, createdRandomURL] = await prisma.$transaction(
+          async (tx) => {
+            const counterUpdate = await tx.counter.update({
+              where: { id: 1 },
+              data: { count: { increment: 1 } },
+              select: { count: true },
+            });
 
-      shortSlug = "_/" + convertToBase62(count);
+            const shortSlug = "_/" + convertToBase62(counterUpdate.count);
 
-      let createdRandomURL;
+            const createdRandomURL = await tx.mapping_long_short_url.create({
+              data: {
+                original_url: originalURL,
+                short_slug: shortSlug,
+                username: username || null,
+              },
+              select: { map_id: true },
+            });
 
-      if (!username) {
-        createdRandomURL = await prisma.mapping_long_short_url.create({
-          data: { original_url: originalURL, short_slug: shortSlug },
-          select: { map_id: true }
+            return [counterUpdate, createdRandomURL];
+          }
+        );
+
+        return res.json({
+          map_id: createdRandomURL.map_id,
+          username: username || "",
+          original_url: originalURL,
+          short_url:
+            process.env.BASE_URL +
+            "/" +
+            "_/" +
+            convertToBase62(counterUpdate.count),
         });
-      } else {
-        createdRandomURL = await prisma.mapping_long_short_url.create({
-          data: { original_url: originalURL, short_slug: shortSlug, username },
-          select: { map_id: true },
-        });
+      } catch (err) {
+        console.error("Transaction failed:", err);
+        return res
+          .status(500)
+          .json({ error: "Could not create short slug, please try again." });
       }
-
-      return res.json({
-        map_id: createdRandomURL.map_id,
-        username: username ? username : "",
-        original_url: originalURL,
-        short_url: process.env.BASE_URL + "/" + shortSlug,
-      });
     }
 
-    
     const shortSlugLength = shortSlug.length;
 
     if (shortSlugLength > 100) {
@@ -209,52 +212,99 @@ exports.createShortURL = async function (req, res) {
     });
   }
 };
-    
-    
-    
-  function convertToBase62(number){
-    
-    let map = {
-        0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9',
-        10: 'a', 11: 'b', 12: 'c', 13: 'd', 14: 'e', 15: 'f', 16: 'g', 17: 'h', 18: 'i', 19: 'j',
-        20: 'k', 21: 'l', 22: 'm', 23: 'n', 24: 'o', 25: 'p', 26: 'q', 27: 'r', 28: 's', 29: 't',
-        30: 'u', 31: 'v', 32: 'w', 33: 'x', 34: 'y', 35: 'z',
-        36: 'A', 37: 'B', 38: 'C', 39: 'D', 40: 'E', 41: 'F', 42: 'G', 43: 'H', 44: 'I', 45: 'J',
-        46: 'K', 47: 'L', 48: 'M', 49: 'N', 50: 'O', 51: 'P', 52: 'Q', 53: 'R', 54: 'S', 55: 'T',
-        56: 'U', 57: 'V', 58: 'W', 59: 'X', 60: 'Y', 61: 'Z'
+
+function convertToBase62(number) {
+  let map = {
+    0: "0",
+    1: "1",
+    2: "2",
+    3: "3",
+    4: "4",
+    5: "5",
+    6: "6",
+    7: "7",
+    8: "8",
+    9: "9",
+    10: "a",
+    11: "b",
+    12: "c",
+    13: "d",
+    14: "e",
+    15: "f",
+    16: "g",
+    17: "h",
+    18: "i",
+    19: "j",
+    20: "k",
+    21: "l",
+    22: "m",
+    23: "n",
+    24: "o",
+    25: "p",
+    26: "q",
+    27: "r",
+    28: "s",
+    29: "t",
+    30: "u",
+    31: "v",
+    32: "w",
+    33: "x",
+    34: "y",
+    35: "z",
+    36: "A",
+    37: "B",
+    38: "C",
+    39: "D",
+    40: "E",
+    41: "F",
+    42: "G",
+    43: "H",
+    44: "I",
+    45: "J",
+    46: "K",
+    47: "L",
+    48: "M",
+    49: "N",
+    50: "O",
+    51: "P",
+    52: "Q",
+    53: "R",
+    54: "S",
+    55: "T",
+    56: "U",
+    57: "V",
+    58: "W",
+    59: "X",
+    60: "Y",
+    61: "Z",
+  };
+
+  let remainder = number % 62;
+  let quotient = (number - remainder) / 62;
+  let newQuotient;
+
+  let convertedNumber = [];
+
+  if (quotient === 0) {
+    return map[number];
+  }
+
+  convertedNumber.push(map[remainder]);
+
+  while (quotient > 0) {
+    remainder = quotient % 62;
+    newQuotient = (quotient - remainder) / 62;
+
+    if (newQuotient === 0) {
+      convertedNumber.push(map[quotient]);
+      quotient = newQuotient;
+    } else {
+      convertedNumber.push(map[remainder]);
+      quotient = newQuotient;
     }
-    
-    let remainder = number % 62;
-    let quotient = (number - remainder) / 62 ;
-    let newQuotient;
-    
-    let convertedNumber = [];
+  }
 
-    if (quotient === 0 ){
-      return map[number]
-    }
-    
-    convertedNumber.push(map[remainder])
-    
-    while (quotient > 0) {
-      remainder = quotient % 62
-      newQuotient = (quotient - remainder) / 62 
-    
-      if ( newQuotient === 0){
-        convertedNumber.push(map[quotient])
-        quotient = newQuotient
-      }
-      else{
-        convertedNumber.push(map[remainder])
-        quotient = newQuotient
-      }
+  convertedNumber = convertedNumber.reverse().join("");
 
-
-    }    
-
-    convertedNumber =  convertedNumber.reverse().join("")
-
-    return convertedNumber
-    
-
-}   
+  return convertedNumber;
+}
