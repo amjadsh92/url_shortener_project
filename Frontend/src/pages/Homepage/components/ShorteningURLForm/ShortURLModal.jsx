@@ -43,6 +43,11 @@ function ShortURLModal({ showDialog, setShowDialog, shortURL }) {
             setLabel("Copied");
             setIcon("pi pi-check");
             setCopied(true);
+            setTimeout(() => {
+              setCopied(false);
+              setLabel("Copy");
+              setIcon("pi pi-copy");
+            }, "3000");
           }}
         />
       </div>

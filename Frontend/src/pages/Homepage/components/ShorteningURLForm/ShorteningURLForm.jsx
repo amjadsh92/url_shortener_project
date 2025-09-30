@@ -131,7 +131,7 @@ function ShorteningURLForm({
             field="label"
             optionGroupLabel="label"
             optionGroupChildren="items"
-            placeholder="https://www.example.com/my-long-url"
+            placeholder="https://www.example.com/slug"
             onChange={handleOriginalURLChange}
             required
           />
@@ -145,7 +145,7 @@ function ShorteningURLForm({
             field="label"
             optionGroupLabel="label"
             optionGroupChildren="items"
-            placeholder="my-short-url"
+            placeholder="your-short-slug (short URL: short.amjadsh.com/your-short-slug)"
             onChange={handleShortURLChange}
           />
           {badRequest && (

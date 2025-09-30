@@ -208,7 +208,7 @@ function SignupPage({ setPageLoading }) {
       <div className="form-signup  p-1px">
         <Card title="Create your account" className="card-signup mx-auto">
           <p className="sub-title text-center text-gray">
-            Welcome to our URL shotener app
+            Welcome to our URL shortener app
           </p>
 
           <form className="mt-4" onSubmit={handleSubmit}>

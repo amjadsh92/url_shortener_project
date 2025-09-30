@@ -69,14 +69,14 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
           // }
 
           if (listOfURLsResult) {
-            const updatedList = listOfURLsResult.map((url) => {
+            listOfURLsResult = listOfURLsResult.map((url) => {
               return {
                 ...url,
                 short_url: `${baseURL}/${url.short_slug}`,
               };
             }).map(({ short_slug, ...rest }) => rest); 
 
-            setListOfURLs(updatedList);
+            setListOfURLs(listOfURLsResult);
 }
         }
         if (!res.ok) {

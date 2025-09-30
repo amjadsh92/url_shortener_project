@@ -75,7 +75,7 @@ function LoginPage({
     e.preventDefault();
     setLoginLoading(true);
     const baseURL = import.meta.env.VITE_BASE_URL;
-    let credentials = { username, password };
+    let credentials = { username: username.trim(), password };
 
     try {
       const response = await fetch(`${baseURL}/api/login`, {
