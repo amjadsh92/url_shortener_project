@@ -31,15 +31,16 @@
 }
 
 .originalURLColumn {
-  min-width: 14rem;
+  min-width: 23rem;
 }
 
 .shortURLColumn {
-  min-width: 14rem;
+  min-width: 23rem;
 }
 
 .deleteURLColumn {
-  min-width: 12rem;
+  // min-width: 12rem;
+  min-width:0rem;
 }
 
 .form-home .errorMessage {
@@ -196,7 +197,8 @@
   }
 
   tr td:nth-child(3) {
-    padding-left: 6rem !important;
+    // padding-left: 6rem !important;
+    padding-left:0rem !important;
     text-align: right;
   }
 
@@ -491,7 +493,7 @@
   }
 
   .listOfURLs tr td:nth-child(3) {
-    padding-left: 7rem !important;
+    padding-left: 0rem !important;
   }
 
   li.p-column-filter-row-item {
@@ -645,7 +647,7 @@
   }
 
   .listOfURLs tr td:nth-child(3) {
-    padding-left: 3rem !important;
+    padding-left: 0rem !important;
   }
 
   .listOfURLs tr td:nth-child(2) {
@@ -657,11 +659,11 @@
   }
 
   .originalURLColumn {
-    min-width: 7rem;
+    min-width: 22rem;
   }
 
   .shortURLColumn {
-    min-width: 7rem;
+    min-width:19rem;
   }
 
   .deleteURLColumn {
@@ -743,7 +745,7 @@
   }
 
   .listOfURLs tr td:nth-child(3) {
-    padding-left: 2rem !important;
+    padding-left: 0rem !important;
   }
 
   .listOfURLs tr td:nth-child(2) {
@@ -755,11 +757,11 @@
   }
 
   .originalURLColumn {
-    min-width: 7rem;
+    min-width: 20rem;
   }
 
   .shortURLColumn {
-    min-width: 7rem;
+    min-width: 19rem;
   }
 
   .deleteURLColumn {
