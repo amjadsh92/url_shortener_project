@@ -74,8 +74,8 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
                 ...url,
                 short_url: `${baseURL}/${url.short_slug}`,
               };
-            }).map(({ short_slug, ...rest }) => rest); 
-
+            }) 
+            console.log("listOfURLsResult", listOfURLsResult)
             setListOfURLs(listOfURLsResult);
 }
         }

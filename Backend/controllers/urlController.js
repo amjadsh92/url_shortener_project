@@ -98,7 +98,7 @@ exports.createShortURL = async function (req, res) {
               select: { count: true },
             });
 
-            const shortSlug = "_/" + convertToBase62(counterUpdate.count);
+            shortSlug = "_/" + convertToBase62(counterUpdate.count);
 
             const createdRandomURL = await tx.mapping_long_short_url.create({
               data: {
@@ -109,6 +109,8 @@ exports.createShortURL = async function (req, res) {
               select: { map_id: true },
             });
 
+           
+
             return [counterUpdate, createdRandomURL];
           }
         );
@@ -117,6 +119,7 @@ exports.createShortURL = async function (req, res) {
           map_id: createdRandomURL.map_id,
           username: username || "",
           original_url: originalURL,
+          short_slug: shortSlug,
           short_url:
             process.env.BASE_URL +
             "/" +
@@ -163,6 +166,7 @@ exports.createShortURL = async function (req, res) {
       return res.json({
         map_id: created.map_id,
         original_url: originalURL,
+        short_slug:shortSlug,
         short_url: process.env.BASE_URL + "/" + shortSlug,
         username,
       });
@@ -200,6 +204,7 @@ exports.createShortURL = async function (req, res) {
       return res.json({
         map_id: created.map_id,
         original_url: originalURL,
+        short_slug: shortSlug,
         short_url: process.env.BASE_URL + "/" + shortSlug,
         username,
       });

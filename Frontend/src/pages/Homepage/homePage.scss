@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Poppins-BoldItalic';
+  src: url('./assets/Poppins-BoldItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
 .bg-hero-home {
   position: relative;
   background-image: url("../../assets/5559852.jpg");
@@ -36,6 +45,8 @@
 
 .shortURLColumn {
   min-width: 23rem;
+  // color: blue;
+  // font-weight: bold;
 }
 
 .deleteURLColumn {
@@ -203,11 +214,49 @@
   }
 
   a:visited {
-    color: #171c28;
+    // color: #171c28;
+    // color: var(--blue-400);
+    color:#0359e6;
   }
 
   a {
-    color: #171c28;
+    // color: #171c28;
+    color: var(--blue-400);
+    color:#0359e6;
+  }
+
+  .shortURLColumn{
+
+    a:visited {
+    // color: #15398f;
+    //color: var(--blue-400);
+    //  color: #171c28;
+    color:#0359e6;
+  }
+
+  a {
+    // color: #15398f;
+    //color: var(--blue-400);
+    //  color: #171c28;
+    color:#0359e6;
+  }
+  .truncate-text{
+    text-decoration:none;
+   
+    // font-weight:bolder;
+  }
+  .truncate-text:hover{
+    text-decoration:underline;
+   
+    // font-weight:bolder;
+  }
+  .urlShortenerLogo{
+    width:17px;
+    height:17px;
+    margin-right:10px;
+  }
+
+ 
   }
 
   .truncate-text {
@@ -217,7 +266,13 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     vertical-align: bottom;
+    
   }
+
+  .slash {
+    font-size: 19px;
+  }
+
 }
 
 .listOfURLsTitle {
@@ -744,6 +799,12 @@
     width: 80% !important;
   }
 
+  .listOfURLs .shortURLColumn .urlShortenerLogo {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
   .listOfURLs tr td:nth-child(3) {
     padding-left: 0rem !important;
   }
@@ -1007,6 +1068,12 @@
   .p-inputtext {
     font-size: 13px !important;
   }
+
+  .listOfURLs .shortURLColumn .urlShortenerLogo {
+    width: 13px;
+    height: 13px;
+    margin-right: 8px;
+}
 
   .listOfURLs .p-datatable .p-datatable-thead > tr > th {
     padding-left: 2rem;

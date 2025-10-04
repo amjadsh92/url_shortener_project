@@ -1,4 +1,5 @@
 /* eslint-disable */
+import urlShortenerLogo from "../../../../assets/urlShortener.png";
 import "../../homePage.scss";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primeflex/primeflex.css";
@@ -22,7 +23,7 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     original_url: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    short_url: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    short_slug: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   });
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [dialog, setDialog] = useState({
@@ -135,14 +136,17 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
 
   const shortUrlTemplate = (rowData) => {
     return (
+      <>
+      <img src={urlShortenerLogo} alt="Logo" className="urlShortenerLogo" />
       <a
         href={rowData.short_url}
         className="truncate-text"
         target="_blank"
         rel="noopener noreferrer"
       >
-        {rowData.short_url}
+        {rowData.short_slug}
       </a>
+      </>
     );
   };
 
@@ -162,10 +166,19 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
             dataKey="map_id"
             filters={filters}
             filterDisplay="row"
-            globalFilterFields={["original_url", "short_url"]}
+            globalFilterFields={["original_url", "short_slug"]}
             header={header}
             emptyMessage="No URLs found."
           >
+            
+            <Column
+              header="Short URL"
+              field="short_slug"
+              body={shortUrlTemplate}
+              filter
+              filterPlaceholder="Search by short URL"
+              className="shortURLColumn"
+            />
             <Column
               field="original_url"
               header="Original URL"
@@ -174,14 +187,6 @@ function ListOfURLs({ listOfURLs, setListOfURLs, listOfURLsRef }) {
               body={originalUrlTemplate}
               className="originalURLColumn"
               headerClassName="text-center"
-            />
-            <Column
-              header="Short URL"
-              field="short_url"
-              body={shortUrlTemplate}
-              filter
-              filterPlaceholder="Search by short URL"
-              className="shortURLColumn"
             />
             <Column body={deleteButtonTemplate} className="deleteURLColumn" />
           </DataTable>

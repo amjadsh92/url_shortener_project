@@ -85,6 +85,7 @@ function ShorteningURLForm({
           {
             map_id: result.map_id,
             original_url: result.original_url,
+            short_slug:result.short_slug,
             short_url: result.short_url,
           },
         ]);
@@ -145,7 +146,7 @@ function ShorteningURLForm({
             field="label"
             optionGroupLabel="label"
             optionGroupChildren="items"
-            placeholder="your slug)"
+            placeholder="your slug"
             onChange={handleShortURLChange}
           />
           {badRequest && (
