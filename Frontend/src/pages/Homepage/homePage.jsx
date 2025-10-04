@@ -60,14 +60,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         if (res.ok) {
           const result = await res.json();
           let listOfURLsResult = result.listOfURLs;
-          console.log("listOfURLsResult", listOfURLsResult)
-          // if (listOfURLsResult) {
-          //   listOfURLsResult.map(
-          //     (url) => (url.short_slug = `${baseURL}/${url.short_slug}`)
-          //   );
-          //   setListOfURLs(listOfURLsResult);
-          // }
-
+          
           if (listOfURLsResult) {
             listOfURLsResult = listOfURLsResult.map((url) => {
               return {
@@ -75,7 +68,7 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
                 short_url: `${baseURL}/${url.short_slug}`,
               };
             }) 
-            console.log("listOfURLsResult", listOfURLsResult)
+            
             setListOfURLs(listOfURLsResult);
 }
         }

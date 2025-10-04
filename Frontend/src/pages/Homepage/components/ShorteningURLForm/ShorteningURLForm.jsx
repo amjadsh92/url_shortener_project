@@ -132,7 +132,7 @@ function ShorteningURLForm({
             field="label"
             optionGroupLabel="label"
             optionGroupChildren="items"
-            placeholder="https://www.example.com/../../..."
+            placeholder="https://www.example.com"
             onChange={handleOriginalURLChange}
             required
           />
