@@ -53,6 +53,9 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
 
     const fetchURLs = async () => {
       try {
+        if (!username) {
+          return;
+        }
         const res = await fetch(`${baseURL}/api/user?username=${username}`, {
           credentials: "include",
         });
@@ -60,20 +63,16 @@ function HomePage({ setAuthorizationMessage, setPageLoading }) {
         if (res.ok) {
           const result = await res.json();
           let listOfURLsResult = result.listOfURLs;
-          
           if (listOfURLsResult) {
             listOfURLsResult = listOfURLsResult.map((url) => {
               return {
                 ...url,
                 short_url: `${baseURL}/${url.short_slug}`,
               };
-            }) 
-            
+            });
+
             setListOfURLs(listOfURLsResult);
-}
-        }
-        if (!res.ok) {
-          console.log(res.error);
+          }
         }
       } catch (err) {
         console.log("can't fetch url");

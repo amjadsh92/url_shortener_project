@@ -1,12 +1,3 @@
-@font-face {
-  font-family: 'Poppins-BoldItalic';
-  src: url('./assets/Poppins-BoldItalic.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-
-
 .bg-hero-home {
   position: relative;
   background-image: url("../../assets/5559852.jpg");
@@ -28,7 +19,6 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
 }
 
 .createShortURL {
@@ -45,13 +35,10 @@
 
 .shortURLColumn {
   min-width: 23rem;
-  // color: blue;
-  // font-weight: bold;
 }
 
 .deleteURLColumn {
-  // min-width: 12rem;
-  min-width:0rem;
+  min-width: 0rem;
 }
 
 .form-home .errorMessage {
@@ -61,8 +48,8 @@
 .footer-home {
   font-size: 0.875rem !important;
   margin-bottom: 20px !important;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 
@@ -70,7 +57,6 @@
   height: 50px;
   background-color: #28518c75;
   margin-right: 0px;
-  // margin-left: auto;
   align-content: center;
 }
 
@@ -104,7 +90,7 @@
 .navlink > .login > span {
   font-family: "Montserrat", sans-serif;
   color: white;
-  user-select:none;
+  user-select: none;
 }
 
 .navlink > .login {
@@ -208,41 +194,39 @@
   }
 
   tr td:nth-child(3) {
-    padding-left:0rem !important;
+    padding-left: 0rem !important;
     text-align: right;
   }
 
   a:visited {
-    color:#0359e6;
+    color: #0359e6;
   }
 
   a {
     color: var(--blue-400);
-    color:#0359e6;
+    color: #0359e6;
   }
 
-  .shortURLColumn{
-
+  .shortURLColumn {
     a:visited {
-      color:#0359e6;
-  }
+      color: #0359e6;
+    }
 
-  a {
-    color:#0359e6;
-  }
-  .truncate-text{
-    text-decoration:none;
-  }
-  .truncate-text:hover{
-    text-decoration:underline;
-  }
-  .urlShortenerLogo{
-    width:17px;
-    height:17px;
-    margin-right:10px;
-  }
-
- 
+    a {
+      color: #0359e6;
+    }
+    .truncate-text {
+      text-decoration: none;
+    }
+    .truncate-text:hover {
+      text-decoration: underline;
+    }
+    .urlShortenerLogo {
+      width: 17px;
+      height: 17px;
+      margin-right: 10px;
+      vertical-align: bottom;
+    }
   }
 
   .truncate-text {
@@ -252,13 +236,11 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     vertical-align: bottom;
-    
   }
 
   .slash {
     font-size: 19px;
   }
-
 }
 
 .listOfURLsTitle {
@@ -441,9 +423,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: unset;
-  
   }
-
 
   .navbar {
     height: unset;
@@ -704,7 +684,7 @@
   }
 
   .shortURLColumn {
-    min-width:19rem;
+    min-width: 19rem;
   }
 
   .deleteURLColumn {
@@ -789,7 +769,7 @@
     width: 15px;
     height: 15px;
     margin-right: 10px;
-}
+  }
 
   .listOfURLs tr td:nth-child(3) {
     padding-left: 0rem !important;
@@ -1059,7 +1039,7 @@
     width: 13px;
     height: 13px;
     margin-right: 8px;
-}
+  }
 
   .listOfURLs .p-datatable .p-datatable-thead > tr > th {
     padding-left: 2rem;
