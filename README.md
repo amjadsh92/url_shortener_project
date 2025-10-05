@@ -2,7 +2,7 @@
 
 # Description
 
-The main goal of this app is to shorten a long URL into a short one.
+The main goal of this app is to shorten a long URL.
 Guest users would get an auto generated short URL. Members (registered users) on the other hand can create their custom short URLs. 
 Members have also a table in their home page that contains all their short URLs with the associated original URLs.
 
